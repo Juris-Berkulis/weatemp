@@ -21,10 +21,23 @@ export default {
     border-radius: 15px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    font-size: 30px;
     cursor: pointer;
 }
 
 .btn:hover {
     background-color: darkblue;
+}
+
+@media (max-width: 1000px) {
+    .btn {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .btn {
+        font-size: 12px;
+    }
 }
 </style>

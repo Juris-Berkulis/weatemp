@@ -181,29 +181,30 @@ export default {
 }
 
 .weatherPageTitle {
+    height: 90px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 35px;
-}
-
-@media (max-width: 1000px) {
-    .weatherPageTitle {
-        font-size: 25px;
-    }
-}
-
-@media (max-width: 600px) {
-    .weatherPageTitle {
-        font-size: 15px;
-    }
 }
 
 .weatherItemCity {
     display: block;
     text-align: center;
     color: #ffedbc;
+    font-size: 70px;
+}
+
+@media (max-width: 1000px) {
+    .weatherItemCity {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .weatherItemCity {
+        font-size: 30px;
+    }
 }
 
 .weatherItemIcon {

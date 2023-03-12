@@ -21,6 +21,8 @@ export default {
                 const response = await axios.get(this.getUrl);
 
                 this.$emit('getWeather', response.data);
+
+                this.cityName = '';
             } catch(error) {
                 alert(`${error.code}: ${error.message}`);
             }

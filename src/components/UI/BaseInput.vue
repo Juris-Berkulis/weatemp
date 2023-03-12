@@ -27,11 +27,24 @@ export default {
     border-radius: 15px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    font-size: 30px;
 }
 
 .input:focus {
     outline: none;
     border: 1px solid slateblue;
     border-right: 1px solid transparent;
+}
+
+@media (max-width: 1000px) {
+    .input {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .input {
+        font-size: 12px;
+    }
 }
 </style>
