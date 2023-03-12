@@ -4,7 +4,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            cityName: 'Москва',
+            cityName: '',
             apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
             units: 'metric',
             language: 'ru',
@@ -23,7 +23,7 @@ export default {
 
                 this.weatherInfo = response.data;
             } catch(error) {
-                alert(error.message);
+                alert(`${error.code}: ${error.message}`);
             }
         },
     },
@@ -37,7 +37,10 @@ export default {
 
 <template>
     <div>
-        <button @click="getWeather">Получить погоду</button>
+        <form action="" @submit.prevent="getWeather">
+            <input v-model="this.cityName" type="text" placeholder="Введите город">
+            <button>Получить погоду</button>
+        </form>
         <div>{{ this.weatherInfo }}</div>
     </div>
 </template>
