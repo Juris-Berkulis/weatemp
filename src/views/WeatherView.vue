@@ -1,11 +1,11 @@
 <script>
 import WeatherForm from '../components/WeatherForm.vue';
-import WeaatherList from '../components/WeaatherList.vue';
+import WeatherList from '../components/WeatherList.vue';
 
 export default {
     components: {
         WeatherForm,
-        WeaatherList,
+        WeatherList,
 },
     data() {
         return {
@@ -28,7 +28,7 @@ export default {
 <template>
     <div class="weatherView">
         <WeatherForm @getWeather="getWeather"></WeatherForm>
-        <WeaatherList v-bind:weather="this.weatherInfo"></WeaatherList>
+        <WeatherList v-bind:weather="this.weatherInfo"></WeatherList>
     </div>
 </template>
 
