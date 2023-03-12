@@ -28,12 +28,11 @@ import { RouterView } from 'vue-router'
 .page {
   height: 100%;
   width: 100%;
-  padding: 10vh 10vw;
+  padding: 10vh 5vw;
 }
 
 .pageContent {
   height: 100%;
   width: 100%;
-  overflow-y: auto;
 }
 </style>

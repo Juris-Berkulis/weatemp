@@ -161,7 +161,7 @@ export default {
 </script>
 
 <template>
-    <div v-if="weather">
+    <div class="weatherInfo" v-if="weather">
         <div class="weatherPageTitle">
             <h1 class="weatherItemCity">{{ weather.name }}</h1>
             <img class="weatherItemIcon" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
@@ -173,11 +173,31 @@ export default {
 </template>
 
 <style>
+.weatherInfo {
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .weatherPageTitle {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 35px;
+}
+
+@media (max-width: 1000px) {
+    .weatherPageTitle {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .weatherPageTitle {
+        font-size: 15px;
+    }
 }
 
 .weatherItemCity {
@@ -188,11 +208,15 @@ export default {
 
 .weatherItemIcon {
     display: block;
+    height: 100%;
 }
 
 .weatherList {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding: 0 5vw;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 </style>

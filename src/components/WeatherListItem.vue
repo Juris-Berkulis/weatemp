@@ -22,6 +22,7 @@ export default {
 .weatherItem {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     margin: 10px;
     padding: 10px;
@@ -29,5 +30,18 @@ export default {
     color: #ffedbc;
     background-color: rgba(220, 220, 220, 0.3);
     flex-grow: 1;
+    font-size: 30px;
+}
+
+@media (max-width: 1000px) {
+    .weatherItem {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .weatherItem {
+        font-size: 12px;
+    }
 }
 </style>

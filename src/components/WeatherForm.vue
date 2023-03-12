@@ -30,12 +30,16 @@ export default {
 </script>
 
 <template>
-    <form @submit.prevent="getWeather" action="">
+    <form class="form" @submit.prevent="getWeather" action="">
         <BaseInput v-model:inputValue="this.cityName"></BaseInput>
         <BaseButton>Получить погоду</BaseButton>
     </form>
 </template>
 
 <style>
-
+.form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 </style>
