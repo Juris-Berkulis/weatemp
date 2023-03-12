@@ -1,7 +1,13 @@
 <script>
 import axios from 'axios';
+import BaseButton from '@/components/UI/BaseButton.vue';
+import BaseInput from '@/components/UI/BaseInput.vue';
 
 export default {
+    components: {
+        BaseButton,
+        BaseInput,
+    },
     data() {
         return {
             cityName: '',
@@ -31,8 +37,8 @@ export default {
 
 <template>
     <form @submit.prevent="getWeather" action="">
-        <input v-model="this.cityName" type="text" placeholder="Введите город">
-        <button>Получить погоду</button>
+        <BaseInput v-model:inputValue="this.cityName"></BaseInput>
+        <BaseButton>Получить погоду</BaseButton>
     </form>
 </template>
 
