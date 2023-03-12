@@ -1,5 +1,10 @@
 <script>
+import WeatherListItem from './WeatherListItem.vue';
+
 export default {
+    components: {
+        WeatherListItem,
+    },
     props: {
         weather: {
             type: Object,
@@ -161,16 +166,8 @@ export default {
             <h1 class="weatherItemCity">{{ weather.name }}</h1>
             <img class="weatherItemIcon" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
         </div>
-        <div>
-            <div class="weatherList" v-if="this.weather">
-                <div class="weatherItem" v-for="weatherInfoItem in weatherInfoList">
-                    <p>{{ weatherInfoItem.title }}</p>
-                    <p>
-                        <span>{{ weatherInfoItem.testimony }}</span>
-                        <span>{{ weatherInfoItem.units }}</span>
-                    </p>
-                </div>
-            </div>
+        <div class="weatherList" v-if="this.weather">
+            <WeatherListItem v-bind:weatherInfoList="weatherInfoList"></WeatherListItem>
         </div>
     </div>
 </template>
@@ -197,17 +194,5 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-.weatherItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #eeeeee;
-    color: #ffedbc;
-    background-color: rgba(220, 220, 220, 0.3);
-    flex-grow: 1;
 }
 </style>
