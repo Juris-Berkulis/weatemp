@@ -45,23 +45,29 @@ export default {
         getHumidity() {
             const title = 'Влажность';
             const testimony = this.weather.main.humidity;
-            const units = ' %';
+            const units = '%';
             return {title, testimony, units}
         },
         getSunrise() {
-            const date = new Date(this.weather.sys.sunrise * 1000);
+            const timezone = this.weather.timezone;
+            const date = new Date((this.weather.sys.sunrise + timezone) * 1000);
+            const localHours = date.getUTCHours();
+            const localMinutes = date.getUTCMinutes();
 
             const title = 'Восход';
-            const testimony = date.toLocaleTimeString();
+            const testimony = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
             const units = '';
 
             return {title, testimony, units}
         },
         getSet() {
-            const date = new Date(this.weather.sys.sunset * 1000);
+            const timezone = this.weather.timezone;
+            const date = new Date((this.weather.sys.sunset + timezone) * 1000);
+            const localHours = date.getUTCHours();
+            const localMinutes = date.getUTCMinutes();
 
             const title = 'Закат';
-            const testimony = date.toLocaleTimeString();
+            const testimony = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
             const units = '';
 
             return {title, testimony, units}
