@@ -6,47 +6,178 @@ export default {
         },
     },
     computed: {
+        getCloudsPercent() {
+            const title = 'Облака';
+            const testimony = this.weather.clouds.all;
+            const units = '%';
+            return {title, testimony, units}
+        },
+        getTemperature() {
+            const title = 'Температура';
+            const testimony = this.weather.main.temp;
+            const units = '°C';
+            return {title, testimony, units}
+        },
+        getFeelingTemperature() {
+            const title = 'Ощущается';
+            const testimony = this.weather.main.feels_like;
+            const units = '°C';
+            return {title, testimony, units}
+        },
+        getMaxTemperature() {
+            const title = 'Макс. темп.';
+            const testimony = this.weather.main.temp_max;
+            const units = '°C';
+            return {title, testimony, units}
+        },
+        getMinTemperature() {
+            const title = 'Мин. темп.';
+            const testimony = this.weather.main.temp_min;
+            const units = '°C';
+            return {title, testimony, units}
+        },
+        getPressure() {
+            const title = 'Давление';
+            const testimony = this.weather.main.pressure;
+            const units = ' мм рт.ст.';
+            return {title, testimony, units}
+        },
+        getHumidity() {
+            const title = 'Влажность';
+            const testimony = this.weather.main.humidity;
+            const units = ' %';
+            return {title, testimony, units}
+        },
         getSunrise() {
             const date = new Date(this.weather.sys.sunrise * 1000);
 
-            return date.toLocaleTimeString();
+            const title = 'Восход';
+            const testimony = date.toLocaleTimeString();
+            const units = '';
+
+            return {title, testimony, units}
         },
         getSet() {
             const date = new Date(this.weather.sys.sunset * 1000);
 
-            return date.toLocaleTimeString();
+            const title = 'Закат';
+            const testimony = date.toLocaleTimeString();
+            const units = '';
+
+            return {title, testimony, units}
         },
-        getIconSrc() {
-            return `https://openweathermap.org/img/w/${this.weather.weather[0].icon}.png`
-        }
-    }
+        getVisibility() {
+            const title = 'Видимость';
+            const testimony = this.weather.visibility < 1000 ? this.weather.visibility : (this.weather.visibility / 1000).toFixed(1);
+            const units = this.weather.visibility < 1000 ? ' м' : ' км';
+            return {title, testimony, units}
+        },
+        getDescription() {
+            const title = 'Описание';
+            const testimonyBeforeUpdate = this.weather.weather[0].description;
+            const testimony = testimonyBeforeUpdate ? testimonyBeforeUpdate[0].toUpperCase() + testimonyBeforeUpdate.slice(1) : 'н/д';
+
+            const units = '';
+            return {title, testimony, units}
+        },
+        getWindDirection() {
+            const title = 'Направление ветра';
+            const testimony = this.weather.wind.deg;
+            const units = ' град.';
+            return {title, testimony, units}
+        },
+        getWindSpeed() {
+            const title = 'Скорость ветра';
+            const testimony = this.weather.wind.speed;
+            const units = ' м/с';
+            return {title, testimony, units}
+        },
+        getWindGusts() {
+            const title = 'Порывы ветра';
+            const testimony = this.weather.wind.gust ? this.weather.wind.gust : this.weather.wind.speed;
+            const units = ' м/с';
+            return {title, testimony, units}
+        },
+        getIcon() {
+            const imgSrc = `https://openweathermap.org/img/w/${this.weather.weather[0].icon}.png`;
+            const imgAlt = this.weather.weather[0].main;
+            return {imgSrc, imgAlt}
+        },
+        weatherInfoList() {
+            return [
+                this.getTemperature,
+                this.getFeelingTemperature,
+                this.getMinTemperature,
+                this.getMaxTemperature,
+                this.getVisibility,
+                this.getCloudsPercent,
+                this.getDescription,
+                this.getWindDirection,
+                this.getWindSpeed,
+                this.getWindGusts,
+                this.getPressure,
+                this.getHumidity,
+                this.getSunrise,
+                this.getSet,
+            ]
+        },
+    },
 }
 </script>
 
 <template>
     <div v-if="weather">
-        <h1>{{ weather.name }}</h1>
+        <div class="weatherPageTitle">
+            <h1 class="weatherItemCity">{{ weather.name }}</h1>
+            <img class="weatherItemIcon" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
+        </div>
         <div>
-            <div>Облака: {{ weather.clouds.all }}%</div>
-            <div>Температура: {{ weather.main.temp }} C</div>
-            <div>Ощущается: {{ weather.main.feels_like }} C</div>
-            <div>Макс. темп.: {{ weather.main.temp_max }} C</div>
-            <div>Мин. темп.: {{ weather.main.temp_min }} C</div>
-            <div>Давление: {{ weather.main.pressure }} мм рт.ст.</div>
-            <div>Влажность: {{ weather.main.humidity }} %</div>
-            <div>Восход: {{ getSunrise }}</div>
-            <div>Закат: {{ getSet }}</div>
-            <div>Видимость: {{ weather.visibility }} м</div>
-            <div>Описание: {{ weather.weather[0].description }}</div>
-            <img :src="`${getIconSrc}`" :alt="`${weather.weather[0].main}`">
-            <div>Основное: {{ weather.weather[0].main }}</div>
-            <div>Направление ветра: {{ weather.wind.deg }} град.</div>
-            <div>Скорость ветра: {{ weather.wind.speed }} м/с</div>
-            <div>Порывы ветра: {{ weather.wind.gust ? weather.wind.gust : weather.wind.speed }} м/с</div>
+            <div class="weatherList" v-if="this.weather">
+                <div class="weatherItem" v-for="weatherInfoItem in weatherInfoList">
+                    <p>{{ weatherInfoItem.title }}</p>
+                    <p>
+                        <span>{{ weatherInfoItem.testimony }}</span>
+                        <span>{{ weatherInfoItem.units }}</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <style>
+.weatherPageTitle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.weatherItemCity {
+    display: block;
+    text-align: center;
+    color: #ffedbc;
+}
+
+.weatherItemIcon {
+    display: block;
+}
+
+.weatherList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.weatherItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #eeeeee;
+    color: #ffedbc;
+    background-color: rgba(220, 220, 220, 0.3);
+    flex-grow: 1;
+}
 </style>

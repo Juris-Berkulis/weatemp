@@ -26,12 +26,16 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="weatherView">
         <WeatherForm @getWeather="getWeather"></WeatherForm>
         <WeaatherList v-bind:weather="this.weatherInfo"></WeaatherList>
     </div>
 </template>
 
 <style>
-
+.weatherView {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 </style>
