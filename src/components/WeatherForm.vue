@@ -1,13 +1,7 @@
 <script>
 import axios from 'axios';
-import BaseButton from '@/components/UI/BaseButton.vue';
-import BaseInput from '@/components/UI/BaseInput.vue';
 
 export default {
-    components: {
-        BaseButton,
-        BaseInput,
-    },
     data() {
         return {
             cityName: '',

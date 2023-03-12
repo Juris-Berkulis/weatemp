@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: {}
+    name: 'BaseButton',
 }
 </script>
 

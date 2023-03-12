@@ -1,5 +1,6 @@
 <script>
 export default {
+    name: 'BaseInput',
     props: {
         inputValue: {
             type: [String ,Number],
