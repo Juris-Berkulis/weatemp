@@ -1,39 +1,26 @@
 <script>
-import axios from 'axios';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
-    data() {
-        return {
-            cityName: '',
-            apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
-            units: 'metric',
-            language: 'ru',
-        }
-    },
     computed: {
-        getUrl() {
-            return `https://api.openweathermap.org/data/2.5/weather?q=${this.cityName}&appid=${this.apiKey}&units=${this.units}&lang=${this.language}`
-        },
+        ...mapState({
+            cityName: (state) => state.weather.cityName,
+        }),
     },
     methods: {
-        async getWeather() {
-            try {
-                const response = await axios.get(this.getUrl);
-
-                this.$emit('getWeather', response.data);
-
-                this.cityName = '';
-            } catch(error) {
-                alert(`${error.code}: ${error.message}`);
-            }
-        },
+        ...mapMutations({
+            setCityName: 'weather/setCityName',
+        }),
+        ...mapActions({
+            getWeather: 'weather/getWeather',
+        }),
     },
 }
 </script>
 
 <template>
     <form class="form" @submit.prevent="getWeather" action="">
-        <BaseInput v-model:inputValue="this.cityName"></BaseInput>
+        <BaseInput v-bind:inputValue="cityName" @update:inputValue="setCityName"></BaseInput>
         <BaseButton>Получить погоду</BaseButton>
     </form>
 </template>

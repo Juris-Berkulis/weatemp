@@ -1,9 +1,11 @@
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+
 export default {
-    props: {
-        weatherInfoList: {
-            type: Array,
-        },
+    computed: {
+        ...mapGetters({
+            weatherInfoList: 'weather/weatherInfoList',
+        }),
     },
 }
 </script>

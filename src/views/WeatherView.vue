@@ -6,29 +6,14 @@ export default {
     components: {
         WeatherForm,
         WeatherList,
-},
-    data() {
-        return {
-            weatherInfo: null,
-        }
-    },
-    methods: {
-        getWeather(weatherInfo) {
-            this.weatherInfo = weatherInfo;
-        }
-    },
-    watch: {
-        weatherInfo() {
-            console.log(this.weatherInfo)
-        },
     },
 }
 </script>
 
 <template>
     <div class="weatherView">
-        <WeatherForm @getWeather="getWeather"></WeatherForm>
-        <WeatherList v-bind:weather="this.weatherInfo"></WeatherList>
+        <WeatherForm></WeatherForm>
+        <WeatherList></WeatherList>
     </div>
 </template>
 
