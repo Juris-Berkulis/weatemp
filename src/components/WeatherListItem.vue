@@ -31,6 +31,7 @@ export default {
     background-color: rgba(220, 220, 220, 0.3);
     flex-grow: 1;
     font-size: 30px;
+    cursor: default;
 }
 
 @media (max-width: 1000px) {
@@ -43,5 +44,9 @@ export default {
     .weatherItem {
         font-size: 12px;
     }
+}
+
+.weatherItem:hover {
+    background-color: rgba(220, 220, 220, 0.4);
 }
 </style>

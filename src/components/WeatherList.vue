@@ -178,6 +178,7 @@ export default {
     max-height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .weatherPageTitle {
