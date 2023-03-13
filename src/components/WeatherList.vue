@@ -8,10 +8,10 @@ export default {
     },
     computed: {
         ...mapState({
-            weather: (state) => state.weather.weather,
+            weather: (state) => state.weatherModule.weather,
         }),
         ...mapGetters({
-            getIcon: 'weather/getIcon',
+            getIcon: 'weatherModule/getIcon',
         }),
     },
 }

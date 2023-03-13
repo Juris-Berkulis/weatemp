@@ -4,7 +4,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     computed: {
         ...mapGetters({
-            weatherInfoList: 'weather/weatherInfoList',
+            weatherInfoList: 'weatherModule/weatherInfoList',
         }),
     },
 }

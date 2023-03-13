@@ -4,15 +4,15 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     computed: {
         ...mapState({
-            cityName: (state) => state.weather.cityName,
+            cityName: (state) => state.weatherModule.cityName,
         }),
     },
     methods: {
         ...mapMutations({
-            setCityName: 'weather/setCityName',
+            setCityName: 'weatherModule/setCityName',
         }),
         ...mapActions({
-            getWeather: 'weather/getWeather',
+            getWeather: 'weatherModule/getWeather',
         }),
     },
 }
