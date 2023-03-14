@@ -13,7 +13,7 @@ export default {
         ...mapState({
             weatherOnFiveDays: (state) => state.weatherModule.weatherOnFiveDays,
         }),
-        getMaxTempForFiveDays() {
+        getMinAndMaxTempForFiveDays() {
             let minTemp = this.weatherOnFiveDays.list[0].main.temp;
             let maxTemp = this.weatherOnFiveDays.list[0].main.temp;
 
@@ -35,6 +35,9 @@ export default {
                 minHeight: chartMaxHeight,
                 maxHeight: chartMaxHeight,
             }
+        },
+        isShowZeroLine() {
+            return this.getMinAndMaxTempForFiveDays.minTemp < 0 && this.getMinAndMaxTempForFiveDays.maxTemp > 0
         }
     },
     methods: {
@@ -71,7 +74,7 @@ export default {
             return getWindDirectionFunc(degry, isShort)
         },
         getChartHeight(temp) {
-            const chartHeight = `${this.graphVerticalPaddings + this.maximumDifferenceOfGraphValues * (temp - this.getMaxTempForFiveDays.minTemp) / (this.getMaxTempForFiveDays.maxTemp - this.getMaxTempForFiveDays.minTemp)}px`
+            const chartHeight = `${this.graphVerticalPaddings + this.maximumDifferenceOfGraphValues * (temp - this.getMinAndMaxTempForFiveDays.minTemp) / (this.getMinAndMaxTempForFiveDays.maxTemp - this.getMinAndMaxTempForFiveDays.minTemp)}px`
 
             return {
                 height: chartHeight,
@@ -97,7 +100,7 @@ export default {
 
             const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}.${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
             const localTime = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
-            const localDateInMidnight = localHours === 0 ? localDate : '';
+            const localDateInMidnight = localHours === 0 || localHours === 1 || localHours === 2 ? localDate : '';
             const localShortDateInMidnight = localDateInMidnight ? localDateInMidnight.split('.').slice(1).reverse().join('.') : localDateInMidnight;
 
             return {localDate, localTime, localDateInMidnight, localShortDateInMidnight}
@@ -113,8 +116,9 @@ export default {
             <div class="threeHours threeHoursTitle">
                 <div class="threeHoursIndicator">Дата:</div>
                 <div class="threeHoursChartWrapper threeHoursChartWrapperTitle" :style="getChartMaxHeight">
-                    <p>Макс. темп.: {{ getMaxTempForFiveDays.maxTemp }}°C</p>
-                    <p>Мин. темп.: {{ getMaxTempForFiveDays.minTemp }}°C</p>
+                    <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&uarr;</span>: {{ getMinAndMaxTempForFiveDays.maxTemp }}°C</p>
+                    <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&darr;</span>: {{ getMinAndMaxTempForFiveDays.minTemp }}°C</p>
+                    <p class="threeHoursChartWrapperTitleTempLine threeHoursChartWrapperTitleZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine">0°</p>
                 </div>
                 <div class="threeHoursIndicator">Температура (°C):</div>
                 <div class="threeHoursIndicator">Время:</div>
@@ -129,10 +133,11 @@ export default {
                 <div class="threeHoursIndicator">Видимость:</div>
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
-                <div class="threeHours" v-for="threeHoursWeather in weatherOnFiveDays.list">
+                <div :class="['threeHours', {threeHoursNewDay: getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather in weatherOnFiveDays.list">
                     <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
+                        <div class="threeHoursChartZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine"></div>
                     </div>
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}</div>
                     <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
@@ -199,21 +204,56 @@ export default {
     background-color: rgba(220, 220, 220, 0.3);
 }
 
+.threeHoursNewDay {
+    border-left: 1px solid #eeeeee;
+}
+
 .threeHoursChartWrapper {
+    position: relative;
     width: 100%;
     display: flex;
     align-items: flex-end;
 }
 
 .threeHoursChartWrapperTitle {
+    position: relative;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
+.threeHoursChartWrapperTitleTempLine {
+    font-size: 20px;
+}
+
+@media (max-width: 1000px) {
+    .threeHoursChartWrapperTitleTempLine {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .threeHoursChartWrapperTitleTempLine {
+        font-size: 8px;
+    }
+}
+
+.threeHoursChartWrapperTitleZeroLine {
+    position: absolute;
+    right: 0;
+    transform: translateY(50%);
+}
+
 .threeHoursChart {
     width: 100%;
     background-color: darkblue;
+}
+
+.threeHoursChartZeroLine {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-bottom: 3px dashed #eeeeee;
 }
 
 .threeHoursIndicator {
@@ -243,7 +283,7 @@ export default {
 @media (max-width: 600px) {
     .threeHoursIndicatorImg {
         width: 30px;
-        height: 50px;
+        height: 30px;
     }
 }
 
