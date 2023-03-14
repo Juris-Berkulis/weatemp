@@ -4,6 +4,7 @@ export const weatherModule = {
     namespaced: true,
     state: () => ({
         weather: null,
+        weatherOnFiveDays: null,
         cityName: '',
         apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
         units: 'metric',
@@ -12,6 +13,9 @@ export const weatherModule = {
     getters: {
         getUrl(state) {
             return `https://api.openweathermap.org/data/2.5/weather?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+        },
+        getUrlForWeatherOnFiveDays(state) {
+            return `https://api.openweathermap.org/data/2.5/forecast?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getCloudsPercent(state) {
             const title = 'Облака';
@@ -163,6 +167,10 @@ export const weatherModule = {
         setWeatherInfo(state, weather) {
             state.weather = weather;
         },
+        setWeatherOnFiveDays(state, weatherOnFiveDays) {
+            state.weatherOnFiveDays = weatherOnFiveDays;
+            console.log(state.weatherOnFiveDays)
+        },
         setCityName(state, cityName) {
             state.cityName = cityName;
         },
@@ -173,6 +181,10 @@ export const weatherModule = {
                 const response = await axios.get(getters.getUrl);
 
                 commit('setWeatherInfo', response.data)
+
+                const resWeatherOnFiveDays = await axios.get(getters.getUrlForWeatherOnFiveDays);
+
+                commit('setWeatherOnFiveDays', resWeatherOnFiveDays.data);
 
                 state.cityName = '';
             } catch(error) {

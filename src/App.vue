@@ -1,9 +1,11 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import TheHeader from './components/UI/TheHeader.vue';
 </script>
 
 <template>
   <div class="app">
+    <TheHeader></TheHeader>
     <div class="page">
       <div class="pageContent">
         <RouterView />
@@ -19,14 +21,29 @@ import { RouterView } from 'vue-router'
   box-sizing: border-box;
 }
 
-.app {
+html {
   height: 100vh;
   width: 100vw;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
   background-color: cornflowerblue;
 }
 
 .page {
-  height: 100%;
+  height: 90vh;
   width: 100%;
   padding: 10vh 5vw;
 }
