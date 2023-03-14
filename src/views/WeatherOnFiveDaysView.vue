@@ -3,6 +3,12 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import {getWindDirectionFunc} from '@/helper/helperWeather.js';
 
 export default {
+    data() {
+        return {
+            graphVerticalPaddings: 5,
+            maximumDifferenceOfGraphValues: 95,
+        }
+    },
     computed: {
         ...mapState({
             weatherOnFiveDays: (state) => state.weatherModule.weatherOnFiveDays,
@@ -22,7 +28,7 @@ export default {
             return {minTemp, maxTemp}
         },
         getChartMaxHeight() {
-            const chartMaxHeight = `${5 + 95}px`
+            const chartMaxHeight = `${this.graphVerticalPaddings + this.maximumDifferenceOfGraphValues + this.graphVerticalPaddings}px`
 
             return {
                 height: chartMaxHeight,
@@ -65,7 +71,7 @@ export default {
             return getWindDirectionFunc(degry, isShort)
         },
         getChartHeight(temp) {
-            const chartHeight = `${5 + 95 * (temp - this.getMaxTempForFiveDays.minTemp) / (this.getMaxTempForFiveDays.maxTemp - this.getMaxTempForFiveDays.minTemp)}px`
+            const chartHeight = `${this.graphVerticalPaddings + this.maximumDifferenceOfGraphValues * (temp - this.getMaxTempForFiveDays.minTemp) / (this.getMaxTempForFiveDays.maxTemp - this.getMaxTempForFiveDays.minTemp)}px`
 
             return {
                 height: chartHeight,
@@ -80,6 +86,20 @@ export default {
 
             return (precipitationProbability * 100).toFixed(0)
         },
+        getDateAndTime(dt) {
+            const timezone = this.weatherOnFiveDays.city.timezone;
+            const date = new Date((dt + timezone) * 1000);
+            const localYear = date.getUTCFullYear();
+            const localMonth = date.getUTCMonth() + 1;
+            const localDayNumber = date.getUTCDay();
+            const localHours = date.getUTCHours();
+            const localMinutes = date.getUTCMinutes();
+
+            const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}:${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
+            const localTime = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
+
+            return {localDate, localTime}
+        }
     },
 }
 </script>
@@ -89,8 +109,12 @@ export default {
         <h1 class="weatherOnFiveDaysTitle">{{ weatherOnFiveDays.city.name }}</h1>
         <div class="weatherOnFiveDaysTable">
             <div class="threeHours threeHoursTitle">
-                <div class="threeHoursChartWrapper" :style="getChartMaxHeight"></div>
+                <div class="threeHoursChartWrapper threeHoursChartWrapperTitle" :style="getChartMaxHeight">
+                    <p>Макс. темп.: {{ getMaxTempForFiveDays.maxTemp }}°C</p>
+                    <p>Мин. темп.: {{ getMaxTempForFiveDays.minTemp }}°C</p>
+                </div>
                 <div class="threeHoursIndicator">Температура (°C):</div>
+                <div class="threeHoursIndicator">Время:</div>
                 <div class="threeHoursIndicatorImg"></div>
                 <div class="threeHoursIndicator">Облачность (%):</div>
                 <div class="threeHoursIndicator">Вер. осадков (%):</div>
@@ -107,6 +131,7 @@ export default {
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                     </div>
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}</div>
+                    <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <img class="threeHoursIndicatorImg" :src="getIcon(threeHoursWeather.weather[0]).imgSrc" :alt="getIcon(threeHoursWeather.weather[0]).imgAlt">
                     <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}</div>
                     <div class="threeHoursIndicator">{{ getPrecipitationProbability(threeHoursWeather.pop) }}</div>
@@ -163,6 +188,7 @@ export default {
 
 .threeHoursTitle {
     align-items: flex-start;
+    height: 100%;
 }
 
 .threeHoursTitle:hover {
@@ -173,6 +199,12 @@ export default {
     width: 100%;
     display: flex;
     align-items: flex-end;
+}
+
+.threeHoursChartWrapperTitle {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .threeHoursChart {

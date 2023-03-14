@@ -72,7 +72,7 @@ export const weatherModule = {
 
             return {title, testimony, units}
         },
-        getSet(state) {
+        getSunset(state) {
             const timezone = state.weather.timezone;
             const date = new Date((state.weather.sys.sunset + timezone) * 1000);
             const localHours = date.getUTCHours();
@@ -140,7 +140,7 @@ export const weatherModule = {
                 getters.getPressure,
                 getters.getHumidity,
                 getters.getSunrise,
-                getters.getSet,
+                getters.getSunset,
             ]
         },
     },

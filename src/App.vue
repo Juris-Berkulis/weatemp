@@ -61,7 +61,7 @@ h1 {
 .page {
   height: 90vh;
   width: 100%;
-  padding: 5vh 5vw;
+  padding: 0 5vw 5vh;
 }
 
 .pageContent {
