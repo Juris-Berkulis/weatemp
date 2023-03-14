@@ -27,14 +27,67 @@ export default {
             const imgAlt = weatherObj.main;
             return {imgSrc, imgAlt}
         },
-    }
+        isValidData(data) {
+            if (data !== 'undefined') {
+                return true
+            } else {
+                return false
+            }
+        },
+        getVisibility(visibility) {
+            if(!this.isValidData(visibility)) {
+                return 'н/д'
+            }
+
+            if (visibility >= 1000) {
+                visibility = (visibility / 1000).toFixed(1)
+            }
+
+            return visibility
+        },
+        getWind(wind) {
+            const speed = wind.speed ? wind.speed.toFixed(0) : 'н/д';
+            const gust = wind.gust ? wind.gust.toFixed(0) : speed;
+
+            return {speed, gust}
+        },
+        getWindDirection(degry) {
+            if(!this.isValidData(degry)) {
+                return 'н/д'
+            }
+
+            let direction;
+
+            if (degry >= 337.5 || degry < 22.5) {
+                direction = 'С'; 
+            } else if (degry < 67.5) {
+                direction = 'СВ';
+            } else if (degry < 112.5) {
+                direction = 'В';
+            } else if (degry < 157.5) {
+                direction = 'ЮВ';
+            } else if (degry < 202.5) {
+                direction = 'Ю';
+            } else if (degry < 247.5) {
+                direction = 'ЮЗ';
+            } else if (degry < 292.5) {
+                direction = 'З';
+            } else if (degry < 337.5) {
+                direction = 'СЗ';
+            } else {
+                direction = '??';
+            }
+
+            return direction
+        },
+    },
 }
 </script>
 
 <template>
-    <div class="weatherOnFiveDays">
+    <div class="weatherOnFiveDays" v-if="weatherOnFiveDays">
         <h1 class="weatherOnFiveDaysTitle">{{ weatherOnFiveDays.city.name }}</h1>
-        <div class="weatherOnFiveDaysTable" v-if="weatherOnFiveDays">
+        <div class="weatherOnFiveDaysTable">
             <div class="eachDay" v-for="dayWeather in weatherOnFiveDays.list">
                 <div class="eachDayColumn" :style="{height: 5 + 95 * (dayWeather.main.temp - getMaxTempForFiveDays.minTemp) / (getMaxTempForFiveDays.maxTemp - getMaxTempForFiveDays.minTemp) + 'px'}"></div>
                 <div class="eachDayIndicator">{{ dayWeather.main.temp }}°</div>
@@ -43,10 +96,10 @@ export default {
                 <div class="eachDayIndicator">{{ dayWeather.pop }}%</div>
                 <div class="eachDayIndicator">{{ dayWeather.main.humidity }}%</div>
                 <div class="eachDayIndicator">{{ dayWeather.main.pressure }}мм</div>
-                <div class="eachDayIndicator">{{ dayWeather.wind.deg }}°</div>
-                <div class="eachDayIndicator">{{ (dayWeather.wind.speed).toFixed(0) }}м/с</div>
-                <div class="eachDayIndicator">{{ (dayWeather.wind.gust).toFixed(0) }}м/с</div>
-                <div class="eachDayIndicator">{{ (dayWeather.visibility / 1000).toFixed(1) }}км</div>
+                <div class="eachDayIndicator">{{ getWindDirection(dayWeather.wind.deg) }}</div>
+                <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).speed) }}м/с</div>
+                <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).gust) }}м/с</div>
+                <div class="eachDayIndicator">{{ getVisibility(dayWeather.visibility) }}км</div>
             </div>
         </div>
     </div>
