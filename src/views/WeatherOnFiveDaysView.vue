@@ -124,6 +124,7 @@ export default {
 
 .weatherOnFiveDaysTableAuxiliary {
     display: flex;
+    height: 100%;
     overflow-x: auto;
 }
 
@@ -131,7 +132,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5px;
+    padding: 0 5px;
+    background-color: rgba(220, 220, 220, 0.3);
+    cursor: default;
+}
+
+.eachDay:hover {
+    background-color: rgba(220, 220, 220, 0.4);
 }
 
 .eachDayChartWrapper {
