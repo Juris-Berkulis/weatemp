@@ -167,7 +167,7 @@ export const weatherModule = {
 
                 commit('setWeatherOnFiveDays', resWeatherOnFiveDays.data);
 
-                state.cityName = '';
+                commit('setCityName', '');
             } catch(error) {
                 alert(`${error.code}: ${error.message}`);
             }

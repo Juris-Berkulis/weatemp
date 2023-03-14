@@ -82,23 +82,23 @@ export default {
         <h1 class="weatherOnFiveDaysTitle">{{ weatherOnFiveDays.city.name }}</h1>
         <div class="weatherOnFiveDaysTable">
             <div class="weatherOnFiveDaysTableAuxiliary">
-                <div class="eachDay" v-for="dayWeather in weatherOnFiveDays.list">
-                    <div class="eachDayChartWrapper" :style="getChartMaxHeight">
-                        <div class="eachDayChart" :style="getChartHeight(dayWeather.main.temp)"></div>
+                <div class="threeHours" v-for="threeHoursWeather in weatherOnFiveDays.list">
+                    <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
+                        <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                     </div>
-                    <div class="eachDayIndicator">{{ dayWeather.main.temp }}°</div>
-                    <img :src="getIcon(dayWeather.weather[0]).imgSrc" :alt="getIcon(dayWeather.weather[0]).imgAlt">
-                    <div class="eachDayIndicator">{{ dayWeather.clouds.all }}%</div>
-                    <div class="eachDayIndicator">{{ dayWeather.pop }}%</div>
-                    <div class="eachDayIndicator">{{ dayWeather.main.humidity }}%</div>
-                    <div class="eachDayIndicator">{{ dayWeather.main.pressure }}мм</div>
-                    <div class="eachDayIndicator">
-                        <span>{{ getWindDirection(dayWeather.wind.deg, true) }}: </span>
-                        <span class="eachDayIndicatorIcon" :style="{transform: `rotateZ(${dayWeather.wind.deg}deg)`,}">&darr;</span>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}°</div>
+                    <img :src="getIcon(threeHoursWeather.weather[0]).imgSrc" :alt="getIcon(threeHoursWeather.weather[0]).imgAlt">
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}%</div>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.pop }}%</div>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.humidity }}%</div>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.pressure }}мм</div>
+                    <div class="threeHoursIndicator">
+                        <span>{{ getWindDirection(threeHoursWeather.wind.deg, true) }}: </span>
+                        <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&darr;</span>
                     </div>
-                    <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).speed) }}м/с</div>
-                    <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).gust) }}м/с</div>
-                    <div class="eachDayIndicator">{{ getVisibility(dayWeather.visibility) }}</div>
+                    <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).speed) }}м/с</div>
+                    <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).gust) }}м/с</div>
+                    <div class="threeHoursIndicator">{{ getVisibility(threeHoursWeather.visibility) }}</div>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@ export default {
     overflow-x: auto;
 }
 
-.eachDay {
+.threeHours {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,40 +137,40 @@ export default {
     cursor: default;
 }
 
-.eachDay:hover {
+.threeHours:hover {
     background-color: rgba(220, 220, 220, 0.4);
 }
 
-.eachDayChartWrapper {
+.threeHoursChartWrapper {
     width: 100%;
     display: flex;
     align-items: flex-end;
 }
 
-.eachDayChart {
+.threeHoursChart {
     width: 100%;
     background-color: darkblue;
 }
 
-.eachDayIndicator {
+.threeHoursIndicator {
     margin: 5px 0;
     font-size: 20px;
     white-space: nowrap;
 }
 
 @media (max-width: 1000px) {
-    .eachDayIndicator {
+    .threeHoursIndicator {
         font-size: 15px;
     }
 }
 
 @media (max-width: 600px) {
-    .eachDayIndicator {
+    .threeHoursIndicator {
         font-size: 8px;
     }
 }
 
-.eachDayIndicatorIcon {
+.threeHoursIndicatorIcon {
     display: inline-block;
     width: auto;
 }
