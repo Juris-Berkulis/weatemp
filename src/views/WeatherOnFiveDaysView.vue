@@ -91,15 +91,17 @@ export default {
             const date = new Date((dt + timezone) * 1000);
             const localYear = date.getUTCFullYear();
             const localMonth = date.getUTCMonth() + 1;
-            const localDayNumber = date.getUTCDay();
+            const localDayNumber = date.getUTCDate();
             const localHours = date.getUTCHours();
             const localMinutes = date.getUTCMinutes();
 
-            const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}:${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
+            const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}.${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
             const localTime = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
+            const localDateInMidnight = localHours === 0 ? localDate : '';
+            const localShortDateInMidnight = localDateInMidnight ? localDateInMidnight.split('.').slice(1).reverse().join('.') : localDateInMidnight;
 
-            return {localDate, localTime}
-        }
+            return {localDate, localTime, localDateInMidnight, localShortDateInMidnight}
+        },
     },
 }
 </script>
@@ -109,6 +111,7 @@ export default {
         <h1 class="weatherOnFiveDaysTitle">{{ weatherOnFiveDays.city.name }}</h1>
         <div class="weatherOnFiveDaysTable">
             <div class="threeHours threeHoursTitle">
+                <div class="threeHoursIndicator">Дата:</div>
                 <div class="threeHoursChartWrapper threeHoursChartWrapperTitle" :style="getChartMaxHeight">
                     <p>Макс. темп.: {{ getMaxTempForFiveDays.maxTemp }}°C</p>
                     <p>Мин. темп.: {{ getMaxTempForFiveDays.minTemp }}°C</p>
@@ -127,6 +130,7 @@ export default {
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
                 <div class="threeHours" v-for="threeHoursWeather in weatherOnFiveDays.list">
+                    <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                     </div>
@@ -213,6 +217,7 @@ export default {
 }
 
 .threeHoursIndicator {
+    height: 100%;
     margin: 5px 0;
     font-size: 20px;
     white-space: nowrap;
