@@ -21,6 +21,15 @@ export default {
 
             return {minTemp, maxTemp}
         },
+        getChartMaxHeight() {
+            const chartMaxHeight = `${5 + 95}px`
+
+            return {
+                height: chartMaxHeight,
+                minHeight: chartMaxHeight,
+                maxHeight: chartMaxHeight,
+            }
+        }
     },
     methods: {
         getIcon(weatherObj) {
@@ -41,10 +50,10 @@ export default {
             }
 
             if (visibility >= 1000) {
-                visibility = (visibility / 1000).toFixed(1)
+                return `${(visibility / 1000).toFixed(1)}км`
             }
 
-            return visibility
+            return `${visibility}м`
         },
         getWind(wind) {
             const speed = wind.speed ? wind.speed.toFixed(0) : 'н/д';
@@ -55,6 +64,15 @@ export default {
         getWindDirection(degry, isShort) {
             return getWindDirectionFunc(degry, isShort)
         },
+        getChartHeight(temp) {
+            const chartHeight = `${5 + 95 * (temp - this.getMaxTempForFiveDays.minTemp) / (this.getMaxTempForFiveDays.maxTemp - this.getMaxTempForFiveDays.minTemp)}px`
+
+            return {
+                height: chartHeight,
+                minHeight: chartHeight,
+                maxHeight: chartHeight,
+            }
+        }
     },
 }
 </script>
@@ -63,48 +81,90 @@ export default {
     <div class="weatherOnFiveDays" v-if="weatherOnFiveDays">
         <h1 class="weatherOnFiveDaysTitle">{{ weatherOnFiveDays.city.name }}</h1>
         <div class="weatherOnFiveDaysTable">
-            <div class="eachDay" v-for="dayWeather in weatherOnFiveDays.list">
-                <div class="eachDayColumn" :style="{height: 5 + 95 * (dayWeather.main.temp - getMaxTempForFiveDays.minTemp) / (getMaxTempForFiveDays.maxTemp - getMaxTempForFiveDays.minTemp) + 'px'}"></div>
-                <div class="eachDayIndicator">{{ dayWeather.main.temp }}°</div>
-                <img :src="getIcon(dayWeather.weather[0]).imgSrc" :alt="getIcon(dayWeather.weather[0]).imgAlt">
-                <div class="eachDayIndicator">{{ dayWeather.clouds.all }}%</div>
-                <div class="eachDayIndicator">{{ dayWeather.pop }}%</div>
-                <div class="eachDayIndicator">{{ dayWeather.main.humidity }}%</div>
-                <div class="eachDayIndicator">{{ dayWeather.main.pressure }}мм</div>
-                <div class="eachDayIndicator">{{ getWindDirection(dayWeather.wind.deg, true) }}</div>
-                <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).speed) }}м/с</div>
-                <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).gust) }}м/с</div>
-                <div class="eachDayIndicator">{{ getVisibility(dayWeather.visibility) }}км</div>
+            <div class="weatherOnFiveDaysTableAuxiliary">
+                <div class="eachDay" v-for="dayWeather in weatherOnFiveDays.list">
+                    <div class="eachDayChartWrapper" :style="getChartMaxHeight">
+                        <div class="eachDayChart" :style="getChartHeight(dayWeather.main.temp)"></div>
+                    </div>
+                    <div class="eachDayIndicator">{{ dayWeather.main.temp }}°</div>
+                    <img :src="getIcon(dayWeather.weather[0]).imgSrc" :alt="getIcon(dayWeather.weather[0]).imgAlt">
+                    <div class="eachDayIndicator">{{ dayWeather.clouds.all }}%</div>
+                    <div class="eachDayIndicator">{{ dayWeather.pop }}%</div>
+                    <div class="eachDayIndicator">{{ dayWeather.main.humidity }}%</div>
+                    <div class="eachDayIndicator">{{ dayWeather.main.pressure }}мм</div>
+                    <div class="eachDayIndicator">
+                        <span>{{ getWindDirection(dayWeather.wind.deg, true) }}: </span>
+                        <span class="eachDayIndicatorIcon" :style="{transform: `rotateZ(${dayWeather.wind.deg}deg)`,}">&darr;</span>
+                    </div>
+                    <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).speed) }}м/с</div>
+                    <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).gust) }}м/с</div>
+                    <div class="eachDayIndicator">{{ getVisibility(dayWeather.visibility) }}</div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style>
+.weatherOnFiveDays {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    color: #ffedbc;
+}
+
 .weatherOnFiveDaysTitle {
     text-align: center;
 }
 
 .weatherOnFiveDaysTable {
     display: flex;
+    overflow-y: auto;
+}
+
+.weatherOnFiveDaysTableAuxiliary {
+    display: flex;
     overflow-x: auto;
 }
 
 .eachDay {
-    min-width: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
     margin: 5px;
 }
 
-.eachDayColumn {
+.eachDayChartWrapper {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.eachDayChart {
     width: 100%;
     background-color: darkblue;
 }
 
 .eachDayIndicator {
+    margin: 5px 0;
+    font-size: 20px;
     white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+    .eachDayIndicator {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .eachDayIndicator {
+        font-size: 8px;
+    }
+}
+
+.eachDayIndicatorIcon {
+    display: inline-block;
+    width: auto;
 }
 </style>

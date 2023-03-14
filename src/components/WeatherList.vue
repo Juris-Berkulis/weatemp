@@ -50,19 +50,6 @@ export default {
     display: block;
     text-align: center;
     color: #ffedbc;
-    font-size: 70px;
-}
-
-@media (max-width: 1000px) {
-    .weatherItemCity {
-        font-size: 50px;
-    }
-}
-
-@media (max-width: 600px) {
-    .weatherItemCity {
-        font-size: 30px;
-    }
 }
 
 .weatherItemIcon {

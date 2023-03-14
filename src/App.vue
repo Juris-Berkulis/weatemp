@@ -31,6 +31,22 @@ body {
   width: 100%;
 }
 
+h1 {
+  font-size: 70px;
+}
+
+@media (max-width: 1000px) {
+    h1 {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 30px;
+    }
+}
+
 #app {
   height: 100%;
   width: 100%;
