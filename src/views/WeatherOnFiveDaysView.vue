@@ -72,7 +72,14 @@ export default {
                 minHeight: chartHeight,
                 maxHeight: chartHeight,
             }
-        }
+        },
+        getPrecipitationProbability(precipitationProbability) {
+            if(!this.isValidData(precipitationProbability)) {
+                return 'н/д'
+            }
+
+            return (precipitationProbability * 100).toFixed(0)
+        },
     },
 }
 </script>
@@ -81,23 +88,36 @@ export default {
     <div class="weatherOnFiveDays" v-if="weatherOnFiveDays">
         <h1 class="weatherOnFiveDaysTitle">{{ weatherOnFiveDays.city.name }}</h1>
         <div class="weatherOnFiveDaysTable">
+            <div class="threeHours threeHoursTitle">
+                <div class="threeHoursChartWrapper" :style="getChartMaxHeight"></div>
+                <div class="threeHoursIndicator">Температура (°C):</div>
+                <div class="threeHoursIndicatorImg"></div>
+                <div class="threeHoursIndicator">Облачность (%):</div>
+                <div class="threeHoursIndicator">Вер. осадков (%):</div>
+                <div class="threeHoursIndicator">Влажность (%):</div>
+                <div class="threeHoursIndicator">Давление (мм рт.ст.):</div>
+                <div class="threeHoursIndicator">Напр. ветра:</div>
+                <div class="threeHoursIndicator">Скорость ветра (м/с):</div>
+                <div class="threeHoursIndicator">Порывы ветра (м/с):</div>
+                <div class="threeHoursIndicator">Видимость:</div>
+            </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
                 <div class="threeHours" v-for="threeHoursWeather in weatherOnFiveDays.list">
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                     </div>
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}°</div>
-                    <img :src="getIcon(threeHoursWeather.weather[0]).imgSrc" :alt="getIcon(threeHoursWeather.weather[0]).imgAlt">
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}%</div>
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.pop }}%</div>
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.humidity }}%</div>
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.pressure }}мм</div>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}</div>
+                    <img class="threeHoursIndicatorImg" :src="getIcon(threeHoursWeather.weather[0]).imgSrc" :alt="getIcon(threeHoursWeather.weather[0]).imgAlt">
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}</div>
+                    <div class="threeHoursIndicator">{{ getPrecipitationProbability(threeHoursWeather.pop) }}</div>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.humidity }}</div>
+                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.pressure }}</div>
                     <div class="threeHoursIndicator">
                         <span>{{ getWindDirection(threeHoursWeather.wind.deg, true) }}: </span>
                         <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&darr;</span>
                     </div>
-                    <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).speed) }}м/с</div>
-                    <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).gust) }}м/с</div>
+                    <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).speed) }}</div>
+                    <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).gust) }}</div>
                     <div class="threeHoursIndicator">{{ getVisibility(threeHoursWeather.visibility) }}</div>
                 </div>
             </div>
@@ -141,6 +161,14 @@ export default {
     background-color: rgba(220, 220, 220, 0.4);
 }
 
+.threeHoursTitle {
+    align-items: flex-start;
+}
+
+.threeHoursTitle:hover {
+    background-color: rgba(220, 220, 220, 0.3);
+}
+
 .threeHoursChartWrapper {
     width: 100%;
     display: flex;
@@ -167,6 +195,18 @@ export default {
 @media (max-width: 600px) {
     .threeHoursIndicator {
         font-size: 8px;
+    }
+}
+
+.threeHoursIndicatorImg {
+    width: 50px;
+    height: 50px;
+}
+
+@media (max-width: 600px) {
+    .threeHoursIndicatorImg {
+        width: 30px;
+        height: 50px;
     }
 }
 
