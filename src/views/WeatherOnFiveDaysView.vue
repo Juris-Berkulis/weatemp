@@ -1,5 +1,6 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import {getWindDirectionFunc} from '@/helper/helperWeather.js';
 
 export default {
     computed: {
@@ -51,34 +52,8 @@ export default {
 
             return {speed, gust}
         },
-        getWindDirection(degry) {
-            if(!this.isValidData(degry)) {
-                return 'н/д'
-            }
-
-            let direction;
-
-            if (degry >= 337.5 || degry < 22.5) {
-                direction = 'С'; 
-            } else if (degry < 67.5) {
-                direction = 'СВ';
-            } else if (degry < 112.5) {
-                direction = 'В';
-            } else if (degry < 157.5) {
-                direction = 'ЮВ';
-            } else if (degry < 202.5) {
-                direction = 'Ю';
-            } else if (degry < 247.5) {
-                direction = 'ЮЗ';
-            } else if (degry < 292.5) {
-                direction = 'З';
-            } else if (degry < 337.5) {
-                direction = 'СЗ';
-            } else {
-                direction = '??';
-            }
-
-            return direction
+        getWindDirection(degry, isShort) {
+            return getWindDirectionFunc(degry, isShort)
         },
     },
 }
@@ -96,7 +71,7 @@ export default {
                 <div class="eachDayIndicator">{{ dayWeather.pop }}%</div>
                 <div class="eachDayIndicator">{{ dayWeather.main.humidity }}%</div>
                 <div class="eachDayIndicator">{{ dayWeather.main.pressure }}мм</div>
-                <div class="eachDayIndicator">{{ getWindDirection(dayWeather.wind.deg) }}</div>
+                <div class="eachDayIndicator">{{ getWindDirection(dayWeather.wind.deg, true) }}</div>
                 <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).speed) }}м/с</div>
                 <div class="eachDayIndicator">{{ (getWind(dayWeather.wind).gust) }}м/с</div>
                 <div class="eachDayIndicator">{{ getVisibility(dayWeather.visibility) }}км</div>
