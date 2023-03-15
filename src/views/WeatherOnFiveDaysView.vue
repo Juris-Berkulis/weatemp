@@ -97,13 +97,14 @@ export default {
             const localDayNumber = date.getUTCDate();
             const localHours = date.getUTCHours();
             const localMinutes = date.getUTCMinutes();
+            const localWeekDay = date.getUTCDay() + 1;
 
             const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}.${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
             const localTime = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
             const localDateInMidnight = localHours === 0 || localHours === 1 || localHours === 2 ? localDate : '';
             const localShortDateInMidnight = localDateInMidnight ? localDateInMidnight.split('.').slice(1).reverse().join('.') : localDateInMidnight;
 
-            return {localDate, localTime, localDateInMidnight, localShortDateInMidnight}
+            return {localDate, localTime, localDateInMidnight, localShortDateInMidnight, localWeekDay}
         },
     },
 }
@@ -198,6 +199,7 @@ export default {
 .threeHoursTitle {
     align-items: flex-start;
     height: 100%;
+    border-right: 2px solid #eeeeee;
 }
 
 .threeHoursTitle:hover {

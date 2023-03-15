@@ -14,13 +14,14 @@ export default {
     <div class="weatherItem" v-for="weatherInfoItem in weatherInfoList">
         <p>{{ weatherInfoItem.title }}</p>
         <p>
+            <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg) translateY(-20%)`,}" v-if="weatherInfoItem.isDirectionIcon">&darr;</span>
             <span>{{ weatherInfoItem.testimony }}</span>
             <span>{{ weatherInfoItem.units }}</span>
         </p>
     </div>
 </template>
 
-<style>
+<style scoped>
 .weatherItem {
     display: flex;
     flex-direction: column;
@@ -50,5 +51,29 @@ export default {
 
 .weatherItem:hover {
     background-color: rgba(220, 220, 220, 0.4);
+}
+
+.weatherItemIcon {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    font-size: 30px;
+}
+
+@media (max-width: 1000px) {
+    .weatherItemIcon {
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .weatherItemIcon {
+        height: 12px;
+        width: 12px;
+        font-size: 12px;
+    }
 }
 </style>

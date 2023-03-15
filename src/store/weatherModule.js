@@ -103,10 +103,10 @@ export const weatherModule = {
             const degry = state.weather.wind.deg;
             const direction = getWindDirectionFunc(degry, false);
 
-            const testimony = `${direction} (${degry}°)`;
+            const testimony = ` ${direction} (${degry}°)`;
 
             const units = '';
-            return {title, testimony, units}
+            return {title, testimony, units, isDirectionIcon: true, degry}
         },
         getWindSpeed(state) {
             const title = 'Скорость ветра';
