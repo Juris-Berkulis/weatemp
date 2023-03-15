@@ -6,10 +6,15 @@ export const weatherModule = {
     state: () => ({
         weather: null,
         weatherOnFiveDays: null,
+        currentAirPollutionData: null,
+        airPollutionDataForecast: null,
         cityName: '',
         apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
         units: 'metric',
         language: 'ru',
+        citiesCountLimit: 1,
+        coordLat: '',
+        coordLon: '',
     }),
     getters: {
         getUrl(state) {
@@ -17,6 +22,15 @@ export const weatherModule = {
         },
         getUrlForWeatherOnFiveDays(state) {
             return `https://api.openweathermap.org/data/2.5/forecast?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+        },
+        getUrlForCoordsByCityName(state) {
+            return `https://api.openweathermap.org/geo/1.0/direct?q=${state.cityName}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
+        },
+        getUrlForCurrentAirPollutionData(state) {
+            return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
+        },
+        getUrlForAirPollutionDataForecast(state) {
+            return `https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
         },
         getCloudsPercent(state) {
             const title = 'Облака';
@@ -152,13 +166,42 @@ export const weatherModule = {
             state.weatherOnFiveDays = weatherOnFiveDays;
             console.log(state.weatherOnFiveDays)
         },
+        setCurrentAirPollutionData(state, currentAirPollutionData) {
+            state.currentAirPollutionData = currentAirPollutionData;
+        },
+        setAirPollutionDataForecast(state, airPollutionDataForecast) {
+            state.airPollutionDataForecast = airPollutionDataForecast;
+        },
         setCityName(state, cityName) {
             state.cityName = cityName;
+        },
+        setCoordLat(state, coordLat) {
+            state.coordLat = coordLat;
+        },
+        setCoordLon(state, coordLon) {
+            state.coordLon = coordLon;
         },
     },
     actions: {
         async getWeather({state, commit, getters}) {
             try {
+                const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
+                if (cityCoords.status === 200 && cityCoords.data[0]?.name?.toLowerCase() === state.cityName?.toLowerCase()) {
+                    console.log(cityCoords.data[0])
+                    commit('setCoordLat', cityCoords.data[0].lat);
+                    commit('setCoordLon', cityCoords.data[0].lon);
+
+                    const currentAirPollutionData = await axios.get(getters.getUrlForCurrentAirPollutionData);
+                    commit('setCurrentAirPollutionData', currentAirPollutionData.data);
+                    console.log(state.currentAirPollutionData)
+
+                    const airPollutionDataForecast = await axios.get(getters.getUrlForAirPollutionDataForecast);
+                    commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
+                    console.log(state.airPollutionDataForecast)
+                } else {
+                    throw {code: 404, message: 'Город не найден!'}
+                }
+
                 const response = await axios.get(getters.getUrl);
 
                 commit('setWeatherInfo', response.data)
