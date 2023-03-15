@@ -164,7 +164,6 @@ export const weatherModule = {
         },
         setWeatherOnFiveDays(state, weatherOnFiveDays) {
             state.weatherOnFiveDays = weatherOnFiveDays;
-            console.log(state.weatherOnFiveDays)
         },
         setCurrentAirPollutionData(state, currentAirPollutionData) {
             state.currentAirPollutionData = currentAirPollutionData;
@@ -186,7 +185,7 @@ export const weatherModule = {
         async getWeather({state, commit, getters}) {
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
-                if (cityCoords.status === 200 && cityCoords.data[0]?.name?.toLowerCase() === state.cityName?.toLowerCase()) {
+                if (cityCoords.status === 200) {
                     console.log(cityCoords.data[0])
                     commit('setCoordLat', cityCoords.data[0].lat);
                     commit('setCoordLon', cityCoords.data[0].lon);
@@ -199,7 +198,7 @@ export const weatherModule = {
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
                     console.log(state.airPollutionDataForecast)
                 } else {
-                    throw {code: 404, message: 'Город не найден!'}
+                    throw {code: 404, message: 'Нет данных!'}
                 }
 
                 const response = await axios.get(getters.getUrl);
