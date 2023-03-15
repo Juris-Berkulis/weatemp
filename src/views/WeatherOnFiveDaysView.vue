@@ -7,6 +7,7 @@ export default {
         return {
             graphVerticalPaddings: 5,
             maximumDifferenceOfGraphValues: 95,
+            isShowWeekDay: false,
         }
     },
     computed: {
@@ -89,6 +90,18 @@ export default {
 
             return (precipitationProbability * 100).toFixed(0)
         },
+        setLocalWeegDayNumberToString(localWeekDayNumber, isShort=true) {
+            switch(localWeekDayNumber) {
+                case 1: return isShort ? 'Пн' : 'Понедельник'
+                case 2: return isShort ? 'Вт' : 'Вторник'
+                case 3: return isShort ? 'Ср' : 'Среда'
+                case 4: return isShort ? 'Чт' : 'Четверг'
+                case 5: return isShort ? 'Пт' : 'Пятница'
+                case 6: return isShort ? 'Сб' : 'Суббота'
+                case 0: return isShort ? 'Вс' : 'Воскресенье'
+                default: return '??'
+            }
+        },
         getDateAndTime(dt) {
             const timezone = this.weatherOnFiveDays.city.timezone;
             const date = new Date((dt + timezone) * 1000);
@@ -97,14 +110,16 @@ export default {
             const localDayNumber = date.getUTCDate();
             const localHours = date.getUTCHours();
             const localMinutes = date.getUTCMinutes();
-            const localWeekDay = date.getUTCDay() + 1;
+            const localWeekDayNumber = date.getUTCDay();
 
             const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}.${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
             const localTime = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
             const localDateInMidnight = localHours === 0 || localHours === 1 || localHours === 2 ? localDate : '';
             const localShortDateInMidnight = localDateInMidnight ? localDateInMidnight.split('.').slice(1).reverse().join('.') : localDateInMidnight;
+            const localShortWeekDayInMidnight = localDateInMidnight ? this.setLocalWeegDayNumberToString(localWeekDayNumber, true) : '';
+            const localLongWeekDayInMidnight = localDateInMidnight ? this.setLocalWeegDayNumberToString(localWeekDayNumber, false) : '';
 
-            return {localDate, localTime, localDateInMidnight, localShortDateInMidnight, localWeekDay}
+            return {localDate, localTime, localDateInMidnight, localShortDateInMidnight, localShortWeekDayInMidnight, localLongWeekDayInMidnight}
         },
     },
 }
@@ -135,7 +150,7 @@ export default {
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
                 <div :class="['threeHours', {threeHoursNewDay: getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather in weatherOnFiveDays.list">
-                    <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
+                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click="isShowWeekDay = !isShowWeekDay">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                         <div class="threeHoursChartZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine"></div>
@@ -275,6 +290,10 @@ export default {
     .threeHoursIndicator {
         font-size: 8px;
     }
+}
+
+.threeHoursIndicatorWithClick {
+    cursor: pointer;
 }
 
 .threeHoursIndicatorImg {
