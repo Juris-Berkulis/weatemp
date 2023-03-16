@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import AirPollutionDataCurrentEl from '../components/AirPollutionDataCurrentEl.vue';
+import { airPollutionCategoryForDifferentSubstance } from '../helper/helperAirPollution';
 
 export default {
     computed: {
@@ -15,54 +16,63 @@ export default {
                     shortName: "",
                     description: "",
                     value: this.currentAirPollutionDataNow.main.aqi,
+                    airPollutionCategory: this.currentAirPollutionDataNow.main.aqi,
                 },
                 co: {
                     name: "Угарный газ",
                     shortName: "CO",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.co,
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForCO(this.currentAirPollutionDataNow.components.co),
                 },
                 nh3: {
                     name: "Аммиак",
                     shortName: "NH3",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.nh3,
+                    airPollutionCategory: null,
                 },
                 no: {
                     name: "Монооксид азота",
                     shortName: "NO",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.no,
+                    airPollutionCategory: null,
                 },
                 no2: {
                     name: "Диоксид азота",
                     shortName: "NO2",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.no2,
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForNO2(this.currentAirPollutionDataNow.components.no2),
                 },
                 o3: {
                     name: "Озон",
                     shortName: "O3",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.o3,
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForO3(this.currentAirPollutionDataNow.components.o3),
                 },
                 so2: {
                     name: "Сернистый газ",
                     shortName: "SO2",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.so2,
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForSO2(this.currentAirPollutionDataNow.components.so2),
                 },
                 pm2_5: {
                     name: "Мелкодисперсные частицы",
                     shortName: "PM2.5",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.pm2_5,
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM2_5(this.currentAirPollutionDataNow.components.mp2_5),
                 },
                 pm10: {
                     name: "Крупнодисперсные частицы",
                     shortName: "PM10",
                     description: "",
                     value: this.currentAirPollutionDataNow.components.pm10,
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM10(this.currentAirPollutionDataNow.components.mp10),
                 },
             }
         },
