@@ -24,7 +24,11 @@ export default {
     <div class="element">
         <p class="elementInfo" v-if="element.name">{{ element.name }}</p>
         <p class="elementInfo" v-if="element.shortName"><slot name="chemicalFormula"></slot></p>
-        <p class="elementInfo elementInfoBig">{{ !isNaN(element.value) ? element.value : 'н/д' }} <slot name="units" v-if="!isNaN(element.value)"></slot></p>
+        <p class="elementInfo elementInfoBig">
+            <span>{{ !isNaN(element.value) ? element.value : 'н/д' }}</span>
+            <span v-if="element.airPollutionCategoryDescription"> ({{ element.airPollutionCategoryDescription }})</span>
+            <slot name="units" v-if="!isNaN(element.value)"></slot>
+        </p>
         <div class="elementInfo elementInfoLine" :style="{backgroundColor: element.airPollutionCategory && !isNaN(element.value) ? colorForElementCategory[element.airPollutionCategory] : colorForElementCategory.default}"></div>
     </div>
 </template>

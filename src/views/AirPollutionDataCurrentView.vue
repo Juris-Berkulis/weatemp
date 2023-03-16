@@ -4,6 +4,18 @@ import AirPollutionDataCurrentEl from '../components/AirPollutionDataCurrentEl.v
 import { airPollutionCategoryForDifferentSubstance } from '../helper/helperAirPollution';
 
 export default {
+    methods: {
+        aqiCategoryDescription(category) {
+            switch(category) {
+                case 1: return 'Отличный'
+                case 2: return 'Средний'
+                case 3: return 'Плохой'
+                case 4: return 'Вредный'
+                case 5: return 'Опасный'
+                default: return ''
+            }
+        },
+    },
     computed: {
         ...mapState({
             currentAirPollutionDataNow: (state) => state.weatherModule.currentAirPollutionData?.list[0],
@@ -17,62 +29,63 @@ export default {
                     description: "",
                     value: this.currentAirPollutionDataNow.main.aqi,
                     airPollutionCategory: this.currentAirPollutionDataNow.main.aqi,
+                    airPollutionCategoryDescription: this.aqiCategoryDescription(this.currentAirPollutionDataNow.main.aqi),
                 },
                 co: {
                     name: "Угарный газ",
                     shortName: "CO",
-                    description: "",
+                    description: "Угарный газ представляет собой газ без цвета и запаха, при его вдыхании в больших количествах могут возникать головные боли, тошнота, головокружение и рвота. Многократное длительное воздействие может вызывать сердечные заболевания",
                     value: this.currentAirPollutionDataNow.components.co,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForCO(this.currentAirPollutionDataNow.components.co),
                 },
                 nh3: {
                     name: "Аммиак",
                     shortName: "NH3",
-                    description: "",
+                    description: "Аммиак — бесцветный газ с резким запахом. В малой концентрации вызывает жжение в глазах и слезоточивость, при увеличении дозы – химический ожог роговицы и даже слепоту. При вдыхании появляются першение в горле, затрудненное дыхания и кашель. Далее последуют головокружения, тошнота, мучительные мигрени, катар дыхательных путей. Помимо этого, аммиак оказывает нервно-паралитическое действие в виде изменений в поведении и бреда, а также делает гиперчувствительными органы слуха: возможны глухота или судороги и сильные боли в ушах.",
                     value: this.currentAirPollutionDataNow.components.nh3,
                     airPollutionCategory: null,
                 },
                 no: {
                     name: "Монооксид азота",
                     shortName: "NO",
-                    description: "",
+                    description: "Оксид азота - ядовитый бесцветный газ с удушающим действием, достаточно быстро окисляющийся до диоксида азота.",
                     value: this.currentAirPollutionDataNow.components.no,
                     airPollutionCategory: null,
                 },
                 no2: {
                     name: "Диоксид азота",
                     shortName: "NO2",
-                    description: "",
+                    description: "Вдыхание большого количества двуокиси азота повышает риск возникновения респираторных заболеваний. Чаще всего возникает кашель, затрудненное дыхание, а при более продолжительном воздействии появляются более серьезные проблемы, такие как респираторные инфекции.",
                     value: this.currentAirPollutionDataNow.components.no2,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForNO2(this.currentAirPollutionDataNow.components.no2),
                 },
                 o3: {
                     name: "Озон",
                     shortName: "O3",
-                    description: "",
+                    description: "Приземный слой озона может приводить к обострениям существующих респираторных заболеваний, а также вызывать раздражение кожи, головные боли и боль в груди.",
                     value: this.currentAirPollutionDataNow.components.o3,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForO3(this.currentAirPollutionDataNow.components.o3),
                 },
                 so2: {
                     name: "Сернистый газ",
                     shortName: "SO2",
-                    description: "",
+                    description: "Воздействие диоксида серы может приводить к раздражению горла и глаз, обострению астмы и развитию хронического бронхита.",
                     value: this.currentAirPollutionDataNow.components.so2,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForSO2(this.currentAirPollutionDataNow.components.so2),
                 },
                 pm2_5: {
                     name: "Мелкодисперсные частицы",
                     shortName: "PM2.5",
-                    description: "",
+                    description: "Мелкие частицы представляют собой вдыхаемые с воздухом частицы загрязняющих веществ диаметром менее 2,5 микрометров, которые могут попадать в легкие и кровеносную систему и проводить к серьезным проблемам со здоровьем. Наиболее серьезное воздействие оказывается на сердце и легкие Воздействие таких частиц может вызывать кашель, затрудненное дыхание, обострение астмы, а также приводить к развитию хронических респираторных заболеваний.",
                     value: this.currentAirPollutionDataNow.components.pm2_5,
-                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM2_5(this.currentAirPollutionDataNow.components.mp2_5),
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM2_5(this.currentAirPollutionDataNow.components.pm2_5),
                 },
                 pm10: {
                     name: "Крупнодисперсные частицы",
                     shortName: "PM10",
-                    description: "",
+                    description: "Взвешенные частицы представляют собой вдыхаемые с воздухом частицы загрязняющих веществ диаметром менее 10 микрометров. Частицы размером более 2,5 микрометров могут оседать в дыхательных путях и приводить к проблемам со здоровьем. Воздействие таких частиц может вызывать раздражение глаз и горла, кашель, затруднять дыхание или приводить к обострению астмы. Более частное и продолжительное воздействие может приводить к более серьезным последствиям для здоровья.",
                     value: this.currentAirPollutionDataNow.components.pm10,
-                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM10(this.currentAirPollutionDataNow.components.mp10),
+                    airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM10(this.currentAirPollutionDataNow.components.pm10),
                 },
             }
         },
@@ -90,35 +103,35 @@ export default {
                 <div class="airPollutionNowElementCards">
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.co">
                         <template v-slot:chemicalFormula>CO</template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.nh3">
                         <template v-slot:chemicalFormula>NH<span class="index">3</span></template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no">
                         <template v-slot:chemicalFormula>NO</template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no2">
                         <template v-slot:chemicalFormula>NO<span class="index">2</span></template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.o3">
                         <template v-slot:chemicalFormula>O<span class="index">3</span></template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.so2">
                         <template v-slot:chemicalFormula>SO<span class="index">2</span></template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm2_5">
                         <template v-slot:chemicalFormula>PM<span class="index">2.5</span></template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                     <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm10">
                         <template v-slot:chemicalFormula>PM<span class="index">10</span></template>
-                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                        <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
                 </div>
             </div>
@@ -163,7 +176,7 @@ export default {
 }
 
 .airPollutionNow {
-    font-size: 25px;
+    font-size: 24px;
 }
 
 @media (max-width: 1000px) {
