@@ -14,7 +14,7 @@ export default {
                 <RouterLink to="/weather_on_five_days">На 5 дней</RouterLink>
             </div>
             <div class="navBtn">
-                <RouterLink to="/air_pollution_data">Загрязнение</RouterLink>
+                <RouterLink to="/air_pollution_now">Загрязнение</RouterLink>
             </div>
         </div>
     </div>

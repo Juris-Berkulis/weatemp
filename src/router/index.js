@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/WeatherOnFiveDaysView.vue') //* Route level code-splitting this generates a separate chunk (About.[hash].js) for this route which is lazy-loaded when the route is visited.
     },
     {
+      path: '/air_pollution_now',
+      name: 'airPollutionNow',
+      component: () => import('../views/AirPollutionDataCurrentView.vue') //* Route level code-splitting this generates a separate chunk (About.[hash].js) for this route which is lazy-loaded when the route is visited.
+    },
+    {
       path: '/air_pollution_data',
       name: 'airPollutionData',
       component: () => import('../views/AirPollutionDataView.vue') //* Route level code-splitting this generates a separate chunk (About.[hash].js) for this route which is lazy-loaded when the route is visited.

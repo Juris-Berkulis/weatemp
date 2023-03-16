@@ -17,10 +17,10 @@ export default {
 <template>
     <div class="airPollution" v-if="currentAirPollutionData && airPollutionDataForecast">
         <h1 class="airPollutionTitle">{{ cityName }}</h1>
+        <div class="airPollutionTablePart">
+            <AirPollutionDataListItem v-bind:airPollutionData="false"></AirPollutionDataListItem>
+        </div>
         <div class="airPollutionTable">
-            <div class="airPollutionTablePart">
-                <AirPollutionDataListItem v-bind:airPollutionData="false"></AirPollutionDataListItem>
-            </div>
             <div class="airPollutionTablePart">
                 <AirPollutionDataListItem v-bind:airPollutionData="this.currentAirPollutionData.list"></AirPollutionDataListItem>
             </div>
@@ -33,6 +33,9 @@ export default {
 
 <style scoped>
 .airPollution {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     color: #ffedbc;
 }
 
@@ -40,16 +43,9 @@ export default {
     text-align: center;
 }
 
-.airPollution {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
 .airPollutionTable {
     height: 100%;
     overflow: auto;
-    background-color: rgba(220, 220, 220, 0.3);
     font-size: 20px;
 }
 
@@ -63,5 +59,9 @@ export default {
     .airPollutionTable {
         font-size: 8px;
     }
+}
+
+.airPollutionTablePart {
+    background-color: rgba(220, 220, 220, 0.3);
 }
 </style>
