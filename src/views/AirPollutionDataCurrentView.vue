@@ -88,17 +88,42 @@ export default {
             <div class="airPollutionNow">
                 <AirPollutionDataCurrentEl class="airPollutionNowElement airPollutionNowElementMain" v-bind:element="elementsDescription.aqi"></AirPollutionDataCurrentEl>
                 <div class="airPollutionNowElementCards">
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.co">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.nh3">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no2">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.o3">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.so2">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm2_5">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm10">мкг/м<span class="degree">3</span></AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.co">
+                        <template v-slot:chemicalFormula>CO</template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.nh3">
+                        <template v-slot:chemicalFormula>NH<span class="index">3</span></template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no">
+                        <template v-slot:chemicalFormula>NO</template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no2">
+                        <template v-slot:chemicalFormula>NO<span class="index">2</span></template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.o3">
+                        <template v-slot:chemicalFormula>O<span class="index">3</span></template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.so2">
+                        <template v-slot:chemicalFormula>SO<span class="index">2</span></template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm2_5">
+                        <template v-slot:chemicalFormula>PM<span class="index">2.5</span></template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm10">
+                        <template v-slot:chemicalFormula>PM<span class="index">10</span></template>
+                        <template v-slot:units>мкг/м<span class="degree">3</span></template>
+                    </AirPollutionDataCurrentEl>
                 </div>
             </div>
             <div class="airPollutionNowMore">
+                <p>NH<span class="index">3</span> и NO не влияют на расчет ИКВ.</p>
                 <RouterLink to="/air_pollution_data">Прогноз данных о загрязнении воздуха &#8594;</RouterLink>
             </div>
         </div>
@@ -190,8 +215,24 @@ export default {
     font-size: 0.6em;
 }
 
+.index {
+    vertical-align: sub;
+    font-size: 0.6em;
+}
+
 .airPollutionNowMore {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin: 10px 0;
     text-align: end;
+}
+
+@media (max-width: 600px) {
+    .airPollutionNowMore {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
 }
 </style>
