@@ -42,9 +42,9 @@ export default {
         <div class="airPollutionEachDateElementTitle">NO</div>
         <div class="airPollutionEachDateElementTitle">NO2</div>
         <div class="airPollutionEachDateElementTitle">O3</div>
+        <div class="airPollutionEachDateElementTitle">SO2</div>
         <div class="airPollutionEachDateElementTitle">PM2.5</div>
         <div class="airPollutionEachDateElementTitle">PM10</div>
-        <div class="airPollutionEachDateElementTitle">SO2</div>
     </div>
     <div v-else>
         <div v-for="airPollutionDataEachDate, index in airPollutionData">
@@ -56,9 +56,9 @@ export default {
                 <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.no }}</div>
                 <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.no2 }}</div>
                 <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.o3 }}</div>
+                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.so2 }}</div>
                 <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.pm2_5 }}</div>
                 <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.pm10 }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.so2 }}</div>
             </div>
         </div>
     </div>

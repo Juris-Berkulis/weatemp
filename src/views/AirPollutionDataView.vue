@@ -63,5 +63,6 @@ export default {
 
 .airPollutionTablePart {
     background-color: rgba(220, 220, 220, 0.3);
+    cursor: default;
 }
 </style>
