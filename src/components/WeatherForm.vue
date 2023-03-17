@@ -16,8 +16,16 @@ export default {
             getCityNameFromFormInput: 'weatherModule/getCityNameFromFormInput',
         }),
         getWeatherData() {
-            this.getCityNameFromFormInput(this.cityNameInFormInput);
-            this.getWeather();
+            try {
+                if (this.cityNameInFormInput) {
+                    this.getCityNameFromFormInput(this.cityNameInFormInput);
+                    this.getWeather();
+                } else {
+                    throw {message: 'Введите название города!'}
+                }
+            } catch(error) {
+                alert(error.message);
+            }
         },
     },
 }
