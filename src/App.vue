@@ -31,6 +31,22 @@ body {
   width: 100%;
 }
 
+a {
+    color: darkblue;
+    text-decoration: none;
+    border-bottom: 1px dashed darkblue;
+}
+
+a:hover {
+    color: darkblue;
+    border-bottom: 1px dashed transparent;
+}
+
+a:active {
+    color: slateblue;
+    border-bottom: 1px dashed transparent;
+}
+
 h1 {
   font-size: 70px;
 }

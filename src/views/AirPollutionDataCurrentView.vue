@@ -62,14 +62,14 @@ export default {
                 no: {
                     name: "Монооксид азота",
                     shortName: "NO",
-                    description: "Оксид азота - ядовитый бесцветный газ с удушающим действием, достаточно быстро окисляющийся до диоксида азота.",
+                    description: "Монооксид азота - ядовитый бесцветный газ с удушающим действием, достаточно быстро окисляющийся до диоксида азота.",
                     value: this.currentAirPollutionDataNow.components.no,
                     airPollutionCategory: null,
                 },
                 no2: {
                     name: "Диоксид азота",
                     shortName: "NO2",
-                    description: "Вдыхание большого количества двуокиси азота повышает риск возникновения респираторных заболеваний. Чаще всего возникает кашель, затрудненное дыхание, а при более продолжительном воздействии появляются более серьезные проблемы, такие как респираторные инфекции.",
+                    description: "Вдыхание большого количества диоксида азота повышает риск возникновения респираторных заболеваний. Чаще всего возникает кашель, затрудненное дыхание, а при более продолжительном воздействии появляются более серьезные проблемы, такие как респираторные инфекции.",
                     value: this.currentAirPollutionDataNow.components.no2,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForNO2(this.currentAirPollutionDataNow.components.no2),
                 },
@@ -83,21 +83,21 @@ export default {
                 so2: {
                     name: "Сернистый газ",
                     shortName: "SO2",
-                    description: "Воздействие диоксида серы может приводить к раздражению горла и глаз, обострению астмы и развитию хронического бронхита.",
+                    description: "Воздействие сернистого газа может приводить к раздражению горла и глаз, обострению астмы и развитию хронического бронхита.",
                     value: this.currentAirPollutionDataNow.components.so2,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForSO2(this.currentAirPollutionDataNow.components.so2),
                 },
                 pm2_5: {
                     name: "Мелкодисперсные частицы",
                     shortName: "PM2.5",
-                    description: "Мелкие частицы представляют собой вдыхаемые с воздухом частицы загрязняющих веществ диаметром менее 2,5 микрометров, которые могут попадать в легкие и кровеносную систему и проводить к серьезным проблемам со здоровьем. Наиболее серьезное воздействие оказывается на сердце и легкие Воздействие таких частиц может вызывать кашель, затрудненное дыхание, обострение астмы, а также приводить к развитию хронических респираторных заболеваний.",
+                    description: "Мелкие частицы представляют собой вдыхаемые с воздухом частицы загрязняющих веществ диаметром менее 2,5 микрометров, которые могут попадать в легкие и кровеносную систему и приводить к серьезным проблемам со здоровьем. Наиболее серьезное воздействие оказывается на сердце и легкие. Воздействие таких частиц может вызывать кашель, затрудненное дыхание, обострение астмы, а также приводить к развитию хронических респираторных заболеваний.",
                     value: this.currentAirPollutionDataNow.components.pm2_5,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM2_5(this.currentAirPollutionDataNow.components.pm2_5),
                 },
                 pm10: {
                     name: "Крупнодисперсные частицы",
                     shortName: "PM10",
-                    description: "Взвешенные частицы представляют собой вдыхаемые с воздухом частицы загрязняющих веществ диаметром менее 10 микрометров. Частицы размером более 2,5 микрометров могут оседать в дыхательных путях и приводить к проблемам со здоровьем. Воздействие таких частиц может вызывать раздражение глаз и горла, кашель, затруднять дыхание или приводить к обострению астмы. Более частное и продолжительное воздействие может приводить к более серьезным последствиям для здоровья.",
+                    description: "Взвешенные частицы представляют собой вдыхаемые с воздухом частицы загрязняющих веществ диаметром менее 10 микрометров. Частицы размером более 2,5 микрометров могут оседать в дыхательных путях и приводить к проблемам со здоровьем. Воздействие таких частиц может вызывать раздражение глаз и горла, кашель, затруднять дыхание или приводить к обострению астмы. Более частое и продолжительное воздействие может приводить к более серьезным последствиям для здоровья.",
                     value: this.currentAirPollutionDataNow.components.pm10,
                     airPollutionCategory: airPollutionCategoryForDifferentSubstance().airPollutionCategoryForPM10(this.currentAirPollutionDataNow.components.pm10),
                 },
@@ -154,9 +154,11 @@ export default {
                 <RouterLink to="/air_pollution_data">Прогноз данных о загрязнении воздуха &#8594;</RouterLink>
             </div>
             <div class="airPollutionNowElementsDescriptionsTable">
-                <p class="airPollutionNowElementsDescriptionsTitle" @click="isShowTableWithDescriptionPollutant = !isShowTableWithDescriptionPollutant">
-                    <span v-if="isShowTableWithDescriptionPollutant">Скрыть описание</span>
-                    <span v-else>Подробнее о загрязняющих веществах</span>
+                <p class="airPollutionNowElementsDescriptionsTitle">
+                    <span class="airPollutionNowElementsDescriptionsTitleText" @click="isShowTableWithDescriptionPollutant = !isShowTableWithDescriptionPollutant">
+                        <span v-if="isShowTableWithDescriptionPollutant">Скрыть описание</span>
+                        <span v-else>Подробнее о загрязняющих веществах</span>
+                    </span>
                 </p>
                 <div v-if="isShowTableWithDescriptionPollutant">
                     <AirPollutantDescription v-bind:element="elementsDescription.co" v-bind:colorForElementCategory="colorForElementCategory">
@@ -240,7 +242,6 @@ export default {
     width: 25%;
     background-color: rgba(220, 220, 220, 0.3);
     border: 1px solid #eeeeee;
-    cursor: pointer;
 }
 
 .airPollutionNowElement:hover {
@@ -299,6 +300,14 @@ export default {
     text-align: center;
     margin: 15px 0 10px;
     font-size: 1.2em;
+}
+
+.airPollutionNowElementsDescriptionsTitleText {
+    border-bottom: 1px dashed #ffedbc;
     cursor: pointer;
+}
+
+.airPollutionNowElementsDescriptionsTitleText:hover {
+    border-bottom: 1px dashed transparent;
 }
 </style>
