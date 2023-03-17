@@ -7,7 +7,7 @@ export default {
         ...mapState({
             currentAirPollutionData: (state) => state.weatherModule.currentAirPollutionData,
             airPollutionDataForecast: (state) => state.weatherModule.airPollutionDataForecast,
-            cityName: (state) => state.weatherModule.weather.name,
+            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
         }),
     },
     components: { AirPollutionDataListItem }
@@ -16,7 +16,7 @@ export default {
 
 <template>
     <div class="airPollution" v-if="currentAirPollutionData && airPollutionDataForecast">
-        <h1 class="airPollutionTitle">{{ cityName }}</h1>
+        <h1 class="airPollutionTitle">{{ cityNameInTitle }}</h1>
         <div class="airPollutionTablePart">
             <AirPollutionDataListItem v-bind:airPollutionData="false"></AirPollutionDataListItem>
         </div>

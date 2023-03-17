@@ -33,7 +33,7 @@ export default {
     computed: {
         ...mapState({
             currentAirPollutionDataNow: (state) => state.weatherModule.currentAirPollutionData?.list[0],
-            cityName: (state) => state.weatherModule.weather.name,
+            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
         }),
         elementsDescription() {
             return {
@@ -110,7 +110,7 @@ export default {
 
 <template>
     <div class="airPollutionNowView" v-if="currentAirPollutionDataNow">
-        <h1 class="airPollutionNowTitle">{{ cityName }}</h1>
+        <h1 class="airPollutionNowTitle">{{ cityNameInTitle }}</h1>
         <div class="airPollutionScroll">
             <div class="airPollutionNow">
                 <AirPollutionDataCurrentEl class="airPollutionNowElement airPollutionNowElementMain" v-bind:element="elementsDescription.aqi" v-bind:colorForElementCategory="colorForElementCategory"></AirPollutionDataCurrentEl>

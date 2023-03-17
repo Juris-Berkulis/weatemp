@@ -9,6 +9,7 @@ export default {
     computed: {
         ...mapState({
             weather: (state) => state.weatherModule.weather,
+            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
         }),
         ...mapGetters({
             getIcon: 'weatherModule/getIcon',
@@ -20,7 +21,7 @@ export default {
 <template>
     <div class="weatherInfo" v-if="weather">
         <div class="weatherPageTitle">
-            <h1 class="weatherItemCity">{{ weather.name }}</h1>
+            <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
             <img class="weatherItemIcon" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
         </div>
         <div class="weatherList" v-if="weather">

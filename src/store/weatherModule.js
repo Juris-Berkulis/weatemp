@@ -15,16 +15,23 @@ export const weatherModule = {
         citiesCountLimit: 1,
         coordLat: '',
         coordLon: '',
+        cityNameInTitle: '',
     }),
     getters: {
-        getUrl(state) {
+        getUrlForWeatherCurrentByCityName(state) {
             return `https://api.openweathermap.org/data/2.5/weather?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
-        getUrlForWeatherOnFiveDays(state) {
+        getUrlForWeatherOnFiveDaysByCityName(state) {
             return `https://api.openweathermap.org/data/2.5/forecast?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getUrlForCoordsByCityName(state) {
             return `https://api.openweathermap.org/geo/1.0/direct?q=${state.cityName}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
+        },
+        getUrlForWeatherCurrentByCoords(state) {
+            return `https://api.openweathermap.org/data/2.5/weather?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+        },
+        getUrlForWeatherOnFiveDaysByCoords(state) {
+            return `https://api.openweathermap.org/data/2.5/forecast?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getUrlForCurrentAirPollutionData(state) {
             return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
@@ -180,6 +187,9 @@ export const weatherModule = {
         setCoordLon(state, coordLon) {
             state.coordLon = coordLon;
         },
+        setCityNameInTitle(state, cityNameInTitle) {
+            state.cityNameInTitle = cityNameInTitle;
+        },
     },
     actions: {
         async getWeather({state, commit, getters}) {
@@ -189,6 +199,14 @@ export const weatherModule = {
                     console.log(cityCoords.data[0])
                     commit('setCoordLat', cityCoords.data[0].lat);
                     commit('setCoordLon', cityCoords.data[0].lon);
+
+                    commit('setCityNameInTitle', cityCoords.data[0].local_names[state.language] || cityCoords.data[0].local_names['en'] || state.cityName);
+
+                    const resWeatherCurrent = await axios.get(getters.getUrlForWeatherCurrentByCoords);
+                    commit('setWeatherInfo', resWeatherCurrent.data)
+    
+                    const resWeatherOnFiveDays = await axios.get(getters.getUrlForWeatherOnFiveDaysByCoords);
+                    commit('setWeatherOnFiveDays', resWeatherOnFiveDays.data);
 
                     const currentAirPollutionData = await axios.get(getters.getUrlForCurrentAirPollutionData);
                     commit('setCurrentAirPollutionData', currentAirPollutionData.data);
@@ -200,14 +218,6 @@ export const weatherModule = {
                 } else {
                     throw {code: 404, message: 'Нет данных!'}
                 }
-
-                const response = await axios.get(getters.getUrl);
-
-                commit('setWeatherInfo', response.data)
-
-                const resWeatherOnFiveDays = await axios.get(getters.getUrlForWeatherOnFiveDays);
-
-                commit('setWeatherOnFiveDays', resWeatherOnFiveDays.data);
 
                 commit('setCityName', '');
             } catch(error) {
