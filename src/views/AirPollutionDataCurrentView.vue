@@ -1,5 +1,6 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import AirPollutantDescription from '../components/AirPollutantDescription.vue';
 import AirPollutionDataCurrentEl from '../components/AirPollutionDataCurrentEl.vue';
 import { airPollutionCategoryForDifferentSubstance } from '../helper/helperAirPollution';
 
@@ -90,7 +91,7 @@ export default {
             }
         },
     },
-    components: { AirPollutionDataCurrentEl }
+    components: { AirPollutionDataCurrentEl, AirPollutantDescription }
 }
 </script>
 
@@ -138,6 +139,33 @@ export default {
             <div class="airPollutionNowMore">
                 <p>NH<span class="index">3</span> и NO не влияют на расчет ИКВ.</p>
                 <RouterLink to="/air_pollution_data">Прогноз данных о загрязнении воздуха &#8594;</RouterLink>
+            </div>
+            <div>
+                <h2 class="airPollutionNowElementsDescriptionsTitle">Описание загрязняющих веществ</h2>
+                <AirPollutantDescription v-bind:element="elementsDescription.co">
+                    <template v-slot:chemicalFormula>CO</template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.nh3">
+                    <template v-slot:chemicalFormula>NH<span class="index">3</span></template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.no">
+                    <template v-slot:chemicalFormula>NO</template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.no2">
+                    <template v-slot:chemicalFormula>NO<span class="index">2</span></template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.o3">
+                    <template v-slot:chemicalFormula>O<span class="index">3</span></template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.so2">
+                    <template v-slot:chemicalFormula>SO<span class="index">2</span></template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.pm2_5">
+                    <template v-slot:chemicalFormula>PM<span class="index">2.5</span></template>
+                </AirPollutantDescription>
+                <AirPollutantDescription v-bind:element="elementsDescription.pm10">
+                    <template v-slot:chemicalFormula>PM<span class="index">10</span></template>
+                </AirPollutantDescription>
             </div>
         </div>
     </div>
@@ -247,5 +275,11 @@ export default {
         justify-content: flex-start;
         align-items: flex-end;
     }
+}
+
+.airPollutionNowElementsDescriptionsTitle {
+    text-align: center;
+    margin: 15px 0 10px;
+    font-size: 1.5em;
 }
 </style>
