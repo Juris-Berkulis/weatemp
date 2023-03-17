@@ -2,6 +2,11 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
+    computed: {
+        ...mapState({
+            cityName: (state) => state.weatherModule.cityName,
+        }),
+    },
     methods: {
         ...mapActions({
             getWeather: 'weatherModule/getWeather',
@@ -10,7 +15,10 @@ export default {
     },
     mounted() {
         this.getCityNameFromLocalStorage();
-        this.getWeather();
+
+        if (this.cityName) {
+            this.getWeather();
+        }
     },
 }
 </script>
