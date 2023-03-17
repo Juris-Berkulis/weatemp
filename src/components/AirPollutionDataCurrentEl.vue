@@ -4,18 +4,9 @@ export default {
         element: {
             type: Object,
         },
-    },
-    data() {
-        return {
-            colorForElementCategory: {
-                1: 'green',
-                2: 'yellow',
-                3: 'orange',
-                4: 'red',
-                5: 'brown',
-                default: 'transparent'
-            },
-        }
+        colorForElementCategory: {
+            type: Object,
+        },
     },
 }
 </script>

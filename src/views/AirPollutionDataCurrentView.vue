@@ -5,6 +5,19 @@ import AirPollutionDataCurrentEl from '../components/AirPollutionDataCurrentEl.v
 import { airPollutionCategoryForDifferentSubstance } from '../helper/helperAirPollution';
 
 export default {
+    data() {
+        return {
+            isShowTableWithDescriptionPollutant: false,
+            colorForElementCategory: {
+                1: 'green',
+                2: 'yellow',
+                3: 'orange',
+                4: 'red',
+                5: 'brown',
+                default: 'transparent'
+            },
+        }
+    },
     methods: {
         aqiCategoryDescription(category) {
             switch(category) {
@@ -100,37 +113,37 @@ export default {
         <h1 class="airPollutionNowTitle">{{ cityName }}</h1>
         <div class="airPollutionScroll">
             <div class="airPollutionNow">
-                <AirPollutionDataCurrentEl class="airPollutionNowElement airPollutionNowElementMain" v-bind:element="elementsDescription.aqi"></AirPollutionDataCurrentEl>
+                <AirPollutionDataCurrentEl class="airPollutionNowElement airPollutionNowElementMain" v-bind:element="elementsDescription.aqi" v-bind:colorForElementCategory="colorForElementCategory"></AirPollutionDataCurrentEl>
                 <div class="airPollutionNowElementCards">
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.co">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.co" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>CO</template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.nh3">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.nh3" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>NH<span class="index">3</span></template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>NO</template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no2">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.no2" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>NO<span class="index">2</span></template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.o3">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.o3" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>O<span class="index">3</span></template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.so2">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.so2" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>SO<span class="index">2</span></template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm2_5">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm2_5" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>PM<span class="index">2.5</span></template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
-                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm10">
+                    <AirPollutionDataCurrentEl class="airPollutionNowElement" v-bind:element="elementsDescription.pm10" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>PM<span class="index">10</span></template>
                         <template v-slot:units> мкг/м<span class="degree">3</span></template>
                     </AirPollutionDataCurrentEl>
@@ -140,32 +153,37 @@ export default {
                 <p>NH<span class="index">3</span> и NO не влияют на расчет ИКВ.</p>
                 <RouterLink to="/air_pollution_data">Прогноз данных о загрязнении воздуха &#8594;</RouterLink>
             </div>
-            <div>
-                <h2 class="airPollutionNowElementsDescriptionsTitle">Описание загрязняющих веществ</h2>
-                <AirPollutantDescription v-bind:element="elementsDescription.co">
-                    <template v-slot:chemicalFormula>CO</template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.nh3">
-                    <template v-slot:chemicalFormula>NH<span class="index">3</span></template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.no">
-                    <template v-slot:chemicalFormula>NO</template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.no2">
-                    <template v-slot:chemicalFormula>NO<span class="index">2</span></template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.o3">
-                    <template v-slot:chemicalFormula>O<span class="index">3</span></template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.so2">
-                    <template v-slot:chemicalFormula>SO<span class="index">2</span></template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.pm2_5">
-                    <template v-slot:chemicalFormula>PM<span class="index">2.5</span></template>
-                </AirPollutantDescription>
-                <AirPollutantDescription v-bind:element="elementsDescription.pm10">
-                    <template v-slot:chemicalFormula>PM<span class="index">10</span></template>
-                </AirPollutantDescription>
+            <div class="airPollutionNowElementsDescriptionsTable">
+                <p class="airPollutionNowElementsDescriptionsTitle" @click="isShowTableWithDescriptionPollutant = !isShowTableWithDescriptionPollutant">
+                    <span v-if="isShowTableWithDescriptionPollutant">Скрыть описание</span>
+                    <span v-else>Подробнее о загрязняющих веществах</span>
+                </p>
+                <div v-if="isShowTableWithDescriptionPollutant">
+                    <AirPollutantDescription v-bind:element="elementsDescription.co" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>CO</template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.nh3" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>NH<span class="index">3</span></template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.no" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>NO</template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.no2" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>NO<span class="index">2</span></template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.o3" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>O<span class="index">3</span></template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.so2" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>SO<span class="index">2</span></template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.pm2_5" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>PM<span class="index">2.5</span></template>
+                    </AirPollutantDescription>
+                    <AirPollutantDescription v-bind:element="elementsDescription.pm10" v-bind:colorForElementCategory="colorForElementCategory">
+                        <template v-slot:chemicalFormula>PM<span class="index">10</span></template>
+                    </AirPollutantDescription>
+                </div>
             </div>
         </div>
     </div>
@@ -280,6 +298,7 @@ export default {
 .airPollutionNowElementsDescriptionsTitle {
     text-align: center;
     margin: 15px 0 10px;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    cursor: pointer;
 }
 </style>
