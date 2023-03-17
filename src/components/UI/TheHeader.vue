@@ -1,6 +1,17 @@
 <script>
-export default {
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
+export default {
+    methods: {
+        ...mapActions({
+            getWeather: 'weatherModule/getWeather',
+            getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
+        }),
+    },
+    mounted() {
+        this.getCityNameFromLocalStorage();
+        this.getWeather();
+    },
 }
 </script>
 

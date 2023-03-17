@@ -1,22 +1,11 @@
 <script>
 import WeatherForm from '../components/WeatherForm.vue';
 import WeatherList from '../components/WeatherList.vue';
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
     components: {
         WeatherForm,
         WeatherList,
-    },
-    methods: {
-        ...mapActions({
-            getWeather: 'weatherModule/getWeather',
-            getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
-        }),
-    },
-    mounted() {
-        this.getCityNameFromLocalStorage();
-        this.getWeather();
     },
 }
 </script>
