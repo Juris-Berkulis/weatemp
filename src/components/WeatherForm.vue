@@ -4,23 +4,28 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
     computed: {
         ...mapState({
-            cityName: (state) => state.weatherModule.cityName,
+            cityNameInFormInput: (state) => state.weatherModule.cityNameInFormInput,
         }),
     },
     methods: {
         ...mapMutations({
-            setCityName: 'weatherModule/setCityName',
+            setCityNameInFormInput: 'weatherModule/setCityNameInFormInput',
         }),
         ...mapActions({
             getWeather: 'weatherModule/getWeather',
+            getCityNameFromFormInput: 'weatherModule/getCityNameFromFormInput',
         }),
+        getWeatherData() {
+            this.getCityNameFromFormInput(this.cityNameInFormInput);
+            this.getWeather();
+        },
     },
 }
 </script>
 
 <template>
-    <form class="form" @submit.prevent="getWeather" action="">
-        <BaseInput v-bind:inputValue="cityName" @update:inputValue="setCityName"></BaseInput>
+    <form class="form" @submit.prevent="getWeatherData" action="">
+        <BaseInput v-bind:inputValue="cityNameInFormInput" @update:inputValue="setCityNameInFormInput"></BaseInput>
         <BaseButton>Получить погоду</BaseButton>
     </form>
 </template>

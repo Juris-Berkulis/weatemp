@@ -9,6 +9,7 @@ export const weatherModule = {
         currentAirPollutionData: null,
         airPollutionDataForecast: null,
         cityName: '',
+        cityNameInFormInput: '',
         apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
         units: 'metric',
         language: 'ru',
@@ -181,6 +182,9 @@ export const weatherModule = {
         setCityName(state, cityName) {
             state.cityName = cityName;
         },
+        setCityNameInFormInput(state, cityNameInFormInput) {
+            state.cityNameInFormInput = cityNameInFormInput;
+        },
         setCoordLat(state, coordLat) {
             state.coordLat = coordLat;
         },
@@ -194,6 +198,9 @@ export const weatherModule = {
     actions: {
         getCityNameFromLocalStorage({commit}) {
             commit('setCityName', JSON.parse(localStorage.getItem('location')) || '');
+        },
+        getCityNameFromFormInput({commit}, cityNameFromFormInput) {
+            commit('setCityName', cityNameFromFormInput);
         },
         async getWeather({state, commit, getters}) {
             try {
@@ -224,6 +231,7 @@ export const weatherModule = {
 
                 localStorage.setItem('location', JSON.stringify(state.cityNameInTitle));
 
+                commit('setCityNameInFormInput', '');
                 commit('setCityName', '');
             } catch(error) {
                 alert(`${error.code}: ${error.message}`);
