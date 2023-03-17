@@ -192,6 +192,9 @@ export const weatherModule = {
         },
     },
     actions: {
+        getCityNameFromLocalStorage({commit}) {
+            commit('setCityName', JSON.parse(localStorage.getItem('location')) || '');
+        },
         async getWeather({state, commit, getters}) {
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
@@ -218,6 +221,8 @@ export const weatherModule = {
                 } else {
                     throw {code: 404, message: 'Нет данных!'}
                 }
+
+                localStorage.setItem('location', JSON.stringify(state.cityNameInTitle));
 
                 commit('setCityName', '');
             } catch(error) {
