@@ -230,11 +230,17 @@ export const weatherModule = {
             const error = (error) => {
                 alert(`Ошибка получения данных о местоположении!\n${error.code}: ${error.message}`);
             };
+
+            const options = { //* - Подробнее на сайте: "https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition".
+                enableHighAccuracy: true, //* - Логическое значение, указывающее, что приложение хотело бы получить наилучшие возможные результаты.
+                timeout: Infinity, //* -  Максимальное время (в миллисекундах), которое может потребоваться устройству для возврата позиции.
+                maximumAge: 60 * 1000, //* - Максимальный возраст в миллисекундах возможной кэшированной позиции.
+            };
             
             if (!navigator.geolocation) {
                 alert('Этот браузер не поддерживает определение данных о местоположении!');
             } else {
-                navigator.geolocation.getCurrentPosition(success, error);
+                navigator.geolocation.getCurrentPosition(success, error, options); //* - Подробнее на сайте "https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API/Using_the_Geolocation_API".
             }
         },
         async getCoordsByCityName({state, commit, getters}) {
