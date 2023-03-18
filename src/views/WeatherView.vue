@@ -1,19 +1,10 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
-import WeatherForm from '../components/WeatherForm.vue';
-import TheModalWindow from '../components/UI/TheModalWindow.vue';
 import WeatherList from '../components/WeatherList.vue';
 
 export default {
     components: {
-        WeatherForm,
         WeatherList,
-        TheModalWindow,
-    },
-    data() {
-        return {
-            isShowModalWindow: false,
-        }
     },
     computed: {
         ...mapState({
@@ -31,14 +22,11 @@ export default {
     <div class="weatherView">
         <div class="weatherInfo" v-if="weather">
             <div class="weatherPageTitle">
-                <h1 class="weatherItemCity appClickableText" @click="isShowModalWindow = true">{{ cityNameInTitle }}</h1>
+                <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
                 <img class="weatherItemIcon" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
             </div>
             <WeatherList></WeatherList>
         </div>
-        <TheModalWindow v-model:isShow="isShowModalWindow">
-            <WeatherForm v-model:isShowModalWindow="isShowModalWindow"></WeatherForm>
-        </TheModalWindow>
     </div>
 </template>
 

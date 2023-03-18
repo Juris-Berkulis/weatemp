@@ -1,7 +1,14 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import WeatherForm from '../WeatherForm.vue';
+import TheModalWindow from './TheModalWindow.vue';
 
 export default {
+    data() {
+        return {
+            isShowModalWindow: false,
+        }
+    },
     computed: {
         ...mapState({
             cityName: (state) => state.weatherModule.cityName,
@@ -20,6 +27,10 @@ export default {
             this.getWeather();
         }
     },
+    components: { 
+        TheModalWindow, 
+        WeatherForm, 
+    },
 }
 </script>
 
@@ -36,9 +47,12 @@ export default {
                 <RouterLink to="/air_pollution_now">Загрязнение</RouterLink>
             </div>
             <div class="navBtn">
-                <BaseSearchIcon></BaseSearchIcon>
+                <BaseSearchIcon @click="isShowModalWindow = true"></BaseSearchIcon>
             </div>
         </div>
+        <TheModalWindow v-model:isShow="isShowModalWindow">
+            <WeatherForm v-model:isShowModalWindow="isShowModalWindow"></WeatherForm>
+        </TheModalWindow>
     </div>
 </template>
 
