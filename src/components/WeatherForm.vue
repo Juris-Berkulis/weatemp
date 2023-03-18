@@ -20,8 +20,9 @@ export default {
             getWeather: 'weatherModule/getWeather',
             getCityNameFromFormInput: 'weatherModule/getCityNameFromFormInput',
             getCoordsByCityName: 'weatherModule/getCoordsByCityName',
+            getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
         }),
-        async getWeatherData() {
+        async getWeatherDataByCityName() {
             try {
                 if (this.cityNameInFormInput) {
                     this.$emit('update:isShowModalWindow', false);
@@ -36,21 +37,47 @@ export default {
                 alert(error.message);
             }
         },
+        getWeatherDataByUserLocation() {
+            this.$emit('update:isShowModalWindow', false);
+
+            this.getCoordsByUserLocation();
+        },
     },
 }
 </script>
 
 <template>
-    <form class="form" @submit.prevent="getWeatherData" action="">
-        <BaseInput v-bind:inputValue="cityNameInFormInput" @update:inputValue="setCityNameInFormInput"></BaseInput>
-        <BaseButton>Получить погоду</BaseButton>
+    <form class="form" @submit.prevent="getWeatherDataByCityName" action="">
+        <div class="formByCityName">
+            <BaseInput v-bind:inputValue="cityNameInFormInput" @update:inputValue="setCityNameInFormInput"></BaseInput>
+            <BaseButton>Получить погоду</BaseButton>
+        </div>
+        <div class="formByCoords">
+            <p class="formByCoordsBtn">
+                <span class="formByCoordsBtnText appClickableText" @click="getWeatherDataByUserLocation">Мое местоположения</span>
+            </p>
+        </div>
     </form>
 </template>
 
 <style>
 .form {
+    width: 100%;
+}
+
+.formByCityName {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.formByCoords {
+    width: 100%;
+}
+
+.formByCoordsBtn {
+    margin-top: 10px;
+    text-align: right;
+    font-size: 20px;
 }
 </style>

@@ -25,6 +25,9 @@ export const weatherModule = {
         getUrlForWeatherOnFiveDaysByCityName(state) {
             return `https://api.openweathermap.org/data/2.5/forecast?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
+        getCityNameByCoords(state) {
+            return `https://api.openweathermap.org/geo/1.0/reverse?lat=${state.coordLat}&lon=${state.coordLon}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
+        },
         getUrlForCoordsByCityName(state) {
             return `https://api.openweathermap.org/geo/1.0/direct?q=${state.cityName}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
         },
@@ -201,6 +204,38 @@ export const weatherModule = {
         },
         getCityNameFromFormInput({commit}, cityNameFromFormInput) {
             commit('setCityName', cityNameFromFormInput);
+        },
+        getCoordsByUserLocation({state, commit, getters, dispatch}) {
+            const success = async (position) => {
+                const coordsLatitude  = position.coords.latitude;
+                const coordsLongitude = position.coords.longitude;
+            
+                commit('setCoordLat', coordsLatitude);
+                commit('setCoordLon', coordsLongitude);
+
+                try {
+                    const cityName = await axios.get(getters.getCityNameByCoords);
+                    if (cityName.status === 200) {
+                        commit('setCityNameInTitle', cityName.data[0].local_names[state.language] || cityName.data[0].local_names['en']);
+
+                        dispatch('getWeather');
+                    } else {
+                        throw {message: 'Нет данных!'}
+                    }
+                } catch(error) {
+                    alert(`${error.message}`);
+                }
+            };
+            
+            const error = (error) => {
+                alert(`Ошибка получения данных о местоположении!\n${error.code}: ${error.message}`);
+            };
+            
+            if (!navigator.geolocation) {
+                alert('Этот браузер не поддерживает определение данных о местоположении!');
+            } else {
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
         },
         async getCoordsByCityName({state, commit, getters}) {
             try {
