@@ -18,13 +18,15 @@ export default {
         ...mapActions({
             getWeather: 'weatherModule/getWeather',
             getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
+            getCoordsByCityName: 'weatherModule/getCoordsByCityName',
         }),
     },
-    mounted() {
+    async mounted() {
         this.getCityNameFromLocalStorage();
 
         if (this.cityName) {
-            this.getWeather();
+            await this.getCoordsByCityName();
+            await this.getWeather();
         }
     },
     components: { 

@@ -202,7 +202,7 @@ export const weatherModule = {
         getCityNameFromFormInput({commit}, cityNameFromFormInput) {
             commit('setCityName', cityNameFromFormInput);
         },
-        async getWeather({state, commit, getters}) {
+        async getCoordsByCityName({state, commit, getters}) {
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
                 if (cityCoords.status === 200) {
@@ -211,7 +211,16 @@ export const weatherModule = {
                     commit('setCoordLon', cityCoords.data[0].lon);
 
                     commit('setCityNameInTitle', cityCoords.data[0].local_names[state.language] || cityCoords.data[0].local_names['en'] || state.cityName);
-
+                } else {
+                    throw {code: 404, message: 'Нет данных!'}
+                }
+            } catch(error) {
+                alert(`${error.code}: ${error.message}`);
+            }
+        },
+        async getWeather({state, commit, getters}) {
+            try {
+                if (state.coordLat && state.coordLon) {
                     const resWeatherCurrent = await axios.get(getters.getUrlForWeatherCurrentByCoords);
                     commit('setWeatherInfo', resWeatherCurrent.data)
     
@@ -226,15 +235,17 @@ export const weatherModule = {
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
                     console.log(state.airPollutionDataForecast)
                 } else {
-                    throw {code: 404, message: 'Нет данных!'}
+                    throw {message: 'Нет координат города!'}
                 }
 
                 localStorage.setItem('location', JSON.stringify(state.cityNameInTitle));
 
                 commit('setCityNameInFormInput', '');
                 commit('setCityName', '');
+                commit('setCoordLat', '');
+                commit('setCoordLon', '');
             } catch(error) {
-                alert(`${error.code}: ${error.message}`);
+                alert(`${error.message}`);
             }
         },
     },

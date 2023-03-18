@@ -19,14 +19,16 @@ export default {
         ...mapActions({
             getWeather: 'weatherModule/getWeather',
             getCityNameFromFormInput: 'weatherModule/getCityNameFromFormInput',
+            getCoordsByCityName: 'weatherModule/getCoordsByCityName',
         }),
-        getWeatherData() {
+        async getWeatherData() {
             try {
                 if (this.cityNameInFormInput) {
                     this.$emit('update:isShowModalWindow', false);
 
                     this.getCityNameFromFormInput(this.cityNameInFormInput);
-                    this.getWeather();
+                    await this.getCoordsByCityName();
+                    await this.getWeather();
                 } else {
                     throw {message: 'Введите название города!'}
                 }
