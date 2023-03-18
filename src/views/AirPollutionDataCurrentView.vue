@@ -211,13 +211,13 @@ export default {
     font-size: 20px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     .airPollutionScroll {
         font-size: 15px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .airPollutionScroll {
         font-size: 12px;
     }
@@ -288,7 +288,7 @@ export default {
     text-align: end;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .airPollutionNowMore {
         flex-direction: column;
         justify-content: flex-start;

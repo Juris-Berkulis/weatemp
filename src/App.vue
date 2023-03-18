@@ -49,17 +49,24 @@ a:active {
 
 h1 {
   font-size: 70px;
+  white-space: nowrap;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     h1 {
         font-size: 50px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     h1 {
         font-size: 30px;
+    }
+}
+
+@media (max-width: 401px) {
+    h1 {
+        font-size: 20px;
     }
 }
 
@@ -78,6 +85,12 @@ h1 {
   height: 90vh;
   width: 100%;
   padding: 0 5vw 5vh;
+}
+
+@media (max-width: 1001px) {
+  .page {
+    padding: 0 1vw 1vh;
+  }
 }
 
 .pageContent {

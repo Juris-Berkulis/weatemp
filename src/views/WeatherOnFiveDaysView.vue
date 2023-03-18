@@ -244,13 +244,13 @@ export default {
     font-size: 20px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     .threeHoursChartWrapperTitleTempLine {
         font-size: 15px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .threeHoursChartWrapperTitleTempLine {
         font-size: 8px;
     }
@@ -281,13 +281,13 @@ export default {
     white-space: nowrap;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     .threeHoursIndicator {
         font-size: 15px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .threeHoursIndicator {
         font-size: 8px;
     }
@@ -302,7 +302,7 @@ export default {
     height: 50px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .threeHoursIndicatorImg {
         width: 30px;
         height: 30px;

@@ -29,13 +29,13 @@ export default {
     background-color: darkblue;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     .btn {
         font-size: 20px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .btn {
         font-size: 12px;
     }

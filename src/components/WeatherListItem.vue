@@ -37,15 +37,10 @@ export default {
     cursor: default;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     .weatherItem {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .weatherItem {
-        font-size: 12px;
+        margin: 2px;
+        padding: 2px;
     }
 }
 
@@ -59,21 +54,5 @@ export default {
     width: 30px;
     text-align: center;
     font-size: 30px;
-}
-
-@media (max-width: 1000px) {
-    .weatherItemIcon {
-        height: 20px;
-        width: 20px;
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .weatherItemIcon {
-        height: 12px;
-        width: 12px;
-        font-size: 12px;
-    }
 }
 </style>

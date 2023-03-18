@@ -40,7 +40,6 @@ export default {
 }
 
 .weatherPageTitle {
-    height: 90px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -65,5 +64,11 @@ export default {
     padding: 0 5vw;
     flex-grow: 1;
     overflow-y: auto;
+}
+
+@media (max-width: 1001px) {
+    .weatherList {
+        padding: 0 15px;
+    }
 }
 </style>

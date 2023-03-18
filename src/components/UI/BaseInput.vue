@@ -36,13 +36,13 @@ export default {
     border-right: 1px solid transparent;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1001px) {
     .input {
         font-size: 20px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 701px) {
     .input {
         font-size: 12px;
     }
