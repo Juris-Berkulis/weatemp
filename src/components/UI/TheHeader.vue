@@ -35,6 +35,9 @@ export default {
             <div class="navBtn">
                 <RouterLink to="/air_pollution_now">Загрязнение</RouterLink>
             </div>
+            <div class="navBtn">
+                <BaseSearchIcon></BaseSearchIcon>
+            </div>
         </div>
     </div>
 </template>
@@ -58,5 +61,6 @@ export default {
 .navBtn {
     margin: 0 10px;
     text-align: center;
+    font-size: 16px;
 }
 </style>
