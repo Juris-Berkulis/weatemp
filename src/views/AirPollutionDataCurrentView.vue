@@ -155,7 +155,7 @@ export default {
             </div>
             <div class="airPollutionNowElementsDescriptionsTable">
                 <p class="airPollutionNowElementsDescriptionsTitle">
-                    <span class="airPollutionNowElementsDescriptionsTitleText" @click="isShowTableWithDescriptionPollutant = !isShowTableWithDescriptionPollutant">
+                    <span class="appClickableText" @click="isShowTableWithDescriptionPollutant = !isShowTableWithDescriptionPollutant">
                         <span v-if="isShowTableWithDescriptionPollutant">Скрыть описание</span>
                         <span v-else>Подробнее о загрязняющих веществах</span>
                     </span>
@@ -300,14 +300,5 @@ export default {
     text-align: center;
     margin: 15px 0 10px;
     font-size: 1.2em;
-}
-
-.airPollutionNowElementsDescriptionsTitleText {
-    border-bottom: 1px dashed #ffedbc;
-    cursor: pointer;
-}
-
-.airPollutionNowElementsDescriptionsTitleText:hover {
-    border-bottom: 1px dashed transparent;
 }
 </style>

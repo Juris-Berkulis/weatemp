@@ -20,7 +20,7 @@ export default {
 
 <style>
 .input {
-    width: 40%;
+    width: 100%;
     padding: 15px;
     background-color: #eeeeee;
     border: 1px solid #eeeeee;

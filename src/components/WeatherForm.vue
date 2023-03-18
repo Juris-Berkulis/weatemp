@@ -2,6 +2,11 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
+    props: {
+        isShowModalWindow: {
+            type: Boolean,
+        },
+    },
     computed: {
         ...mapState({
             cityNameInFormInput: (state) => state.weatherModule.cityNameInFormInput,
@@ -18,6 +23,8 @@ export default {
         getWeatherData() {
             try {
                 if (this.cityNameInFormInput) {
+                    this.$emit('update:isShowModalWindow', false);
+
                     this.getCityNameFromFormInput(this.cityNameInFormInput);
                     this.getWeather();
                 } else {

@@ -97,4 +97,13 @@ h1 {
   height: 100%;
   width: 100%;
 }
+
+.appClickableText {
+    border-bottom: 1px dashed #ffedbc;
+    cursor: pointer;
+}
+
+.appClickableText:hover {
+    border-bottom: 1px dashed transparent;
+}
 </style>
