@@ -51,12 +51,14 @@ export default {
 .airPollutionTablePart {
     background-color: rgba(220, 220, 220, 0.3);
     font-size: 20px;
+    color: #ffedbc;
     cursor: default;
 }
 
 @media (max-width: 1001px) {
     .airPollutionTablePart {
         font-size: 15px;
+        color: #02021a;
     }
 }
 

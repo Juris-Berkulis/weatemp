@@ -44,6 +44,12 @@ export default {
     }
 }
 
+@media (max-width: 401px) {
+    .weatherItem {
+        width: 100%;
+    }
+}
+
 .weatherItem:hover {
     background-color: rgba(220, 220, 220, 0.4);
 }

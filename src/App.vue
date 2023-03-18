@@ -76,9 +76,17 @@ h1 {
 }
 
 .app {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   background-color: cornflowerblue;
+}
+
+@media (orientation: portrait) {
+    .app {
+      flex-direction: column-reverse;
+    }
 }
 
 .page {
@@ -91,6 +99,12 @@ h1 {
   .page {
     padding: 0 1vw 1vh;
   }
+}
+
+@media (orientation: portrait) {
+    .page {
+        padding: 1vh 5vw 0;
+    }
 }
 
 .pageContent {

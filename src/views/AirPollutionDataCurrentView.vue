@@ -160,7 +160,7 @@ export default {
                         <span v-else>Подробнее о загрязняющих веществах</span>
                     </span>
                 </p>
-                <div v-if="isShowTableWithDescriptionPollutant">
+                <div class="airPollutionNowElementsDescriptionsList" v-if="isShowTableWithDescriptionPollutant">
                     <AirPollutantDescription v-bind:element="elementsDescription.co" v-bind:colorForElementCategory="colorForElementCategory">
                         <template v-slot:chemicalFormula>CO</template>
                     </AirPollutantDescription>
@@ -300,5 +300,16 @@ export default {
     text-align: center;
     margin: 15px 0 10px;
     font-size: 1.2em;
+}
+
+.airPollutionNowElementsDescriptionsList {
+    font-size: 16px;
+    color: #ffedbc;
+}
+
+@media (max-width: 1001px) {
+    .airPollutionNowElementsDescriptionsList {
+        color: #02021a;
+    }
 }
 </style>
