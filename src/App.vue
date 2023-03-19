@@ -52,9 +52,17 @@ h1 {
   white-space: nowrap;
 }
 
+.titleImg {
+  height: 70px;
+}
+
 @media (max-width: 1001px) {
     h1 {
         font-size: 50px;
+    }
+
+    .titleImg {
+      height: 50px;
     }
 }
 
@@ -62,11 +70,19 @@ h1 {
     h1 {
         font-size: 30px;
     }
+
+    .titleImg {
+      height: 30px;
+    }
 }
 
 @media (max-width: 401px) {
     h1 {
         font-size: 20px;
+    }
+
+    .titleImg {
+      height: 20px;
     }
 }
 
@@ -119,5 +135,29 @@ h1 {
 
 .appClickableText:hover {
     border-bottom: 1px dashed transparent;
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.appTickerWrapper {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.appTicker {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100%;
+    animation: ticker 10s linear 1s infinite normal;
 }
 </style>

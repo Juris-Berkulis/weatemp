@@ -129,7 +129,13 @@ export default {
 
 <template>
     <div class="weatherOnFiveDays" v-if="weatherOnFiveDays">
-        <h1 class="weatherOnFiveDaysTitle">{{ cityNameInTitle }}</h1>
+        <div>
+            <div class="appTickerWrapper">
+                <div class="appTicker">
+                    <h1 class="weatherOnFiveDaysTitle">{{ cityNameInTitle }}</h1>
+                </div>
+            </div>
+        </div>
         <div class="weatherOnFiveDaysTable" @click="isShowColumnWithTitles = !isShowColumnWithTitles">
             <div class="threeHours threeHoursTitle" v-if="isShowColumnWithTitles">
                 <div class="threeHoursIndicator">Дата:</div>

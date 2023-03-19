@@ -21,9 +21,15 @@ export default {
 <template>
     <div class="weatherView">
         <div class="weatherInfo" v-if="weather">
-            <div class="weatherPageTitle">
-                <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
-                <img class="weatherItemIcon" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
+            <div>
+                <div class="appTickerWrapper">
+                    <div class="appTicker">
+                        <div class="weatherPageTitle">
+                            <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
+                            <img class="weatherItemIcon titleImg" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
+                        </div>
+                    </div>
+                </div>
             </div>
             <WeatherList></WeatherList>
         </div>
@@ -37,11 +43,13 @@ export default {
     align-items: center;
     height: 100%;
     max-height: 100%;
+    width: 100%;
 }
 
 .weatherInfo {
     height: 100%;
     max-height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -62,6 +70,5 @@ export default {
 
 .weatherItemIcon {
     display: block;
-    height: 100%;
 }
 </style>

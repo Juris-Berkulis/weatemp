@@ -16,7 +16,13 @@ export default {
 
 <template>
     <div class="airPollution" v-if="currentAirPollutionData && airPollutionDataForecast">
-        <h1 class="airPollutionTitle">{{ cityNameInTitle }}</h1>
+        <div>
+            <div class="appTickerWrapper">
+                <div class="appTicker">
+                    <h1 class="airPollutionTitle">{{ cityNameInTitle }}</h1>
+                </div>
+            </div>
+        </div>
         <div class="airPollutionTablePart airPollutionTablePartTitle">
             <AirPollutionDataListItem v-bind:airPollutionData="false"></AirPollutionDataListItem>
         </div>
