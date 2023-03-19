@@ -236,7 +236,12 @@ export const weatherModule = {
                         const fullAddress = resFullAddress?.data?.features[0]?.properties;
                         const cityName = resCityName?.data[0]?.local_names;
 
-                        const addressInTitle = fullAddress?.name || fullAddress?.street || cityName[state.language] || cityName['en'] || fullAddress?.city;
+                        const addressPlaceName = `${fullAddress?.name ? `${fullAddress?.name}, ` : ''}`;
+                        const addressStreet = `${fullAddress?.street ? `${fullAddress?.street}, ` : ''}`;
+                        const addressDistrict = `${fullAddress?.district ? `${fullAddress?.district}, ` : ''}`;
+                        const addressCity = `${cityName[state.language] || cityName['en'] || fullAddress?.city} `;
+
+                        const addressInTitle = `${addressPlaceName}${addressStreet}${addressDistrict}${addressCity}` || `Широта: ${coordsLatitude}, Долгота: ${coordsLongitude} `;
 
                         commit('setCityNameInTitle', addressInTitle);
 
