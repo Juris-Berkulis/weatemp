@@ -11,12 +11,15 @@ export const weatherModule = {
         cityName: '',
         cityNameInFormInput: '',
         apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
+        apiKeyFromGeoapify: '84ae3898d4c94f3ba4823d25e69f2315',
         units: 'metric',
         language: 'ru',
         citiesCountLimit: 1,
         coordLat: '',
         coordLon: '',
         cityNameInTitle: '',
+        cityNameForLocalStorage: '',
+        byCoordsDuringAppStart: false,
     }),
     getters: {
         getUrlForWeatherCurrentByCityName(state) {
@@ -27,6 +30,9 @@ export const weatherModule = {
         },
         getCityNameByCoords(state) {
             return `https://api.openweathermap.org/geo/1.0/reverse?lat=${state.coordLat}&lon=${state.coordLon}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
+        },
+        getFullAddressByCoords(state) {
+            return `https://api.geoapify.com/v1/geocode/reverse?lat=${state.coordLat}&lon=${state.coordLon}&apiKey=${state.apiKeyFromGeoapify}`
         },
         getUrlForCoordsByCityName(state) {
             return `https://api.openweathermap.org/geo/1.0/direct?q=${state.cityName}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
@@ -197,10 +203,19 @@ export const weatherModule = {
         setCityNameInTitle(state, cityNameInTitle) {
             state.cityNameInTitle = cityNameInTitle;
         },
+        setCityNameForLocalStorage(state, cityNameForLocalStorage) {
+            state.cityNameForLocalStorage = cityNameForLocalStorage;
+        },
+        setByCoordsDuringAppStart(state, byCoordsDuringAppStart) {
+            state.byCoordsDuringAppStart = byCoordsDuringAppStart;
+        },
     },
     actions: {
         getCityNameFromLocalStorage({commit}) {
             commit('setCityName', JSON.parse(localStorage.getItem('location')) || '');
+        },
+        getByCoordsDuringAppStartFromLocalStorage({commit}) {
+            commit('setByCoordsDuringAppStart', JSON.parse(localStorage.getItem('byCoords'))) || false;
         },
         getCityNameFromFormInput({commit}, cityNameFromFormInput) {
             commit('setCityName', cityNameFromFormInput);
@@ -214,9 +229,18 @@ export const weatherModule = {
                 commit('setCoordLon', coordsLongitude);
 
                 try {
-                    const cityName = await axios.get(getters.getCityNameByCoords);
-                    if (cityName.status === 200) {
-                        commit('setCityNameInTitle', cityName.data[0].local_names[state.language] || cityName.data[0].local_names['en']);
+                    const resFullAddress = await axios.get(getters.getFullAddressByCoords);
+                    const resCityName = await axios.get(getters.getCityNameByCoords);
+
+                    if (resCityName.status === 200 || resFullAddress.status === 200) {
+                        const fullAddress = resFullAddress?.data?.features[0]?.properties;
+                        const cityName = resCityName?.data[0]?.local_names;
+
+                        const addressInTitle = fullAddress?.name || fullAddress?.street || cityName[state.language] || cityName['en'] || fullAddress?.city;
+
+                        commit('setCityNameInTitle', addressInTitle);
+
+                        localStorage.setItem('byCoords', JSON.stringify(true));
 
                         dispatch('getWeather');
                     } else {
@@ -251,7 +275,11 @@ export const weatherModule = {
                     commit('setCoordLat', cityCoords.data[0].lat);
                     commit('setCoordLon', cityCoords.data[0].lon);
 
-                    commit('setCityNameInTitle', cityCoords.data[0].local_names[state.language] || cityCoords.data[0].local_names['en'] || state.cityName);
+                    const city = cityCoords.data[0].local_names[state.language] || cityCoords.data[0].local_names['en'] || state.cityName;
+                    commit('setCityNameInTitle', city);
+                    commit('setCityNameForLocalStorage', city);
+
+                    localStorage.setItem('byCoords', JSON.stringify(false));
                 } else {
                     throw {code: 404, message: 'Нет данных!'}
                 }
@@ -279,7 +307,7 @@ export const weatherModule = {
                     throw {message: 'Нет координат города!'}
                 }
 
-                localStorage.setItem('location', JSON.stringify(state.cityNameInTitle));
+                localStorage.setItem('location', JSON.stringify(state.cityNameForLocalStorage));
 
                 commit('setCityNameInFormInput', '');
                 commit('setCityName', '');

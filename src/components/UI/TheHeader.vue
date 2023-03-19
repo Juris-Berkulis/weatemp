@@ -12,6 +12,7 @@ export default {
     computed: {
         ...mapState({
             cityName: (state) => state.weatherModule.cityName,
+            byCoordsDuringAppStart: (state) => state.weatherModule.byCoordsDuringAppStart,
         }),
     },
     methods: {
@@ -19,14 +20,22 @@ export default {
             getWeather: 'weatherModule/getWeather',
             getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
             getCoordsByCityName: 'weatherModule/getCoordsByCityName',
+            getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
+            getByCoordsDuringAppStartFromLocalStorage: 'weatherModule/getByCoordsDuringAppStartFromLocalStorage',
         }),
     },
     async mounted() {
-        this.getCityNameFromLocalStorage();
+        this.getByCoordsDuringAppStartFromLocalStorage();
 
-        if (this.cityName) {
-            await this.getCoordsByCityName();
-            await this.getWeather();
+        if (this.byCoordsDuringAppStart) {
+            this.getCoordsByUserLocation();
+        } else {
+            this.getCityNameFromLocalStorage();
+
+            if (this.cityName) {
+                await this.getCoordsByCityName();
+                await this.getWeather();
+            }
         }
     },
     components: { 
