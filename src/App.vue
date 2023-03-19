@@ -136,28 +136,4 @@ h1 {
 .appClickableText:hover {
     border-bottom: 1px dashed transparent;
 }
-
-@keyframes ticker {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.appTickerWrapper {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.appTicker {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 100%;
-    animation: ticker 10s linear 1s infinite normal;
-}
 </style>

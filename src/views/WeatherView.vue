@@ -21,16 +21,12 @@ export default {
 <template>
     <div class="weatherView">
         <div class="weatherInfo" v-if="weather">
-            <div>
-                <div class="appTickerWrapper">
-                    <div class="appTicker">
-                        <div class="weatherPageTitle">
-                            <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
-                            <img class="weatherItemIcon titleImg" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
-                        </div>
-                    </div>
+            <BaseTicker>
+                <div class="weatherPageTitle">
+                    <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
+                    <img class="weatherItemIcon titleImg" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
                 </div>
-            </div>
+            </BaseTicker>
             <WeatherList></WeatherList>
         </div>
     </div>

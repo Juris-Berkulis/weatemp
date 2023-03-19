@@ -110,13 +110,9 @@ export default {
 
 <template>
     <div class="airPollutionNowView" v-if="currentAirPollutionDataNow">
-        <div>
-            <div class="appTickerWrapper">
-                <div class="appTicker">
-                    <h1 class="airPollutionNowTitle">{{ cityNameInTitle }}</h1>
-                </div>
-            </div>
-        </div>
+        <BaseTicker>
+            <h1 class="airPollutionNowTitle">{{ cityNameInTitle }}</h1>
+        </BaseTicker>
         <div class="airPollutionScroll">
             <div class="airPollutionNow">
                 <AirPollutionDataCurrentEl class="airPollutionNowElement airPollutionNowElementMain" v-bind:element="elementsDescription.aqi" v-bind:colorForElementCategory="colorForElementCategory"></AirPollutionDataCurrentEl>
