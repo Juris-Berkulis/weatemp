@@ -8,6 +8,7 @@ export default {
             graphVerticalPaddings: 5,
             maximumDifferenceOfGraphValues: 95,
             isShowWeekDay: false,
+            isShowColumnWithTitles: true,
         }
     },
     computed: {
@@ -129,8 +130,8 @@ export default {
 <template>
     <div class="weatherOnFiveDays" v-if="weatherOnFiveDays">
         <h1 class="weatherOnFiveDaysTitle">{{ cityNameInTitle }}</h1>
-        <div class="weatherOnFiveDaysTable">
-            <div class="threeHours threeHoursTitle">
+        <div class="weatherOnFiveDaysTable" @click="isShowColumnWithTitles = !isShowColumnWithTitles">
+            <div class="threeHours threeHoursTitle" v-if="isShowColumnWithTitles">
                 <div class="threeHoursIndicator">Дата:</div>
                 <div class="threeHoursChartWrapper threeHoursChartWrapperTitle" :style="getChartMaxHeight">
                     <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&uarr;</span>: {{ getMinAndMaxTempForFiveDays.maxTemp }}°C</p>
@@ -151,7 +152,7 @@ export default {
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
                 <div :class="['threeHours', {threeHoursNewDay: getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather in weatherOnFiveDays.list">
-                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click="isShowWeekDay = !isShowWeekDay">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
+                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="isShowWeekDay = !isShowWeekDay">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                         <div class="threeHoursChartZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine"></div>
@@ -191,6 +192,12 @@ export default {
 .weatherOnFiveDaysTable {
     display: flex;
     overflow-y: auto;
+}
+
+@media (max-width: 1001px) {
+    .weatherOnFiveDaysTable {
+        color: #02021a;
+    }
 }
 
 .weatherOnFiveDaysTableAuxiliary {
