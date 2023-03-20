@@ -24,9 +24,9 @@ export default {
             <BaseTicker>
                 <div class="weatherPageTitle">
                     <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
-                    <img class="weatherItemIcon titleImg" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
                 </div>
             </BaseTicker>
+            <img class="weatherImg" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
             <WeatherList></WeatherList>
         </div>
     </div>
@@ -64,7 +64,15 @@ export default {
     color: #ffedbc;
 }
 
-.weatherItemIcon {
-    display: block;
+.weatherImg {
+    height: 70px;
+    width: 70px;
+    align-self: center;
+}
+
+@media (max-height: 401px) {
+    .weatherImg {
+        display: none;
+    }
 }
 </style>
