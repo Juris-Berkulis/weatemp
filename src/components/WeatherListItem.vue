@@ -34,6 +34,7 @@ export default {
     color: #ffedbc;
     background-color: rgba(220, 220, 220, 0.3);
     flex-grow: 1;
+    flex-basis: 200px;
     font-size: 30px;
     cursor: default;
 }
