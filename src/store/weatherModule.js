@@ -20,6 +20,7 @@ export const weatherModule = {
         cityNameInTitle: '',
         cityNameForLocalStorage: '',
         byCoordsDuringAppStart: false,
+        isWeatherLoaded: false,
     }),
     getters: {
         getUrlForWeatherCurrentByCityName(state) {
@@ -174,6 +175,9 @@ export const weatherModule = {
                 getters.getSunset,
             ]
         },
+        getIsWeatherLoaded(state) {
+            return state.isWeatherLoaded
+        },
     },
     mutations: {
         setWeatherInfo(state, weather) {
@@ -209,6 +213,9 @@ export const weatherModule = {
         setByCoordsDuringAppStart(state, byCoordsDuringAppStart) {
             state.byCoordsDuringAppStart = byCoordsDuringAppStart;
         },
+        setIsWeatherLoaded(state, isWeatherLoaded) {
+            state.isWeatherLoaded = isWeatherLoaded;
+        },
     },
     actions: {
         getCityNameFromLocalStorage({commit}) {
@@ -221,6 +228,8 @@ export const weatherModule = {
             commit('setCityName', cityNameFromFormInput);
         },
         getCoordsByUserLocation({state, commit, getters, dispatch}) {
+            dispatch('isWeatherNotLoadedAction');
+
             const success = async (position) => {
                 const coordsLatitude  = position.coords.latitude;
                 const coordsLongitude = position.coords.longitude;
@@ -272,7 +281,9 @@ export const weatherModule = {
                 navigator.geolocation.getCurrentPosition(success, error, options); //* - Подробнее на сайте "https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API/Using_the_Geolocation_API".
             }
         },
-        async getCoordsByCityName({state, commit, getters}) {
+        async getCoordsByCityName({state, commit, getters, dispatch}) {
+            dispatch('isWeatherNotLoadedAction');
+
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
                 if (cityCoords.status === 200) {
@@ -292,7 +303,7 @@ export const weatherModule = {
                 alert(`${error.code}: ${error.message}`);
             }
         },
-        async getWeather({state, commit, getters}) {
+        async getWeather({state, commit, getters, dispatch}) {
             try {
                 if (state.coordLat && state.coordLon) {
                     const resWeatherCurrent = await axios.get(getters.getUrlForWeatherCurrentByCoords);
@@ -320,7 +331,15 @@ export const weatherModule = {
                 commit('setCoordLon', '');
             } catch(error) {
                 alert(`${error.message}`);
+            } finally {
+                dispatch('isWeatherLoadedAction');
             }
+        },
+        isWeatherNotLoadedAction({commit}) {
+            commit('setIsWeatherLoaded', false);
+        },
+        isWeatherLoadedAction({commit}) {
+            commit('setIsWeatherLoaded', true);
         },
     },
 };

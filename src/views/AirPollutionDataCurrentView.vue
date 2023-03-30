@@ -34,6 +34,7 @@ export default {
         ...mapState({
             currentAirPollutionDataNow: (state) => state.weatherModule.currentAirPollutionData?.list[0],
             cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
+            isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
         elementsDescription() {
             return {
@@ -109,7 +110,7 @@ export default {
 </script>
 
 <template>
-    <div class="airPollutionNowView" v-if="currentAirPollutionDataNow">
+    <div class="airPollutionNowView" v-if="isWeatherLoaded && currentAirPollutionDataNow">
         <BaseTicker>
             <h1 class="airPollutionNowTitle">{{ cityNameInTitle }}</h1>
         </BaseTicker>
@@ -191,6 +192,7 @@ export default {
             </div>
         </div>
     </div>
+    <baseLoader v-else></baseLoader>
 </template>
 
 <style scoped>

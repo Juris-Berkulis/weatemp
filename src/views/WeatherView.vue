@@ -10,6 +10,7 @@ export default {
         ...mapState({
             weather: (state) => state.weatherModule.weather,
             cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
+            isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
         ...mapGetters({
             getIcon: 'weatherModule/getIcon',
@@ -19,8 +20,8 @@ export default {
 </script>
 
 <template>
-    <div class="weatherView">
-        <div class="weatherInfo" v-if="weather">
+    <div class="weatherView" v-if="isWeatherLoaded && weather">
+        <div class="weatherInfo">
             <BaseTicker>
                 <div class="weatherPageTitle">
                     <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
@@ -30,6 +31,7 @@ export default {
             <WeatherList></WeatherList>
         </div>
     </div>
+    <BaseLoader v-else></BaseLoader>
 </template>
 
 <style>

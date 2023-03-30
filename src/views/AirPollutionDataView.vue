@@ -8,6 +8,7 @@ export default {
             currentAirPollutionData: (state) => state.weatherModule.currentAirPollutionData,
             airPollutionDataForecast: (state) => state.weatherModule.airPollutionDataForecast,
             cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
+            isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
     },
     components: { AirPollutionDataListItem }
@@ -15,7 +16,7 @@ export default {
 </script>
 
 <template>
-    <div class="airPollution" v-if="currentAirPollutionData && airPollutionDataForecast">
+    <div class="airPollution" v-if="isWeatherLoaded && currentAirPollutionData && airPollutionDataForecast">
         <BaseTicker>
             <h1 class="airPollutionTitle">{{ cityNameInTitle }}</h1>
         </BaseTicker>
@@ -31,6 +32,7 @@ export default {
             </div>
         </div>
     </div>
+    <BaseLoader v-else></BaseLoader>
 </template>
 
 <style scoped>

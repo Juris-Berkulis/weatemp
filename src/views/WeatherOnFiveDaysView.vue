@@ -15,6 +15,7 @@ export default {
         ...mapState({
             weatherOnFiveDays: (state) => state.weatherModule.weatherOnFiveDays,
             cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
+            isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
         getMinAndMaxTempForFiveDays() {
             let minTemp = this.weatherOnFiveDays.list[0].main.temp;
@@ -128,7 +129,7 @@ export default {
 </script>
 
 <template>
-    <div class="weatherOnFiveDays" v-if="weatherOnFiveDays">
+    <div class="weatherOnFiveDays" v-if="isWeatherLoaded && weatherOnFiveDays">
         <BaseTicker>
             <h1 class="weatherOnFiveDaysTitle">{{ cityNameInTitle }}</h1>
         </BaseTicker>
@@ -177,6 +178,7 @@ export default {
             </div>
         </div>
     </div>
+    <BaseLoader v-else></BaseLoader>
 </template>
 
 <style>
