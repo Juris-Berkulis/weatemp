@@ -10,6 +10,7 @@ export default {
   computed: {
     ...mapState({
       cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
+      isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
     }),
   },
 }
@@ -18,7 +19,7 @@ export default {
 <template>
   <div class="app">
     <TheHeader class="basicPageElementsHeader"></TheHeader>
-    <BaseTicker class="basicPageElementsTicker">
+    <BaseTicker class="basicPageElementsTicker" v-if="isWeatherLoaded">
       <h1 class="cityNameInTitle">{{ cityNameInTitle }}</h1>
     </BaseTicker>
     <div class="page basicPageElementsPage">

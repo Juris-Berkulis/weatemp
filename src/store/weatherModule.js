@@ -21,6 +21,7 @@ export const weatherModule = {
         cityNameForLocalStorage: '',
         byCoordsDuringAppStart: false,
         isWeatherLoaded: false,
+        errorGettingWeather: false,
     }),
     getters: {
         getUrlForWeatherCurrentByCityName(state) {
@@ -178,6 +179,9 @@ export const weatherModule = {
         getIsWeatherLoaded(state) {
             return state.isWeatherLoaded
         },
+        getErrorGettingWeather(state) {
+            return state.errorGettingWeather
+        },
     },
     mutations: {
         setWeatherInfo(state, weather) {
@@ -216,6 +220,9 @@ export const weatherModule = {
         setIsWeatherLoaded(state, isWeatherLoaded) {
             state.isWeatherLoaded = isWeatherLoaded;
         },
+        setErrorGettingWeather(state, errorGettingWeather) {
+            state.errorGettingWeather = errorGettingWeather;
+        },
     },
     actions: {
         getCityNameFromLocalStorage({commit}) {
@@ -229,6 +236,7 @@ export const weatherModule = {
         },
         getCoordsByUserLocation({state, commit, getters, dispatch}) {
             dispatch('isWeatherNotLoadedAction');
+            dispatch('errorGettingWeatherAction', false);
 
             const success = async (position) => {
                 const coordsLatitude  = position.coords.latitude;
@@ -262,11 +270,15 @@ export const weatherModule = {
                     }
                 } catch(error) {
                     alert(`${error.message}`);
+                    dispatch('isWeatherLoadedAction');
+                    dispatch('errorGettingWeatherAction', `${error.message}`);
                 }
             };
             
             const error = (error) => {
                 alert(`Ошибка получения данных о местоположении!\n${error.code}: ${error.message}`);
+                dispatch('isWeatherLoadedAction');
+                dispatch('errorGettingWeatherAction', `Ошибка получения данных о местоположении!\n${error.code}: ${error.message}`);
             };
 
             const options = { //* - Подробнее на сайте: "https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition".
@@ -277,12 +289,15 @@ export const weatherModule = {
             
             if (!navigator.geolocation) {
                 alert('Этот браузер не поддерживает определение данных о местоположении!');
+                dispatch('isWeatherLoadedAction');
+                dispatch('errorGettingWeatherAction', 'Этот браузер не поддерживает определение данных о местоположении!');
             } else {
                 navigator.geolocation.getCurrentPosition(success, error, options); //* - Подробнее на сайте "https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API/Using_the_Geolocation_API".
             }
         },
         async getCoordsByCityName({state, commit, getters, dispatch}) {
             dispatch('isWeatherNotLoadedAction');
+            dispatch('errorGettingWeatherAction', false);
 
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
@@ -301,6 +316,8 @@ export const weatherModule = {
                 }
             } catch(error) {
                 alert(`${error.code}: ${error.message}`);
+                dispatch('isWeatherLoadedAction');
+                dispatch('errorGettingWeatherAction', `${error.code}: ${error.message}`);
             }
         },
         async getWeather({state, commit, getters, dispatch}) {
@@ -331,8 +348,10 @@ export const weatherModule = {
                 commit('setCoordLon', '');
             } catch(error) {
                 alert(`${error.message}`);
+                dispatch('errorGettingWeatherAction', `${error.message}`);
             } finally {
                 dispatch('isWeatherLoadedAction');
+                dispatch('errorGettingWeatherAction', false);
             }
         },
         isWeatherNotLoadedAction({commit}) {
@@ -340,6 +359,9 @@ export const weatherModule = {
         },
         isWeatherLoadedAction({commit}) {
             commit('setIsWeatherLoaded', true);
+        },
+        errorGettingWeatherAction({commit}, errorGettingWeather) {
+            commit('setErrorGettingWeather', errorGettingWeather);
         },
     },
 };
