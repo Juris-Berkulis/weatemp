@@ -33,7 +33,6 @@ export default {
     computed: {
         ...mapState({
             currentAirPollutionDataNow: (state) => state.weatherModule.currentAirPollutionData?.list[0],
-            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
             isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
         elementsDescription() {
@@ -111,9 +110,6 @@ export default {
 
 <template>
     <div class="airPollutionNowView" v-if="isWeatherLoaded && currentAirPollutionDataNow">
-        <BaseTicker>
-            <h1 class="airPollutionNowTitle">{{ cityNameInTitle }}</h1>
-        </BaseTicker>
         <div class="airPollutionScroll">
             <div class="airPollutionNow">
                 <AirPollutionDataCurrentEl class="airPollutionNowElement airPollutionNowElementMain" v-bind:element="elementsDescription.aqi" v-bind:colorForElementCategory="colorForElementCategory"></AirPollutionDataCurrentEl>
@@ -202,10 +198,6 @@ export default {
     display: flex;
     flex-direction: column;
     color: #ffedbc;
-}
-
-.airPollutionNowTitle {
-    text-align: center;
 }
 
 .airPollutionScroll {

@@ -14,7 +14,6 @@ export default {
     computed: {
         ...mapState({
             weatherOnFiveDays: (state) => state.weatherModule.weatherOnFiveDays,
-            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
             isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
         getMinAndMaxTempForFiveDays() {
@@ -130,9 +129,6 @@ export default {
 
 <template>
     <div class="weatherOnFiveDays" v-if="isWeatherLoaded && weatherOnFiveDays">
-        <BaseTicker>
-            <h1 class="weatherOnFiveDaysTitle">{{ cityNameInTitle }}</h1>
-        </BaseTicker>
         <div class="weatherOnFiveDaysTable" @click="isShowColumnWithTitles = !isShowColumnWithTitles">
             <div class="threeHours threeHoursTitle" v-if="isShowColumnWithTitles">
                 <div class="threeHoursIndicator">Дата:</div>
@@ -187,10 +183,6 @@ export default {
     flex-direction: column;
     max-height: 100%;
     color: #ffedbc;
-}
-
-.weatherOnFiveDaysTitle {
-    text-align: center;
 }
 
 .weatherOnFiveDaysTable {

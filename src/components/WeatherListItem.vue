@@ -14,9 +14,9 @@ export default {
     <div class="weatherItem" v-for="weatherInfoItem in weatherInfoList">
         <p>{{ weatherInfoItem.title }}</p>
         <p>
-            <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg) translateY(-20%)`,}" v-if="weatherInfoItem.isDirectionIcon">&darr;</span>
             <span>{{ weatherInfoItem.testimony }}</span>
             <span>{{ weatherInfoItem.units }}</span>
+            <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg) translateY(-20%)`,}" v-if="weatherInfoItem.isDirectionIcon">&darr;</span>
         </p>
     </div>
 </template>

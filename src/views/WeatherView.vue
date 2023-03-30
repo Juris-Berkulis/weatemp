@@ -9,7 +9,6 @@ export default {
     computed: {
         ...mapState({
             weather: (state) => state.weatherModule.weather,
-            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
             isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
         ...mapGetters({
@@ -22,11 +21,6 @@ export default {
 <template>
     <div class="weatherView" v-if="isWeatherLoaded && weather">
         <div class="weatherInfo">
-            <BaseTicker>
-                <div class="weatherPageTitle">
-                    <h1 class="weatherItemCity">{{ cityNameInTitle }}</h1>
-                </div>
-            </BaseTicker>
             <img class="weatherImg" :src="`${getIcon.imgSrc}`" :alt="`${getIcon.imgAlt}`">
             <WeatherList></WeatherList>
         </div>
@@ -58,12 +52,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.weatherItemCity {
-    display: block;
-    text-align: center;
-    color: #ffedbc;
 }
 
 .weatherImg {

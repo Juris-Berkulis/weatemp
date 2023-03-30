@@ -1,12 +1,27 @@
-<script setup>
+<script>
 import { RouterView } from 'vue-router'
 import TheHeader from './components/UI/TheHeader.vue';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+
+export default {
+  components: {
+    TheHeader,
+  },
+  computed: {
+    ...mapState({
+      cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
+    }),
+  },
+}
 </script>
 
 <template>
   <div class="app">
-    <TheHeader></TheHeader>
-    <div class="page">
+    <TheHeader class="basicPageElementsHeader"></TheHeader>
+    <BaseTicker class="basicPageElementsTicker">
+      <h1 class="cityNameInTitle">{{ cityNameInTitle }}</h1>
+    </BaseTicker>
+    <div class="page basicPageElementsPage">
       <div class="pageContent">
         <RouterView />
       </div>
@@ -32,42 +47,47 @@ body {
 }
 
 a {
-    color: darkblue;
-    text-decoration: none;
-    border-bottom: 1px dashed darkblue;
+  color: darkblue;
+  text-decoration: none;
+  border-bottom: 1px dashed darkblue;
 }
 
 a:hover {
-    color: darkblue;
-    border-bottom: 1px dashed transparent;
+  color: darkblue;
+  border-bottom: 1px dashed transparent;
 }
 
 a:active {
-    color: slateblue;
-    border-bottom: 1px dashed transparent;
+  color: slateblue;
+  border-bottom: 1px dashed transparent;
 }
 
-h1 {
+h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
   font-size: 70px;
+  line-height: 70px;
+  margin: 3px 0 7px;
   white-space: nowrap;
 }
 
 @media (max-width: 1001px) {
-    h1 {
-        font-size: 50px;
-    }
+  h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+    font-size: 50px;
+    line-height: 50px;
+  }
 }
 
 @media (max-width: 701px) {
-    h1 {
-        font-size: 30px;
-    }
+  h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+    font-size: 30px;
+    line-height: 30px;
+  }
 }
 
 @media (max-width: 401px) {
-    h1 {
-        font-size: 20px;
-    }
+  h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+    font-size: 20px;
+    line-height: 20px;
+  }
 }
 
 #app {
@@ -83,28 +103,56 @@ h1 {
   background-color: cornflowerblue;
 }
 
-@media (orientation: portrait) {
-    .app {
-      flex-direction: column-reverse;
-    }
+.basicPageElementsHeader,
+.basicPageElementsTicker,
+.basicPageElementsPage {
+  order: 1;
 }
 
-.page {
-  height: 90vh;
+@media (orientation: portrait) {
+  .basicPageElementsHeader {
+    order: 2;
+  }
+}
+
+.cityNameInTitle {
+  text-align: center;
+  color: #ffedbc;
+}
+
+.cityNameInTitle::first-letter {
+  text-transform: uppercase;
+}
+
+.page { /** - Высота блока с классом "page" имеет зависимость от полной высоты блока "h1". */
+  height: calc(90% - 80px);
   width: 100%;
   padding: 0 5vw 5vh;
 }
 
 @media (max-width: 1001px) {
-  .page {
+  .page { /** - Высота блока с классом "page" имеет зависимость от полной высоты блока "h1". */
+    height: calc(90% - 60px);
     padding: 0 1vw 1vh;
   }
 }
 
+@media (max-width: 701px) {
+  .page { /** - Высота блока с классом "page" имеет зависимость от полной высоты блока "h1". */
+    height: calc(90% - 40px);
+  }
+}
+
+@media (max-width: 401px) {
+  .page { /** - Высота блока с классом "page" имеет зависимость от полной высоты блока "h1". */
+    height: calc(90% - 30px);
+  }
+}
+
 @media (orientation: portrait) {
-    .page {
-        padding: 1vh 5vw 0;
-    }
+  .page {
+    padding: 1vh 5vw 0;
+  }
 }
 
 .pageContent {
@@ -113,11 +161,11 @@ h1 {
 }
 
 .appClickableText {
-    border-bottom: 1px dashed #ffedbc;
-    cursor: pointer;
+  border-bottom: 1px dashed #ffedbc;
+  cursor: pointer;
 }
 
 .appClickableText:hover {
-    border-bottom: 1px dashed transparent;
+  border-bottom: 1px dashed transparent;
 }
 </style>

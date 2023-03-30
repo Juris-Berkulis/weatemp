@@ -7,7 +7,6 @@ export default {
         ...mapState({
             currentAirPollutionData: (state) => state.weatherModule.currentAirPollutionData,
             airPollutionDataForecast: (state) => state.weatherModule.airPollutionDataForecast,
-            cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
             isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
     },
@@ -17,9 +16,6 @@ export default {
 
 <template>
     <div class="airPollution" v-if="isWeatherLoaded && currentAirPollutionData && airPollutionDataForecast">
-        <BaseTicker>
-            <h1 class="airPollutionTitle">{{ cityNameInTitle }}</h1>
-        </BaseTicker>
         <div class="airPollutionTablePart airPollutionTablePartTitle">
             <AirPollutionDataListItem v-bind:airPollutionData="false"></AirPollutionDataListItem>
         </div>
@@ -41,10 +37,6 @@ export default {
     flex-direction: column;
     height: 100%;
     color: #ffedbc;
-}
-
-.airPollutionTitle {
-    text-align: center;
 }
 
 .airPollutionTable {
