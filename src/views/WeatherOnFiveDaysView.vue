@@ -174,7 +174,6 @@ export default {
             </div>
         </div>
     </div>
-    <BaseLoader v-else></BaseLoader>
 </template>
 
 <style>

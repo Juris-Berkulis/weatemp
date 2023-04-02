@@ -2,10 +2,12 @@
 import { RouterView } from 'vue-router'
 import TheHeader from './components/UI/TheHeader.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import AreaNotSelected from './components/AreaNotSelected.vue';
 
 export default {
   components: {
     TheHeader,
+    AreaNotSelected,
   },
   computed: {
     ...mapState({
@@ -47,14 +49,16 @@ export default {
 <template>
   <div class="app">
     <TheHeader class="basicPageElementsHeader"></TheHeader>
-    <BaseTicker class="basicPageElementsTicker" v-if="isWeatherLoaded">
+    <BaseTicker class="basicPageElementsTicker" v-if="isWeatherLoaded && cityNameInTitle">
       <h1 class="cityNameInTitle">{{ cityNameInTitle }}</h1>
     </BaseTicker>
-    <div class="page basicPageElementsPage">
+    <div class="page basicPageElementsPage" v-if="isWeatherLoaded && cityNameInTitle">
       <div class="pageContent">
         <RouterView />
       </div>
     </div>
+    <AreaNotSelected v-if="isWeatherLoaded && !cityNameInTitle"></AreaNotSelected>
+    <BaseLoader v-if="!isWeatherLoaded"></BaseLoader>
   </div>
 </template>
 
@@ -135,12 +139,12 @@ h1 { /** - Полная высота блока "h1" имеет зависимо
 .basicPageElementsHeader,
 .basicPageElementsTicker,
 .basicPageElementsPage {
-  order: 1;
+  order: 0;
 }
 
 @media (orientation: portrait) {
   .basicPageElementsHeader {
-    order: 2;
+    order: 1;
   }
 }
 

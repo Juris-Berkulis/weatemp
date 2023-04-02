@@ -10,7 +10,9 @@ export default {
             isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
         }),
     },
-    components: { AirPollutionDataListItem }
+    components: { 
+        AirPollutionDataListItem, 
+    }
 }
 </script>
 
@@ -28,7 +30,6 @@ export default {
             </div>
         </div>
     </div>
-    <BaseLoader v-else></BaseLoader>
 </template>
 
 <style scoped>

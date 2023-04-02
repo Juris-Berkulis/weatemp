@@ -104,7 +104,10 @@ export default {
             }
         },
     },
-    components: { AirPollutionDataCurrentEl, AirPollutantDescription }
+    components: { 
+        AirPollutionDataCurrentEl, 
+        AirPollutantDescription, 
+    }
 }
 </script>
 
@@ -188,7 +191,6 @@ export default {
             </div>
         </div>
     </div>
-    <baseLoader v-else></baseLoader>
 </template>
 
 <style scoped>

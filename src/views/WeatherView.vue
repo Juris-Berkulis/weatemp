@@ -25,7 +25,6 @@ export default {
             <WeatherList></WeatherList>
         </div>
     </div>
-    <BaseLoader v-else></BaseLoader>
 </template>
 
 <style>
