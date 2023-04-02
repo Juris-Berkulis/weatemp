@@ -1,5 +1,4 @@
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import WeatherForm from '../WeatherForm.vue';
 import TheModalWindow from './TheModalWindow.vue';
 
@@ -7,35 +6,6 @@ export default {
     data() {
         return {
             isShowModalWindow: false,
-        }
-    },
-    computed: {
-        ...mapState({
-            cityName: (state) => state.weatherModule.cityName,
-            byCoordsDuringAppStart: (state) => state.weatherModule.byCoordsDuringAppStart,
-        }),
-    },
-    methods: {
-        ...mapActions({
-            getWeather: 'weatherModule/getWeather',
-            getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
-            getCoordsByCityName: 'weatherModule/getCoordsByCityName',
-            getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
-            getByCoordsDuringAppStartFromLocalStorage: 'weatherModule/getByCoordsDuringAppStartFromLocalStorage',
-        }),
-    },
-    async mounted() {
-        this.getByCoordsDuringAppStartFromLocalStorage();
-
-        if (this.byCoordsDuringAppStart) {
-            this.getCoordsByUserLocation();
-        } else {
-            this.getCityNameFromLocalStorage();
-
-            if (this.cityName) {
-                await this.getCoordsByCityName();
-                await this.getWeather();
-            }
         }
     },
     components: { 

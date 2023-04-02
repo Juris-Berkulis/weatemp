@@ -11,7 +11,35 @@ export default {
     ...mapState({
       cityNameInTitle: (state) => state.weatherModule.cityNameInTitle,
       isWeatherLoaded: (state) => state.weatherModule.isWeatherLoaded,
+      cityName: (state) => state.weatherModule.cityName,
+      byCoordsDuringAppStart: (state) => state.weatherModule.byCoordsDuringAppStart,
     }),
+  },
+  methods: {
+    ...mapActions({
+      getWeather: 'weatherModule/getWeather',
+      getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
+      getCoordsByCityName: 'weatherModule/getCoordsByCityName',
+      getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
+      getByCoordsDuringAppStartFromLocalStorage: 'weatherModule/getByCoordsDuringAppStartFromLocalStorage',
+      isWeatherLoadedAction: 'weatherModule/isWeatherLoadedAction',
+    }),
+  },
+  async mounted() {
+    this.getByCoordsDuringAppStartFromLocalStorage();
+
+    if (this.byCoordsDuringAppStart) {
+      this.getCoordsByUserLocation();
+    } else {
+      this.getCityNameFromLocalStorage();
+
+      if (this.cityName) {
+        await this.getCoordsByCityName();
+        await this.getWeather();
+      } else {
+        this.isWeatherLoadedAction();
+      }
+    }
   },
 }
 </script>

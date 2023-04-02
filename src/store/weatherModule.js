@@ -256,9 +256,9 @@ export const weatherModule = {
                         const addressPlaceName = `${fullAddress?.name ? `${fullAddress?.name}, ` : ''}`;
                         const addressStreet = `${fullAddress?.street ? `${fullAddress?.street}, ` : ''}`;
                         const addressDistrict = `${fullAddress?.district ? `${fullAddress?.district}, ` : ''}`;
-                        const addressCity = `${cityName[state.language] || cityName['en'] || fullAddress?.city} `;
+                        const addressCity = `${cityName[state.language] || cityName['en'] || fullAddress?.city}`;
 
-                        const addressInTitle = `${addressPlaceName}${addressStreet}${addressDistrict}${addressCity}` || `Широта: ${coordsLatitude}, Долгота: ${coordsLongitude} `;
+                        const addressInTitle = `${addressPlaceName && addressPlaceName !== addressStreet ? addressPlaceName : ''}${addressStreet}${addressDistrict}${addressCity}` || `Широта: ${coordsLatitude}, Долгота: ${coordsLongitude}`;
 
                         commit('setCityNameInTitle', addressInTitle);
 
@@ -302,7 +302,6 @@ export const weatherModule = {
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
                 if (cityCoords.status === 200) {
-                    console.log(cityCoords.data[0])
                     commit('setCoordLat', cityCoords.data[0].lat);
                     commit('setCoordLon', cityCoords.data[0].lon);
 
@@ -331,11 +330,9 @@ export const weatherModule = {
 
                     const currentAirPollutionData = await axios.get(getters.getUrlForCurrentAirPollutionData);
                     commit('setCurrentAirPollutionData', currentAirPollutionData.data);
-                    console.log(state.currentAirPollutionData)
 
                     const airPollutionDataForecast = await axios.get(getters.getUrlForAirPollutionDataForecast);
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
-                    console.log(state.airPollutionDataForecast)
                 } else {
                     throw {message: 'Нет координат города!'}
                 }
