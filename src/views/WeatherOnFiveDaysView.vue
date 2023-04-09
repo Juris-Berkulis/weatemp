@@ -176,7 +176,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style lang="scss">
 .weatherOnFiveDays {
     display: flex;
     flex-direction: column;

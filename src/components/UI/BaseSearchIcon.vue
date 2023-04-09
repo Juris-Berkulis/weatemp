@@ -12,7 +12,7 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .SearchIcon {
     height: 30px;
     width: 30px;

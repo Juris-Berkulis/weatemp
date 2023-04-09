@@ -18,7 +18,7 @@ export default {
     <input class="input" :value="inputValue" @input="updateInput" type="text" placeholder="Введите город">
 </template>
 
-<style>
+<style lang="scss">
 .input {
     width: 100%;
     padding: 15px;

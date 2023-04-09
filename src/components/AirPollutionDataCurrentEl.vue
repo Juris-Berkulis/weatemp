@@ -24,7 +24,7 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .element {
     display: flex;
     flex-direction: column;

@@ -7,7 +7,7 @@ import router from './router'
 import { components } from './components/UI';
 import store from './store';
 
-import './assets/main.css'
+import './assets/main.scss'
 
 const app = createApp(App)
 

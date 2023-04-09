@@ -37,7 +37,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style lang="scss">
 .header {
     height: 10vh;
     width: 100vw;

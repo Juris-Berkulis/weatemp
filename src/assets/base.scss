@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    color: darkblue;
+    text-decoration: none;
+    border-bottom: 1px dashed darkblue;
+}
+
+a:hover {
+    color: darkblue;
+    border-bottom: 1px dashed transparent;
+}
+
+a:active {
+    color: slateblue;
+    border-bottom: 1px dashed transparent;
+}
+
+h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+    font-size: 70px;
+    line-height: 70px;
+    margin: 3px 0 7px;
+    white-space: nowrap;
+}
+
+@media (max-width: 1001px) {
+    h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+        font-size: 50px;
+        line-height: 50px;
+    }
+}
+
+@media (max-width: 701px) {
+    h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+        font-size: 30px;
+        line-height: 30px;
+    }
+}
+
+@media (max-width: 401px) {
+    h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
+        font-size: 20px;
+        line-height: 20px;
+    }
+}

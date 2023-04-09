@@ -10,7 +10,7 @@ export default {
     </button>
 </template>
 
-<style>
+<style lang="scss">
 .btn {
     height: 100%;
     padding: 15px;

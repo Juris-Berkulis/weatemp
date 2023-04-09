@@ -60,7 +60,7 @@ export default {
     </form>
 </template>
 
-<style>
+<style lang="scss">
 .form {
     width: 100%;
 }

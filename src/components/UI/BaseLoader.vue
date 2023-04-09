@@ -10,7 +10,7 @@ export default {
 </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 @keyframes loaderAnimation {
     0% {
         transform: rotateZ(0deg) scale(1);

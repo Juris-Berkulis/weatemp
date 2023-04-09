@@ -27,7 +27,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style lang="scss">
 .weatherView {
     display: flex;
     flex-direction: column;

@@ -26,7 +26,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style lang="scss">
 .weatherList {
     display: flex;
     flex-wrap: wrap;

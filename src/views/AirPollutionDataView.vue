@@ -32,7 +32,7 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .airPollution {
     display: flex;
     flex-direction: column;

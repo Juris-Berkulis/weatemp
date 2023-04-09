@@ -14,7 +14,7 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 @keyframes tickerAnimation {
     0% {
         transform: translateX(0);

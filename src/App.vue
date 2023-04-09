@@ -62,7 +62,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 #app {
   height: 100%;
   width: 100%;
