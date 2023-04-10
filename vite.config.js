@@ -11,6 +11,8 @@ import {
   htmlBaseName
 } from './VCPlaginHtml';
 
+console.log(`\n========== РЕЖИМ: ${process.env.NODE_ENV && typeof(process.env.NODE_ENV) === 'string' ? process.env.NODE_ENV.toUpperCase() : process.env.NODE_ENV} ==========\n`);
+
 const htmlPlugin = () => { //* - https://vitejs.dev/guide/api-plugin.html#transformindexhtml.
   return {
     name: 'html-transform',
@@ -30,7 +32,7 @@ const htmlPlugin = () => { //* - https://vitejs.dev/guide/api-plugin.html#transf
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  mode: 'production',
+  mode: process.env.NODE_ENV,
   plugins: [
     vue(),
     vueJsx(),
