@@ -1,6 +1,7 @@
 import favicons from "favicons"; //* - Подробнее на сайте "https://github.com/itgalaxy/favicons".
 import path from "path";
 import fsPromises from "fs/promises";
+const fs = require("fs");
 
 const outputDir = './dist';
 export const faviconsOutputDirPath = 'assets/favicons';
@@ -65,16 +66,25 @@ export const addFavicons = async () => {
     await Promise.all(
         response.images.map(
             async (image) => {
-                await fsPromises.writeFile(path.join(faviconsOutputDirFullPath, image.name), image.contents)
+                await fsPromises.writeFile(path.join(faviconsOutputDirFullPath, image.name), image.contents); //* - Создать в папке "dist/assets/favicons" картинки фавиконов, созданные с помощью плагина "favicons".
             }
         )
     );
     await Promise.all(
         response.files.map(
             async (file) => {
-                await fsPromises.writeFile(path.join(faviconsOutputDirFullPath, file.name), file.contents)
+                if (file.name === 'manifest.webmanifest') {
+                    await fsPromises.writeFile(path.join(outputDir, file.name), file.contents); //* - Создать в папке "dist" файл 'manifest.webmanifest', созданный с помощью плагина "favicons".
+                } else {
+                    await fsPromises.writeFile(path.join(faviconsOutputDirFullPath, file.name), file.contents); //* - Создать в папке "dist/assets/favicons" файлы, созданные с помощью плагина "favicons".
+                }
             }
         )
     );
-    await fsPromises.writeFile(path.join(faviconsOutputDirFullPath, htmlBaseName), response.html.join("\n    "));
+    await fsPromises.writeFile(path.join(faviconsOutputDirFullPath, htmlBaseName), response.html.join("\n    ")); //* - Создать в папке "dist/assets/favicons" файл "index.html", созданный с помощью плагина "favicons", который содержит исключительно только пока ещё неверные ссылки на файлы, созданные с помощью плагина "favicons".
+
+    //* Прочитать файл "dist/manifest.webmanifest", исправить в нём ссылки на картинки и перезаписать сам файл:
+    let manifestContent = fs.readFileSync(`${outputDir}/manifest.webmanifest`, "utf8")
+        .replace(/"src": "\//g, `"src": "${faviconsOutputDirPath}/`);
+    await fsPromises.writeFile(path.join(outputDir, 'manifest.webmanifest'), manifestContent);
 };
