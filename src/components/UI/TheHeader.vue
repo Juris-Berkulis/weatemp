@@ -33,6 +33,9 @@ export default {
         </div>
         <TheModalWindow v-model:isShow="isShowModalWindow">
             <WeatherForm v-model:isShowModalWindow="isShowModalWindow"></WeatherForm>
+            <BaseInstallPWA class="installPWAComponent">
+                <p class="installPWAText appClickableText">Установить как приложение</p>
+            </BaseInstallPWA>
         </TheModalWindow>
     </div>
 </template>
@@ -56,6 +59,17 @@ export default {
 .navBtn {
     margin: 0 10px;
     text-align: center;
+    font-size: 16px;
+}
+
+.installPWAComponent {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.installPWAText {
+    text-align: right;
     font-size: 16px;
 }
 </style>

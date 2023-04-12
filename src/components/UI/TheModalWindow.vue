@@ -42,8 +42,8 @@ export default {
     min-height: 200px;
     min-width: 300px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding: 40px 20px;
     border: 2px solid #eeeeee;
     border-radius: 20px;

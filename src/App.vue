@@ -6,7 +6,7 @@ import AreaNotSelected from './components/AreaNotSelected.vue';
 import {
   registerServiceWorker,
   unregisterServiceWorker
-} from './serviceWorker/serviceWorkerRegistration';
+} from './serviceWorker/registrationServiceWorker';
 
 export default {
   components: {
@@ -29,6 +29,8 @@ export default {
       getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
       getByCoordsDuringAppStartFromLocalStorage: 'weatherModule/getByCoordsDuringAppStartFromLocalStorage',
       isWeatherLoadedAction: 'weatherModule/isWeatherLoadedAction',
+      setDeferredPromptForPWAAction: 'appSettingModule/setDeferredPromptForPWAAction',
+      setIsShowBtnForInstallPWAAction: 'appSettingModule/setIsShowBtnForInstallPWAAction',
     }),
   },
   async mounted() {
@@ -50,6 +52,42 @@ export default {
     if (process.env.NODE_ENV === 'production') {
       //* Register a service-worker:
       registerServiceWorker();
+
+      const onBeforeInstallPrompt = () => {
+        return (event) => {
+          // Prevent the mini-infobar from appearing on mobile
+          event.preventDefault();
+          // Stash the event so it can be triggered later.
+          this.setDeferredPromptForPWAAction(event);
+          // Update UI notify the user they can install the PWA
+          this.setIsShowBtnForInstallPWAAction(true);
+          // Optionally, send analytics event that PWA install promo was shown.
+          console.log('This application can be installed on the home screen.');
+        }
+      };
+
+      const onAppInstalled = () => {
+        return () => {
+          // Hide the app-provided install promotion
+          this.setIsShowBtnForInstallPWAAction(false);
+          // Clear the deferredPrompt so it can be garbage collected
+          this.setDeferredPromptForPWAAction(null);
+          // Optionally, send analytics event to indicate successful install
+          console.log('The application has been successfully installed.');
+        }
+      };
+
+      const lissenBeforeInstallPrompt = () => {
+        window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt());
+      };
+
+      const lissenAppInstalled = () => {
+        window.addEventListener('appinstalled', onAppInstalled());
+      }
+
+      //* Подробнее на сайте: "https://web.dev/i18n/ru/customize-install/":
+      lissenBeforeInstallPrompt();
+      lissenAppInstalled();
     } else {
       //* Do not register a service-worker:
       unregisterServiceWorker();

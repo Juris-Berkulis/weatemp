@@ -4,8 +4,6 @@
 // existing tabs open on the page have been closed, since previously cached
 // resources are updated in the background.
 
-import { pwaStatus } from "./pwaStatus";
-
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' 
   ||
@@ -75,8 +73,6 @@ function registerValidSW(swUrl, config) {
           }
         };
       };
-
-      pwaStatus();
     })
     .catch((error) => {
       console.error('Error during service worker registration:', error);
