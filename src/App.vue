@@ -3,6 +3,10 @@ import { RouterView } from 'vue-router'
 import TheHeader from './components/UI/TheHeader.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import AreaNotSelected from './components/AreaNotSelected.vue';
+import {
+  registerServiceWorker,
+  unregisterServiceWorker
+} from './serviceWorker/serviceWorkerRegistration';
 
 export default {
   components: {
@@ -41,6 +45,14 @@ export default {
       } else {
         this.isWeatherLoadedAction();
       }
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      //* Register a service-worker:
+      registerServiceWorker();
+    } else {
+      //* Do not register a service-worker:
+      unregisterServiceWorker();
     }
   },
 }

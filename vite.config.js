@@ -44,14 +44,14 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    htmlPlugin(),
+    isProd ? htmlPlugin() : null,
     VitePWA({ //* - Все параметры и описание на сайте "https://github.com/vite-pwa/vite-plugin-pwa/blob/main/src/types.ts".
       mode: process.env.NODE_ENV,
       outDir: 'dist',
       filename: 'service-worker.js',
       manifestFilename: 'manifest.webmanifest',
       strategies: 'generateSW',
-      injectRegister: 'script', //* - 'inline' | 'script' | 'auto' | null | false.
+      injectRegister: null, //* - 'inline' | 'script' | 'auto' | null | false.
       registerType: 'prompt', //* - 'prompt' | 'autoUpdate'.
       minify: isProd ? true : false,
       manifest: false,
