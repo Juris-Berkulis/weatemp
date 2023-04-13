@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      getWeather: 'weatherModule/getWeather',
       getCityNameFromLocalStorage: 'weatherModule/getCityNameFromLocalStorage',
       getCoordsByCityName: 'weatherModule/getCoordsByCityName',
       getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
@@ -43,7 +42,6 @@ export default {
 
       if (this.cityName) {
         await this.getCoordsByCityName();
-        await this.getWeather();
       } else {
         this.isWeatherLoadedAction();
       }

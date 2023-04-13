@@ -17,7 +17,6 @@ export default {
             setCityNameInFormInput: 'weatherModule/setCityNameInFormInput',
         }),
         ...mapActions({
-            getWeather: 'weatherModule/getWeather',
             getCityNameFromFormInput: 'weatherModule/getCityNameFromFormInput',
             getCoordsByCityName: 'weatherModule/getCoordsByCityName',
             getCoordsByUserLocation: 'weatherModule/getCoordsByUserLocation',
@@ -29,7 +28,6 @@ export default {
 
                     this.getCityNameFromFormInput(this.cityNameInFormInput);
                     await this.getCoordsByCityName();
-                    await this.getWeather();
                 } else {
                     throw {message: 'Введите название города!'}
                 }

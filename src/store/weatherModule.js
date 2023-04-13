@@ -264,7 +264,7 @@ export const weatherModule = {
 
                         localStorage.setItem('byCoords', JSON.stringify(true));
 
-                        dispatch('getWeather');
+                        await dispatch('getWeather');
                     } else {
                         throw {message: 'Нет данных!'}
                     }
@@ -302,21 +302,28 @@ export const weatherModule = {
             try {
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
                 if (cityCoords.status === 200) {
-                    commit('setCoordLat', cityCoords.data[0].lat);
-                    commit('setCoordLon', cityCoords.data[0].lon);
+                    commit('setCoordLat', cityCoords?.data[0]?.lat);
+                    commit('setCoordLon', cityCoords?.data[0]?.lon);
 
-                    const city = cityCoords.data[0].local_names[state.language] || cityCoords.data[0].local_names['en'] || state.cityName;
+                    const city = cityCoords?.data[0]?.local_names[state.language] || cityCoords?.data[0]?.local_names['en'];
+
+                    if (!city) {
+                        throw {message: 'Город не найден!'}
+                    }
+
                     commit('setCityNameInTitle', city);
                     commit('setCityNameForLocalStorage', city);
 
                     localStorage.setItem('byCoords', JSON.stringify(false));
+
+                    await dispatch('getWeather');
                 } else {
-                    throw {code: 404, message: 'Нет данных!'}
+                    throw {message: 'Нет данных!'}
                 }
             } catch(error) {
-                alert(`${error.code}: ${error.message}`);
+                alert(`${error.message}`);
                 dispatch('isWeatherLoadedAction');
-                dispatch('errorGettingWeatherAction', `${error.code}: ${error.message}`);
+                dispatch('errorGettingWeatherAction', `${error.message}`);
             }
         },
         async getWeather({state, commit, getters, dispatch}) {
@@ -334,7 +341,7 @@ export const weatherModule = {
                     const airPollutionDataForecast = await axios.get(getters.getUrlForAirPollutionDataForecast);
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
                 } else {
-                    throw {message: 'Нет координат города!'}
+                    throw {message: 'Координаты не найдены!'}
                 }
 
                 localStorage.setItem('location', JSON.stringify(state.cityNameForLocalStorage));
