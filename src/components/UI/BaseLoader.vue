@@ -5,58 +5,122 @@ export default {
 </script>
 
 <template>
-<div class="loaderWrapper">
-    <div class="loader"></div>
+<div class="loader">
+    <div class="loaderSpinner loaderSpinner1"></div>
+    <div class="loaderSpinner loaderSpinner2"></div>
+    <div class="loaderSpinner loaderSpinner3"></div>
 </div>
 </template>
 
 <style lang="scss" scoped>
-@keyframes loaderAnimation {
+@keyframes loaderSpinnerAnimation1 {
     0% {
-        transform: rotateZ(0deg) scale(1);
+        transform: translate(-50%, -50%) rotateZ(0deg) scale(1);
         border: 20px solid #ffedbc;
         border-left: 25px solid transparent;
     }
 
     25% {
-        transform: rotateZ(90deg) scale(0.8);
+        transform: translate(-50%, -50%) rotateZ(90deg) scale(0.8);
         border: 10px solid #ffedbc;
         border-left: 15px solid transparent;
     }
 
     50% {
-        transform: rotateZ(180deg) scale(1);
+        transform: translate(-50%, -50%) rotateZ(180deg) scale(1);
         border: 20px solid #ffedbc;
         border-left: 25px solid transparent;
     }
 
     75% {
-        transform: rotateZ(270deg) scale(0.8);
+        transform: translate(-50%, -50%) rotateZ(270deg) scale(0.8);
         border: 10px solid #ffedbc;
         border-left: 15px solid transparent;
     }
 
     100% {
-        transform: rotateZ(360deg) scale(1);
+        transform: translate(-50%, -50%) rotateZ(360deg) scale(1);
         border: 20px solid #ffedbc;
         border-left: 25px solid transparent;
     }
 }
 
-.loaderWrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@keyframes loaderSpinnerAnimation2 {
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+}
+
+@keyframes loaderSpinnerAnimation3 {
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+        border: 10px solid #ffedbc;
+        border-left: 15px solid transparent;
+    }
+
+    25% {
+        transform: translate(-50%, -50%) rotateZ(90deg);
+        border: 5px solid #ffedbc;
+        border-left: 10px solid transparent;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotateZ(180deg);
+        border: 10px solid #ffedbc;
+        border-left: 15px solid transparent;
+    }
+
+    75% {
+        transform: translate(-50%, -50%) rotateZ(270deg);
+        border: 5px solid #ffedbc;
+        border-left: 10px solid transparent;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+        border: 10px solid #ffedbc;
+        border-left: 15px solid transparent;
+    }
 }
 
 .loader {
-    width: 100px;
-    height: 100px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.loaderSpinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     border-radius: 50%;
+}
+
+.loaderSpinner1 {
+    width: 150px;
+    height: 150px;
     border: 20px solid #ffedbc;
     border-left: 25px solid transparent;
-    animation: loaderAnimation 3s linear 0s infinite normal;
+    animation: loaderSpinnerAnimation1 3s linear 0s infinite normal;
+}
+
+.loaderSpinner2 {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #ffedbc;
+    border-bottom: 15px solid transparent;
+    animation: loaderSpinnerAnimation2 1s linear 0s infinite reverse;
+}
+
+.loaderSpinner3 {
+    width: 70px;
+    height: 70px;
+    border: 10px solid #ffedbc;
+    border-right: 15px solid transparent;
+    animation: loaderSpinnerAnimation3 2s linear 0s infinite normal;
 }
 </style>

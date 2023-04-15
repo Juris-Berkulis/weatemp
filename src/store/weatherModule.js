@@ -132,7 +132,7 @@ export const weatherModule = {
             return {title, testimony, units}
         },
         getWindDirection(state) {
-            const title = 'Направление ветра';
+            const title = 'Напр. ветра';
             const degry = state.weather.wind.deg;
             const direction = getWindDirectionFunc(degry, false);
 
@@ -162,11 +162,11 @@ export const weatherModule = {
             return [
                 getters.getTemperature,
                 getters.getFeelingTemperature,
-                getters.getMinTemperature,
-                getters.getMaxTemperature,
-                getters.getVisibility,
+                //? getters.getMinTemperature,
+                //? getters.getMaxTemperature,
                 getters.getCloudsPercent,
                 getters.getDescription,
+                getters.getVisibility,
                 getters.getWindDirection,
                 getters.getWindSpeed,
                 getters.getWindGusts,
