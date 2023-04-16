@@ -48,10 +48,12 @@ export default {
 @keyframes loaderSpinnerAnimation2 {
     0% {
         transform: translate(-50%, -50%) rotateZ(0deg);
+        border-bottom: 15px solid transparent; //* - Свойство необходимо просто, чтобы анимация останавливалась во время отображения окна "alert()".
     }
 
     100% {
         transform: translate(-50%, -50%) rotateZ(360deg);
+        border-bottom: 15px solid transparent; //* - Свойство необходимо просто, чтобы анимация останавливалась во время отображения окна "alert()".
     }
 }
 
