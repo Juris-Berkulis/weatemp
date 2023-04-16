@@ -119,7 +119,7 @@ export const weatherModule = {
         },
         getVisibility(state) {
             const title = 'Видимость';
-            const testimony = state.weather.visibility < 1000 ? state.weather.visibility : (state.weather.visibility / 1000).toFixed(1);
+            const testimony = state.weather.visibility < 1000 ? state.weather.visibility : state.weather.visibility >= 10000 ? '> 10' : (state.weather.visibility / 1000).toFixed(1);
             const units = state.weather.visibility < 1000 ? ' м' : ' км';
             return {title, testimony, units}
         },

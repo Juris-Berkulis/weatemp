@@ -62,7 +62,11 @@ export default {
             }
 
             if (visibility >= 1000) {
-                return `${(visibility / 1000).toFixed(1)}км`
+                if (visibility < 10000) {
+                    return `${(visibility / 1000).toFixed(1)}км`
+                } else {
+                    return '>10км'
+                }
             }
 
             return `${visibility}м`
