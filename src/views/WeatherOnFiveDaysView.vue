@@ -136,13 +136,13 @@ export default {
         <div class="weatherOnFiveDaysTable" @click="isShowColumnWithTitles = !isShowColumnWithTitles">
             <div class="threeHours threeHoursTitle" v-if="isShowColumnWithTitles">
                 <div class="threeHoursIndicator">Дата:</div>
+                <div class="threeHoursIndicator">Время:</div>
                 <div class="threeHoursChartWrapper threeHoursChartWrapperTitle" :style="getChartMaxHeight">
                     <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&uarr;</span>: {{ getMinAndMaxTempForFiveDays.maxTemp }}°C</p>
                     <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&darr;</span>: {{ getMinAndMaxTempForFiveDays.minTemp }}°C</p>
                     <p class="threeHoursChartWrapperTitleTempLine threeHoursChartWrapperTitleZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine">0°</p>
                 </div>
                 <div class="threeHoursIndicator">Температура (°C):</div>
-                <div class="threeHoursIndicator">Время:</div>
                 <div class="threeHoursIndicatorImg"></div>
                 <div class="threeHoursIndicator">Облачность (%):</div>
                 <div class="threeHoursIndicator">Вер. осадков (%):</div>
@@ -156,12 +156,12 @@ export default {
             <div class="weatherOnFiveDaysTableAuxiliary">
                 <div :class="['threeHours', {threeHoursNewDay: getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather in weatherOnFiveDays.list">
                     <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="isShowWeekDay = !isShowWeekDay">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
+                    <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                         <div class="threeHoursChartZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine"></div>
                     </div>
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}</div>
-                    <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <img class="threeHoursIndicatorImg" :src="getIcon(threeHoursWeather.weather[0]).imgSrc" :alt="getIcon(threeHoursWeather.weather[0]).imgAlt">
                     <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}</div>
                     <div class="threeHoursIndicator">{{ getPrecipitationProbability(threeHoursWeather.pop) }}</div>
