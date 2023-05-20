@@ -184,6 +184,7 @@ export default {
 .appClickableText {
   border-bottom: 1px dashed #ffedbc;
   cursor: pointer;
+  transition: border-bottom 0.2s;
 }
 
 .appClickableText:hover {

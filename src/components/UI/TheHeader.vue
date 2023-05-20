@@ -62,6 +62,17 @@ export default {
     font-size: 16px;
 }
 
+.router-link-exact-active {
+    border: none;
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
+}
+
+.router-link-exact-active::after {
+    width: 0;
+}
+
 .installPWAComponent {
     display: flex;
     justify-content: flex-end;

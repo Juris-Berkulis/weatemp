@@ -41,6 +41,10 @@ export const getWindDirectionFunc = (degry, isShort) => {
     return direction
 };
 
+export const getCapitalizedString = (oldString) => {
+    return oldString[0].toUpperCase() + oldString.slice(1).toLowerCase()
+};
+
 export const getWeatherIcon = (weatherObj) => {
     const weatherConditionGroupCode = +(weatherObj.weather[0].id.toString()[0]);
     const clouds = weatherObj.clouds.all;
@@ -79,7 +83,7 @@ export const getWeatherIcon = (weatherObj) => {
     }
 
     const imgSrc = `https://openweathermap.org/img/w/${icon}.png`;
-    const imgAlt = weatherObj.weather[0].description;
+    const imgAlt = getCapitalizedString(weatherObj.weather[0].description);
 
     return {imgSrc, imgAlt}
 };

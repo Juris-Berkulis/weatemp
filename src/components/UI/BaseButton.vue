@@ -23,6 +23,7 @@ export default {
     border-bottom-left-radius: 0;
     font-size: 30px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .btn:hover {

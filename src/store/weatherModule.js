@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
     getWindDirectionFunc,
     getWeatherIcon,
+    getCapitalizedString,
 } from '@/helper/helperWeather.js';
 
 export const weatherModule = {
@@ -128,9 +129,7 @@ export const weatherModule = {
         },
         getDescription(state) {
             const title = 'Описание';
-            const testimonyBeforeUpdate = state.weather.weather[0].description;
-            const testimony = testimonyBeforeUpdate ? testimonyBeforeUpdate[0].toUpperCase() + testimonyBeforeUpdate.slice(1) : 'н/д';
-
+            const testimony = getCapitalizedString(state.weather.weather[0].description) || 'н/д';
             const units = '';
             return {title, testimony, units}
         },

@@ -14,20 +14,50 @@ body {
     width: 100%;
 }
 
+@keyframes changeColor {
+    from {
+        color: slateblue;
+    }
+
+    to {
+        color: darkblue;
+    }
+}
+
 a {
+    position: relative;
     color: darkblue;
     text-decoration: none;
-    border-bottom: 1px dashed darkblue;
+    user-select: none;
 }
 
 a:hover {
     color: darkblue;
-    border-bottom: 1px dashed transparent;
 }
 
 a:active {
     color: slateblue;
-    border-bottom: 1px dashed transparent;
+}
+
+a:focus {
+    color: slateblue;
+    outline: none;
+    animation: changeColor 3s linear 0.1s 1 normal forwards;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: darkblue;
+    transition: width 0.4s;
+}
+
+a:hover::after {
+    width: 0;
 }
 
 h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
