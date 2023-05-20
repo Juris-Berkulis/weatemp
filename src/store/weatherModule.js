@@ -1,5 +1,8 @@
 import axios from 'axios';
-import {getWindDirectionFunc} from '@/helper/helperWeather.js';
+import {
+    getWindDirectionFunc,
+    getWeatherIcon,
+} from '@/helper/helperWeather.js';
 
 export const weatherModule = {
     namespaced: true,
@@ -154,9 +157,7 @@ export const weatherModule = {
             return {title, testimony, units}
         },
         getIcon(state) {
-            const imgSrc = `https://openweathermap.org/img/w/${state.weather.weather[0].icon}.png`;
-            const imgAlt = state.weather.weather[0].main;
-            return {imgSrc, imgAlt}
+            return getWeatherIcon(state.weather)
         },
         weatherInfoList(state, getters) {
             return [

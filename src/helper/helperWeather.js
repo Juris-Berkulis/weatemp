@@ -40,3 +40,46 @@ export const getWindDirectionFunc = (degry, isShort) => {
 
     return direction
 };
+
+export const getWeatherIcon = (weatherObj) => {
+    const weatherConditionGroupCode = +(weatherObj.weather[0].id.toString()[0]);
+    const clouds = weatherObj.clouds.all;
+    const timesOfDay = weatherObj.weather[0].icon[2];
+
+    let icon;
+
+    switch (weatherConditionGroupCode) {
+        case 3: //* - Морось.
+        case 5: { //* - Дождь.
+            if (clouds > 90) {
+                icon = `09${timesOfDay}`;
+            } else {
+                icon = `10${timesOfDay}`;
+            }
+            break;
+        }
+        case 8: { //* - Облака.
+            if (clouds > 95) {
+                icon = `04${timesOfDay}`;
+            } else if (clouds > 90) {
+                icon = `03${timesOfDay}`;
+            } else if (clouds > 10) {
+                icon = `02${timesOfDay}`;
+            } else {
+                icon = `01${timesOfDay}`;
+            }
+            break;
+        }
+        case 2: //* - Гроза.
+        case 6: //* - Снег.
+        case 7: //* - Туман.
+        default: {
+            icon = weatherObj.weather[0].icon; break;
+        }
+    }
+
+    const imgSrc = `https://openweathermap.org/img/w/${icon}.png`;
+    const imgAlt = weatherObj.weather[0].description;
+
+    return {imgSrc, imgAlt}
+};

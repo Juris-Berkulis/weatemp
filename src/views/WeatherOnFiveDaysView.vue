@@ -1,6 +1,9 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
-import {getWindDirectionFunc} from '@/helper/helperWeather.js';
+import {
+    getWindDirectionFunc,
+    getWeatherIcon,
+} from '@/helper/helperWeather.js';
 
 export default {
     data() {
@@ -45,9 +48,7 @@ export default {
     },
     methods: {
         getIcon(weatherObj) {
-            const imgSrc = `https://openweathermap.org/img/w/${weatherObj.icon}.png`;
-            const imgAlt = weatherObj.main;
-            return {imgSrc, imgAlt}
+            return getWeatherIcon(weatherObj)
         },
         isValidData(data) {
             if (data !== 'undefined') {
@@ -162,7 +163,7 @@ export default {
                         <div class="threeHoursChartZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine"></div>
                     </div>
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}</div>
-                    <img class="threeHoursIndicatorImg" :src="getIcon(threeHoursWeather.weather[0]).imgSrc" :alt="getIcon(threeHoursWeather.weather[0]).imgAlt">
+                    <img class="threeHoursIndicatorImg" :src="getIcon(threeHoursWeather).imgSrc" :alt="getIcon(threeHoursWeather).imgAlt" :title="getIcon(threeHoursWeather).imgAlt">
                     <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}</div>
                     <div class="threeHoursIndicator">{{ getPrecipitationProbability(threeHoursWeather.pop) }}</div>
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.humidity }}</div>
