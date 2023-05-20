@@ -1,6 +1,9 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import {
+    roundToTwoDecimalPlaces,
+} from '@/helper/helperApp.js';
+import {
     getWindDirectionFunc,
     getWeatherIcon,
 } from '@/helper/helperWeather.js';
@@ -128,6 +131,9 @@ export default {
 
             return {localDate, localTime, localDateInMidnight, localShortDateInMidnight, localShortWeekDayInMidnight, localLongWeekDayInMidnight}
         },
+        roundToTwoDecimalPlacesMethod (fullNumber) {
+            return roundToTwoDecimalPlaces(fullNumber)
+        },
     },
 }
 </script>
@@ -162,7 +168,7 @@ export default {
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
                         <div class="threeHoursChartZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine"></div>
                     </div>
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.temp }}</div>
+                    <div class="threeHoursIndicator">{{ roundToTwoDecimalPlacesMethod(threeHoursWeather.main.temp) }}</div>
                     <img class="threeHoursIndicatorImg" :src="getIcon(threeHoursWeather).imgSrc" :alt="getIcon(threeHoursWeather).imgAlt" :title="getIcon(threeHoursWeather).imgAlt">
                     <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}</div>
                     <div class="threeHoursIndicator">{{ getPrecipitationProbability(threeHoursWeather.pop) }}</div>

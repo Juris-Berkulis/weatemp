@@ -1,8 +1,10 @@
 import axios from 'axios';
 import {
+    getCapitalizedString, roundToTwoDecimalPlaces,
+} from '../helper/helperApp.js';
+import {
     getWindDirectionFunc,
     getWeatherIcon,
-    getCapitalizedString,
 } from '@/helper/helperWeather.js';
 
 export const weatherModule = {
@@ -63,25 +65,25 @@ export const weatherModule = {
         },
         getTemperature(state) {
             const title = 'Температура';
-            const testimony = state.weather.main.temp;
+            const testimony = roundToTwoDecimalPlaces(state.weather.main.temp);
             const units = '°C';
             return {title, testimony, units}
         },
         getFeelingTemperature(state) {
             const title = 'Ощущается';
-            const testimony = state.weather.main.feels_like;
+            const testimony = roundToTwoDecimalPlaces(state.weather.main.feels_like);
             const units = '°C';
             return {title, testimony, units}
         },
         getMaxTemperature(state) {
             const title = 'Макс. темп.';
-            const testimony = state.weather.main.temp_max;
+            const testimony = roundToTwoDecimalPlaces(state.weather.main.temp_max);
             const units = '°C';
             return {title, testimony, units}
         },
         getMinTemperature(state) {
             const title = 'Мин. темп.';
-            const testimony = state.weather.main.temp_min;
+            const testimony = roundToTwoDecimalPlaces(state.weather.main.temp_min);
             const units = '°C';
             return {title, testimony, units}
         },
@@ -145,13 +147,13 @@ export const weatherModule = {
         },
         getWindSpeed(state) {
             const title = 'Скорость ветра';
-            const testimony = state.weather.wind.speed;
+            const testimony = roundToTwoDecimalPlaces(state.weather.wind.speed);
             const units = ' м/с';
             return {title, testimony, units}
         },
         getWindGusts(state) {
             const title = 'Порывы ветра';
-            const testimony = state.weather.wind.gust ? state.weather.wind.gust : state.weather.wind.speed;
+            const testimony = !isNaN(state.weather.wind.gust) ? roundToTwoDecimalPlaces(state.weather.wind.gust) : roundToTwoDecimalPlaces(state.weather.wind.speed);
             const units = ' м/с';
             return {title, testimony, units}
         },

@@ -1,5 +1,8 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import {
+    roundToTwoDecimalPlaces,
+} from '@/helper/helperApp.js';
 
 export default {
     props: {
@@ -29,6 +32,9 @@ export default {
 
             return {localDate, localTime, localYear, localDateAndTime}
         },
+        roundToTwoDecimalPlacesMethod (fullNumber) {
+            return roundToTwoDecimalPlaces(fullNumber)
+        },
     },
 }
 </script>
@@ -51,14 +57,14 @@ export default {
             <div class="airPollutionEachDate" v-if="index !== 0 || airPollutionData.length === 1">
                 <div class="airPollutionEachDateElement">{{ getDateAndTime(airPollutionDataEachDate.dt).localDateAndTime }}</div>
                 <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.main.aqi }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.co }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.nh3 }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.no }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.no2 }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.o3 }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.so2 }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.pm2_5 }}</div>
-                <div class="airPollutionEachDateElement">{{ airPollutionDataEachDate.components.pm10 }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.co) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.nh3) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.no) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.no2) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.o3) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.so2) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.pm2_5) }}</div>
+                <div class="airPollutionEachDateElement">{{ roundToTwoDecimalPlacesMethod(airPollutionDataEachDate.components.pm10) }}</div>
             </div>
         </div>
     </div>

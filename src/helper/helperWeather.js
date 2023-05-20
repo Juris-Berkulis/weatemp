@@ -1,3 +1,7 @@
+import {
+    getCapitalizedString,
+} from "./helperApp";
+
 export const getWindDirectionFunc = (degry, isShort) => {
     if (degry === 'undefined') {
         return 'н/д'
@@ -39,10 +43,6 @@ export const getWindDirectionFunc = (degry, isShort) => {
     }
 
     return direction
-};
-
-export const getCapitalizedString = (oldString) => {
-    return oldString[0].toUpperCase() + oldString.slice(1).toLowerCase()
 };
 
 export const getWeatherIcon = (weatherObj) => {
