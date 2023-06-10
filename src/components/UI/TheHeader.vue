@@ -19,13 +19,13 @@ export default {
     <div class="header">
         <div class="nav">
             <div class="navBtn">
-                <RouterLink to="/">Сейчас</RouterLink>
+                <RouterLink to="/" id="weatherNowView">Сейчас</RouterLink>
             </div>
             <div class="navBtn">
-                <RouterLink to="/weather_on_five_days">На 5 дней</RouterLink>
+                <RouterLink to="/weather_on_five_days" id="weatherOnFiveDaysView">На 5 дней</RouterLink>
             </div>
             <div class="navBtn">
-                <RouterLink to="/air_pollution_now">Загрязнение</RouterLink>
+                <RouterLink to="/air_pollution_now" id="airPollutionNowView">Загрязнение</RouterLink>
             </div>
             <div class="navBtn">
                 <BaseSearchIcon @click="isShowModalWindow = true"></BaseSearchIcon>
@@ -34,7 +34,7 @@ export default {
         <TheModalWindow v-model:isShow="isShowModalWindow">
             <WeatherForm v-model:isShowModalWindow="isShowModalWindow"></WeatherForm>
             <BaseInstallPWA class="installPWAComponent">
-                <p class="installPWAText appClickableText">Установить как приложение</p>
+                <p class="installPWAText appClickableText" id="installPWA">Установить как приложение</p>
             </BaseInstallPWA>
         </TheModalWindow>
     </div>

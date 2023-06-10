@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-    <button class="btn">
+    <button class="btn" id="getByCityBtn">
         <slot></slot>
     </button>
 </template>

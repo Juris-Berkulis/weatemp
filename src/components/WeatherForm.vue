@@ -52,7 +52,7 @@ export default {
         </div>
         <div class="formByCoords">
             <p class="formByCoordsBtn">
-                <span class="formByCoordsBtnText appClickableText" @click="getWeatherDataByUserLocation">Мое местоположение</span>
+                <span class="formByCoordsBtnText appClickableText" id="getByCoordsBtn" @click="getWeatherDataByUserLocation">Мое местоположение</span>
             </p>
         </div>
     </form>

@@ -153,13 +153,13 @@ export default {
             </div>
             <div class="airPollutionNowMore">
                 <p>NH<span class="index">3</span> и NO не влияют на расчет ИКВ.</p>
-                <RouterLink to="/air_pollution_data">Прогноз данных о загрязнении воздуха &#8594;</RouterLink>
+                <RouterLink to="/air_pollution_data" id="airPollutionOnFourDaysView">Прогноз данных о загрязнении воздуха &#8594;</RouterLink>
             </div>
             <div class="airPollutionNowElementsDescriptionsTable">
                 <p class="airPollutionNowElementsDescriptionsTitle">
                     <span class="appClickableText" @click="isShowTableWithDescriptionPollutant = !isShowTableWithDescriptionPollutant">
-                        <span v-if="isShowTableWithDescriptionPollutant">Скрыть описание</span>
-                        <span v-else>Подробнее о загрязняющих веществах</span>
+                        <span id="descriptionAboutAirPollutantsIsClosed" v-if="isShowTableWithDescriptionPollutant">Скрыть описание</span>
+                        <span id="descriptionAboutAirPollutantsIsOpened" v-else>Подробнее о загрязняющих веществах</span>
                     </span>
                 </p>
                 <div class="airPollutionNowElementsDescriptionsList" v-if="isShowTableWithDescriptionPollutant">
