@@ -26,13 +26,15 @@ body {
 
 a {
     position: relative;
+    padding-bottom: 2px;
     color: darkblue;
     text-decoration: none;
     user-select: none;
+    transition: color 0.4s linear 0s;
 }
 
 a:hover {
-    color: darkblue;
+    color: slateblue;
 }
 
 a:active {
@@ -48,12 +50,12 @@ a:focus {
 a::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     right: 0;
     width: 100%;
     height: 1px;
     background-color: darkblue;
-    transition: width 0.4s;
+    transition: width 0.4s linear 0s;
 }
 
 a:hover::after {
