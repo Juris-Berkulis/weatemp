@@ -11,6 +11,18 @@ export default class GoogleAnalytics {
         },
     }
 
+    #analiticListners = {
+        'weatherNowView': () => this.listenerFunc('weatherNowViewIsOpened', 'page', 'weather_now_view_is_opened'),
+        'weatherOnFiveDaysView': () => this.listenerFunc('weatherOnFiveDaysViewIsOpened', 'page', 'weather_on_five_days_view_is_opened'),
+        'airPollutionNowView': () => this.listenerFunc('airPollutionNowViewIsOpened', 'page', 'air_pollution_now_view_is_opened'),
+        'airPollutionOnFourDaysView': () => this.listenerFunc('airPollutionOnFourDaysViewIsOpened', 'page', 'air_pollution_on_four_days_view_is_opened'),
+        'installPWA': () => this.listenerFunc('installPWA', 'btn', 'install_PWA_btn'),
+        'getByCoordsBtn': () => this.listenerFunc('getByCoordsBtn', 'btn', 'get_by_coords_btn'),
+        'getByCityBtn': () => this.listenerFunc('getByCityBtn', 'btn', 'get_by_city_btn'),
+        'descriptionAboutAirPollutantsIsOpened': () => this.listenerFunc('airPollutantsInfoIsOpened', 'btn', 'description_about_air_pollutants_is_opened'),
+        'descriptionAboutAirPollutantsIsClosed': () => this.listenerFunc('airPollutantsInfoIsClosed', 'btn', 'description_about_air_pollutants_is_closed'),
+    }
+
     constructor () {
         this.getScript()
     }
@@ -62,23 +74,13 @@ export default class GoogleAnalytics {
     checkClickedElement (event) {
         const eventTarget = event.target;
 
-        if (eventTarget.id) {
-            switch (eventTarget.id) {
-                case 'weatherNowView': () => this.listenerFunc('weatherNowViewIsOpened', 'page', 'weather_now_view_is_opened'); break;
-                case 'weatherOnFiveDaysView': () => this.listenerFunc('weatherOnFiveDaysViewIsOpened', 'page', 'weather_on_five_days_view_is_opened'); break;
-                case 'airPollutionNowView': () => this.listenerFunc('airPollutionNowViewIsOpened', 'page', 'air_pollution_now_view_is_opened'); break;
-                case 'airPollutionOnFourDaysView': () => this.listenerFunc('airPollutionOnFourDaysViewIsOpened', 'page', 'air_pollution_on_four_days_view_is_opened'); break;
-                case 'installPWA': () => this.listenerFunc('installPWA', 'btn', 'install_PWA_btn'); break;
-                case 'getByCoordsBtn': () => this.listenerFunc('getByCoordsBtn', 'btn', 'get_by_coords_btn'); break;
-                case 'getByCityBtn': () => this.listenerFunc('getByCityBtn', 'btn', 'get_by_city_btn'); break;
-                case 'descriptionAboutAirPollutantsIsOpened': () => this.listenerFunc('airPollutantsInfoIsOpened', 'btn', 'description_about_air_pollutants_is_opened'); break;
-                case 'descriptionAboutAirPollutantsIsClosed': () => this.listenerFunc('airPollutantsInfoIsClosed', 'btn', 'description_about_air_pollutants_is_closed'); break;
-            }
+        if (eventTarget.id && typeof this.#analiticListners[eventTarget.id] === 'function') {
+            this.#analiticListners[eventTarget.id]();
         }
     }
 
     addAnalyticsListener () {
-        window.addEventListener('click', this.checkClickedElement, {capture: true});
+        window.addEventListener('click', (event) => this.checkClickedElement(event), {capture: true});
     }
 
     getScript () {
