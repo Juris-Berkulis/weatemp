@@ -7,6 +7,7 @@ import {
   registerServiceWorker,
   unregisterServiceWorker
 } from './serviceWorker/registrationServiceWorker';
+import GoogleAnalytics from './analytics/GoogleAnalitics';
 
 export default {
   components: {
@@ -86,6 +87,9 @@ export default {
       //* Подробнее на сайте: "https://web.dev/i18n/ru/customize-install/":
       lissenBeforeInstallPrompt();
       lissenAppInstalled();
+
+      //* Подключение Google Analytics:
+      new GoogleAnalytics();
     } else {
       //* Do not register a service-worker:
       unregisterServiceWorker();

@@ -94,5 +94,3 @@ export default class GoogleAnalytics {
         }
     }
 };
-
-new GoogleAnalytics();
