@@ -161,7 +161,7 @@ export default {
                 <div class="threeHoursIndicator">Видимость:</div>
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
-                <div :class="['threeHours', {threeHoursNewDay: getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather in weatherOnFiveDays.list">
+                <div :class="['threeHours', {threeHoursNewDay: index !== 0 && getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather, index in weatherOnFiveDays.list">
                     <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="isShowWeekDay = !isShowWeekDay">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
                     <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
