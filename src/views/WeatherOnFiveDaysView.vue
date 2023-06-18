@@ -134,6 +134,14 @@ export default {
         roundToTwoDecimalPlacesMethod (fullNumber) {
             return roundToTwoDecimalPlaces(fullNumber)
         },
+        toogleDisplayModeOfDays () {
+            this.isShowWeekDay = !this.isShowWeekDay;
+
+            localStorage.setItem('isShowWeekDay', JSON.stringify(this.isShowWeekDay));
+        },
+    },
+    mounted() {
+        this.isShowWeekDay = JSON.parse(localStorage.getItem('isShowWeekDay')) || this.isShowWeekDay;
     },
 }
 </script>
@@ -162,7 +170,7 @@ export default {
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
                 <div :class="['threeHours', {threeHoursNewDay: index !== 0 && getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather, index in weatherOnFiveDays.list">
-                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="isShowWeekDay = !isShowWeekDay">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
+                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="toogleDisplayModeOfDays()">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
                     <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>

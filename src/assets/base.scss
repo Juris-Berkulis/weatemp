@@ -16,6 +16,14 @@ body {
 
 @keyframes changeColor {
     from {
+        color: mediumblue;
+    }
+
+    15% {
+        color: slateblue;
+    }
+
+    25% {
         color: slateblue;
     }
 
@@ -34,17 +42,17 @@ a {
 }
 
 a:hover {
-    color: slateblue;
+    color: mediumblue;
 }
 
 a:active {
-    color: slateblue;
+    color: mediumblue;
 }
 
 a:focus {
-    color: slateblue;
+    color: mediumblue;
     outline: none;
-    animation: changeColor 3s linear 0.1s 1 normal forwards;
+    animation: changeColor 3.4s linear 0.1s 1 normal forwards;
 }
 
 a::after {

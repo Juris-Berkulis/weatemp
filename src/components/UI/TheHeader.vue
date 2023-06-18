@@ -43,6 +43,7 @@ export default {
 <style lang="scss">
 .header {
     height: 10vh;
+    min-height: 10vh;
     width: 100vw;
     display: flex;
     justify-content: center;
