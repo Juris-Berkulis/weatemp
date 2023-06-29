@@ -58,7 +58,8 @@ export default {
     background-color: rgba(220, 220, 220, 0.4);
 }
 
-.weatherItem p:last-child {
+.weatherItem p:first-child {
+    font-size: 0.9em;
     font-weight: 700;
 }
 
