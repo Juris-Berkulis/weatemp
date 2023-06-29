@@ -112,7 +112,7 @@ export default {
                 default: return '??'
             }
         },
-        getDateAndTime(dt) {
+        getDateAndTime(dt, isFirstColumn) {
             const timezone = this.weatherOnFiveDays.city.timezone;
             const date = new Date((dt + timezone) * 1000);
             const localYear = date.getUTCFullYear();
@@ -124,7 +124,7 @@ export default {
 
             const localDate = `${localYear}.${localMonth < 10 ? `0${localMonth}` : localMonth}.${localDayNumber < 10 ? `0${localDayNumber}` : localDayNumber}`;
             const localTime = `${localHours < 10 ? `0${localHours}` : localHours}:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}`;
-            const localDateInMidnight = localHours === 0 || localHours === 1 || localHours === 2 ? localDate : '';
+            const localDateInMidnight = isFirstColumn || localHours === 0 || localHours === 1 || localHours === 2 ? localDate : '';
             const localShortDateInMidnight = localDateInMidnight ? localDateInMidnight.split('.').slice(1).reverse().join('.') : localDateInMidnight;
             const localShortWeekDayInMidnight = localDateInMidnight ? this.setLocalWeegDayNumberToString(localWeekDayNumber, true) : '';
             const localLongWeekDayInMidnight = localDateInMidnight ? this.setLocalWeegDayNumberToString(localWeekDayNumber, false) : '';
@@ -153,8 +153,8 @@ export default {
                 <div class="threeHoursIndicator">Дата:</div>
                 <div class="threeHoursIndicator">Время:</div>
                 <div class="threeHoursChartWrapper threeHoursChartWrapperTitle" :style="getChartMaxHeight">
-                    <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&uarr;</span>: {{ getMinAndMaxTempForFiveDays.maxTemp }}°C</p>
-                    <p class="threeHoursChartWrapperTitleTempLine">t°<span style="font-size: 0.7em;">&darr;</span>: {{ getMinAndMaxTempForFiveDays.minTemp }}°C</p>
+                    <p class="threeHoursChartWrapperTitleTempLine">t°<span class="threeHoursArrow">&#x21;</span>: {{ getMinAndMaxTempForFiveDays.maxTemp }}°C</p>
+                    <p class="threeHoursChartWrapperTitleTempLine">t°<span class="threeHoursArrow">&#x22;</span>: {{ getMinAndMaxTempForFiveDays.minTemp }}°C</p>
                     <p class="threeHoursChartWrapperTitleTempLine threeHoursChartWrapperTitleZeroLine" :style="{bottom: `${getChartHeight(0).height}`}" v-if="isShowZeroLine">0°</p>
                 </div>
                 <div class="threeHoursIndicator">Температура (°C):</div>
@@ -169,8 +169,8 @@ export default {
                 <div class="threeHoursIndicator">Видимость:</div>
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
-                <div :class="['threeHours', {threeHoursNewDay: index !== 0 && getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather, index in weatherOnFiveDays.list">
-                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="toogleDisplayModeOfDays()">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight }}</div>
+                <div :class="['threeHours', 'threeHoursData', {threeHoursNewDay: index !== 0 && getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather, index in weatherOnFiveDays.list">
+                    <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="toogleDisplayModeOfDays()">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt, index === 0).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt, index === 0).localShortDateInMidnight }}</div>
                     <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
                         <div class="threeHoursChart" :style="getChartHeight(threeHoursWeather.main.temp)"></div>
@@ -244,6 +244,10 @@ export default {
     background-color: rgba(220, 220, 220, 0.3);
 }
 
+.threeHoursData {
+    min-width: 77px;
+}
+
 .threeHoursNewDay {
     border-left: 1px solid #eeeeee;
 }
@@ -276,6 +280,13 @@ export default {
     .threeHoursChartWrapperTitleTempLine {
         font-size: 8px;
     }
+}
+
+.threeHoursArrow {
+    font-family: "Eleganticons";
+    font-size: 0.6em;
+    vertical-align: sub;
+    margin-left: -5px;
 }
 
 .threeHoursChartWrapperTitleZeroLine {
