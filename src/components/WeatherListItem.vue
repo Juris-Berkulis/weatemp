@@ -58,6 +58,10 @@ export default {
     background-color: rgba(220, 220, 220, 0.4);
 }
 
+.weatherItem p:last-child {
+    font-weight: 700;
+}
+
 .weatherItemIconWrapper {
     display: flex;
     justify-content: center;
@@ -65,8 +69,11 @@ export default {
     white-space: pre;
 }
 
+.weatherItemIconWrapper span {
+    display: block;
+}
+
 .weatherItemIcon {
-    display: inline-block;
     height: 30px;
     width: 30px;
     font-family: 'Eleganticons';

@@ -248,6 +248,18 @@ export default {
     min-width: 77px;
 }
 
+@media (max-width: 1001px) {
+    .threeHoursData {
+        min-width: 61px;
+    }
+}
+
+@media (max-width: 701px) {
+    .threeHoursData {
+        min-width: 41px;
+    }
+}
+
 .threeHoursNewDay {
     border-left: 1px solid #eeeeee;
 }
@@ -287,6 +299,12 @@ export default {
     font-size: 0.6em;
     vertical-align: sub;
     margin-left: -5px;
+}
+
+@media (max-width: 1001px) {
+    .threeHoursArrow {
+        margin-left: 0;
+    }
 }
 
 .threeHoursChartWrapperTitleZeroLine {
@@ -333,6 +351,10 @@ export default {
     }
 }
 
+.threeHoursIndicator span {
+    display: block;
+}
+
 .threeHoursIndicatorWithClick {
     cursor: pointer;
 }
@@ -350,7 +372,6 @@ export default {
 }
 
 .threeHoursIndicatorIcon {
-    display: inline-block;
     width: auto;
     font-family: 'Eleganticons';
     font-size: inherit;
