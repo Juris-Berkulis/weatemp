@@ -15,9 +15,10 @@ export default {
         <p>{{ weatherInfoItem.title }}</p>
         <p>
             <span>{{ weatherInfoItem.testimony }}</span>
-            <br v-if="weatherInfoItem.isDirectionIcon">
-            <span>{{ weatherInfoItem.units }}</span>
-            <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg) translateY(-20%)`,}" v-if="weatherInfoItem.isDirectionIcon">&darr;</span>
+            <span :class="{'weatherItemIconWrapper': weatherInfoItem.isDirectionIcon}">
+                <span>{{ weatherInfoItem.units }}</span>
+                <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg)`,}" v-if="weatherInfoItem.isDirectionIcon">&#x21;</span>
+            </span>
         </p>
     </div>
 </template>
@@ -57,11 +58,20 @@ export default {
     background-color: rgba(220, 220, 220, 0.4);
 }
 
+.weatherItemIconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre;
+}
+
 .weatherItemIcon {
     display: inline-block;
     height: 30px;
     width: 30px;
+    font-family: 'Eleganticons';
     text-align: center;
-    font-size: 30px;
+    font-size: inherit;
+    line-height: 1;
 }
 </style>

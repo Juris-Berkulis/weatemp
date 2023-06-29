@@ -184,7 +184,7 @@ export default {
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.pressure }}</div>
                     <div class="threeHoursIndicator">
                         <span>{{ getWindDirection(threeHoursWeather.wind.deg, true) }}: </span>
-                        <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&darr;</span>
+                        <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&#x21;</span>
                     </div>
                     <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).speed) }}</div>
                     <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).gust) }}</div>
@@ -236,6 +236,7 @@ export default {
 .threeHoursTitle {
     align-items: flex-start;
     height: 100%;
+    padding-bottom: 10px;
     border-right: 2px solid #eeeeee;
 }
 
@@ -299,7 +300,14 @@ export default {
     height: 100%;
     margin: 5px 0;
     font-size: 20px;
+    font-weight: 700;
     white-space: nowrap;
+}
+
+.threeHoursIndicator:has(span) {
+    display: flex;
+    align-items: center;
+    white-space: pre;
 }
 
 @media (max-width: 1001px) {
@@ -333,5 +341,7 @@ export default {
 .threeHoursIndicatorIcon {
     display: inline-block;
     width: auto;
+    font-family: 'Eleganticons';
+    font-size: inherit;
 }
 </style>

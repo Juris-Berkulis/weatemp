@@ -66,24 +66,6 @@ export default {
 }
 
 .airPollutionTablePartTitle {
-    overflow-y: scroll;
-}
-
-.airPollutionTablePartTitle::-webkit-scrollbar-track {
-    background: rgba(220, 220, 220, 0.3);
-    box-shadow: 0 0 0 rgba(220, 220, 220, 0.3) inset;
-}
-
-.airPollutionTablePartTitle::-webkit-scrollbar-track:hover {
-    background: rgba(220, 220, 220, 0.3);
-}
-
-.airPollutionTablePartTitle::-webkit-scrollbar-thumb {
-    background: rgba(220, 220, 220, 0.3);
-    border: none;
-}
-
-.airPollutionTablePartTitle::-webkit-scrollbar-thumb:hover {
-    background: rgba(220, 220, 220, 0.3);
+    padding-right: 10px;
 }
 </style>

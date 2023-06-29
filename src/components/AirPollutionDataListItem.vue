@@ -84,6 +84,7 @@ export default {
 .airPollutionEachDateElementTitle,
 .airPollutionEachDateElement {
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 5px 2px;
     flex-grow: 1;
