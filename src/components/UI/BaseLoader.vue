@@ -15,31 +15,31 @@ export default {
 <style lang="scss" scoped>
 @keyframes loaderSpinnerAnimation1 {
     0% {
-        transform: translate(-50%, -50%) rotateZ(0deg) scale(1);
+        transform: translate(-50%, -50%) rotateZ(0deg);
         border: 20px solid #ffedbc;
         border-left: 25px solid transparent;
     }
 
     25% {
-        transform: translate(-50%, -50%) rotateZ(90deg) scale(0.8);
+        transform: translate(-50%, -50%) rotateZ(90deg);
         border: 10px solid #ffedbc;
         border-left: 15px solid transparent;
     }
 
     50% {
-        transform: translate(-50%, -50%) rotateZ(180deg) scale(1);
+        transform: translate(-50%, -50%) rotateZ(180deg);
         border: 20px solid #ffedbc;
         border-left: 25px solid transparent;
     }
 
     75% {
-        transform: translate(-50%, -50%) rotateZ(270deg) scale(0.8);
+        transform: translate(-50%, -50%) rotateZ(270deg);
         border: 10px solid #ffedbc;
         border-left: 15px solid transparent;
     }
 
     100% {
-        transform: translate(-50%, -50%) rotateZ(360deg) scale(1);
+        transform: translate(-50%, -50%) rotateZ(360deg);
         border: 20px solid #ffedbc;
         border-left: 25px solid transparent;
     }
@@ -103,8 +103,9 @@ export default {
 }
 
 .loaderSpinner1 {
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
+    box-sizing: content-box;
     border: 20px solid #ffedbc;
     border-left: 25px solid transparent;
     animation: loaderSpinnerAnimation1 3s linear 0s infinite normal;

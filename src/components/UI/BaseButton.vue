@@ -30,6 +30,10 @@ export default {
     background-color: darkblue;
 }
 
+.btn:focus {
+    outline: none;
+}
+
 @media (max-width: 1001px) {
     .btn {
         font-size: 20px;

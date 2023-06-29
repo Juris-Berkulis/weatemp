@@ -4,14 +4,31 @@
     box-sizing: border-box;
 }
 
+html, 
+body, 
+button, 
+input, 
+div, 
+p, 
+span, 
+a {
+    font-family: 'Times New Roman MT Std';
+}
+
 html {
     height: 100%;
     width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
 }
 
 body {
     height: 100%;
     width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.15;
 }
 
 @keyframes changeColor {
@@ -69,6 +86,8 @@ a::after {
 a:hover::after {
     width: 0;
 }
+
+
 
 h1 { /** - Полная высота блока "h1" имеет зависимость от высоты блока с классом "page". */
     font-size: 70px;
