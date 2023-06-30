@@ -24,20 +24,22 @@ export default {
 
 .SearchIconCircle {
     position: relative;
-    height: 50%;
-    width: 50%;
-    border: 4px solid #ffedbc;
+    height: 40%;
+    width: 40%;
+    border: 3px solid #ffedbc;
     border-radius: 50%;
-    transform: translateY(-15%) rotateZ(45deg);
+    transform: translateY(-15%) rotate(-45deg);
 }
 
 .SearchIconLever {
     position: absolute;
     bottom: 0;
     left: 50%;
-    height: 150%;
-    width: 4px;
+    height: 145%;
+    width: 3px;
     background-color: #ffedbc;
     transform: translate(-50%, 100%);
+    border-bottom-left-radius: 1.5px;
+    border-bottom-right-radius: 1.5px;
 }
 </style>

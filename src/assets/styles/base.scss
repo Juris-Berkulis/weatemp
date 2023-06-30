@@ -72,15 +72,30 @@ a:focus {
     animation: changeColor 3.4s linear 0.1s 1 normal forwards;
 }
 
+a::before,
 a::after {
     content: '';
     position: absolute;
     bottom: 0;
-    right: 0;
     width: 100%;
     height: 1px;
-    background-color: darkblue;
     transition: width 0.4s linear 0s;
+}
+
+a::before {
+    left: 0;
+    width: 0;
+    background-color: transparent;
+}
+
+a:hover::before {
+    width: 100%;
+}
+
+a::after {
+    right: 0;
+    width: 100%;
+    background-color: darkblue;
 }
 
 a:hover::after {

@@ -70,7 +70,12 @@ export default {
     user-select: none;
 }
 
-.router-link-exact-active::after {
+.router-link-exact-active::before,
+.router-link-exact-active::after,
+.router-link-exact-active:hover::before,
+.router-link-exact-active:hover::after,
+.router-link-exact-active:focus::before,
+.router-link-exact-active:focus::after {
     width: 0;
 }
 
