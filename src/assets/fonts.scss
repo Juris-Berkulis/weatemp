@@ -26,9 +26,13 @@
 
 @font-face {
     font-family: 'Eleganticons';
-    src: url('../assets/fonts/Eleganticons/400/ElegantIcons.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/Eleganticons/400/ElegantIcons.woff') format('woff'),
-        url('../assets/fonts/Eleganticons/400/ElegantIcons.ttf') format('truetype');
+    src: url("../assets/fonts/Eleganticons/400/ElegantIcons.eot"); //* - IE9 Compat Modes
+    src: url('../assets/fonts/Eleganticons/400/ElegantIcons.eot?#iefix') format('embedded-opentype'), //* - IE6-IE8
+        url('../assets/fonts/Eleganticons/400/ElegantIcons.woff2') format('woff2'), //* - Modern Browsers
+        url('../assets/fonts/Eleganticons/400/ElegantIcons.woff') format('woff'), //* - Modern Browsers
+        url('../assets/fonts/Eleganticons/400/ElegantIcons.ttf') format('truetype'), //* - Safari, Android, iOS
+        url("../assets/fonts/Eleganticons/400/ElegantIcons.otf") format("opentype"), //* - Open Type Font
+		url("../assets/fonts/Eleganticons/400/ElegantIcons.svg") format("svg"); //* - Legacy iOS
     font-weight: 400;
     font-style: normal;
 }
