@@ -280,6 +280,7 @@ export default {
 
 .threeHoursChartWrapperTitleTempLine {
     font-size: 20px;
+    font-weight: 700;
 }
 
 @media (max-width: 1001px) {
