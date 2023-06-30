@@ -169,7 +169,7 @@ export default {
                 <div class="threeHoursIndicator">Видимость:</div>
             </div>
             <div class="weatherOnFiveDaysTableAuxiliary">
-                <div :class="['threeHours', 'threeHoursData', {threeHoursNewDay: index !== 0 && getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather, index in weatherOnFiveDays.list">
+                <div :class="['threeHours', 'threeHoursData', {threeHoursNewDay: index !== 0 && getDateAndTime(threeHoursWeather.dt).localShortDateInMidnight}]" v-for="threeHoursWeather, index in weatherOnFiveDays.list" :key="threeHoursWeather.dt">
                     <div class="threeHoursIndicator threeHoursIndicatorWithClick" @click.stop="toogleDisplayModeOfDays()">{{ isShowWeekDay ? getDateAndTime(threeHoursWeather.dt, index === 0).localShortWeekDayInMidnight : getDateAndTime(threeHoursWeather.dt, index === 0).localShortDateInMidnight }}</div>
                     <div class="threeHoursIndicator">{{ getDateAndTime(threeHoursWeather.dt).localTime }}</div>
                     <div class="threeHoursChartWrapper" :style="getChartMaxHeight">
@@ -304,7 +304,7 @@ export default {
 
 @media (max-width: 1001px) {
     .threeHoursArrow {
-        margin-left: 0;
+        margin-left: -2px;
     }
 }
 

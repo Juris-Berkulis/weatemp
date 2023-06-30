@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-    <div class="weatherItem" v-for="weatherInfoItem in weatherInfoList">
+    <div class="weatherItem" v-for="weatherInfoItem in weatherInfoList" :key="weatherInfoItem.title">
         <p>{{ weatherInfoItem.title }}</p>
         <p>
             <span>{{ weatherInfoItem.testimony }}</span>
@@ -59,7 +59,7 @@ export default {
 }
 
 .weatherItem p:first-child {
-    font-size: 0.9em;
+    font-size: 27px;
     font-weight: 700;
 }
 
