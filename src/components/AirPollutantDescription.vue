@@ -72,6 +72,7 @@ export default {
     width: 40%;
     max-width: 100px;
     margin: 5px 0;
+    border-radius: 1.5px;
 }
 
 .elementDescriptionTextWrapper{

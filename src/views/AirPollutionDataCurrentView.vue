@@ -14,7 +14,7 @@ export default {
                 3: 'orange',
                 4: 'red',
                 5: 'brown',
-                default: '#ffedbc',
+                default: '#eeeeee',
             },
         }
     },
