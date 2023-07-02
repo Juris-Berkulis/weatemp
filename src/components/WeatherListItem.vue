@@ -37,7 +37,6 @@ export default {
     background-color: rgba(220, 220, 220, 0.3);
     flex-grow: 1;
     flex-basis: 200px;
-    font-size: 30px;
     cursor: default;
 }
 
@@ -61,6 +60,11 @@ export default {
 .weatherItem p:first-child {
     font-size: 27px;
     font-weight: 700;
+}
+
+
+.weatherItem p:nth-child(2) {
+    font-size: 30px;
 }
 
 .weatherItemIconWrapper {
