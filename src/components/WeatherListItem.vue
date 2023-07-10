@@ -17,7 +17,7 @@ export default {
             <span>{{ weatherInfoItem.testimony }}</span>
             <span :class="{'weatherItemIconWrapper': weatherInfoItem.isDirectionIcon}">
                 <span>{{ weatherInfoItem.units }}</span>
-                <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg)`,}" v-if="weatherInfoItem.isDirectionIcon">&#x21;</span>
+                <span class="weatherItemIcon" :style="{transform: `rotateZ(${weatherInfoItem.degry}deg)`,}" v-if="weatherInfoItem.isDirectionIcon">&#x22;</span>
             </span>
         </p>
     </div>

@@ -1,35 +1,88 @@
-# .
+# Weatemp
 
-This template should help get you started developing with Vue 3 in Vite.
+## DESCRIPTION:
 
-## Recommended IDE Setup
+**Weatemp** is a weather app that runs both as a website and as a app on a mobile or desktop device. Weatemp displays information about the current weather, the weather for the next 5 days, the current air pollution, and the air pollution for the next 4 days. Information is displayed for your exact location and any selected city in the world.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## USAGE:
 
-## Customize configuration
+To use the Weatemp app, simply go to any of the URLs:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- **Weatemp [on netlify](https://weatemp.netlify.app/);**
+- **Weatemp [on vercel](https://weatemp.vercel.app/);**
+- **Weatemp [on surge](https://weatemp.surge.sh/).**
 
-## Project Setup
+Clicking on one of the URLs-above will open the web-version of the Weatemp app, and if your browser supports app installation, you will be prompted to install the weather app on your device. Also, you can install the application at any time using the button located in the city selection dialog box or continue using it on the website. Application size: **<1 MB**.
 
-```sh
-npm install
-```
+## APP FUNCTIONALITY:
 
-### Compile and Hot-Reload for Development
+- weather and air quality information for current coordinates;
+- displaying information about the current location (settlement, street, house number, name of the attraction);
+- weather and air quality information for the selected city;
+- support for multilingual input for most city names;
+- when opening the application, it remembers the last entered settlement or displays the weather for the current coordinates, if this function was selected before closing the application.
 
-```sh
-npm run dev
-```
+## PERMISSIONS:
 
-### Compile and Minify for Production
+- location (to display weather data for the current location).
 
-```sh
-npm run build
-```
+**NOTE:** If the device is not equipped with satellite navigation (GPS, GLONASS, Galileo, BeiDou or others) that allows you to determine its location, for example, the device is a desktop computer, then the weather data is displayed for the coordinates that are received from your Internet provider, and may slightly different from the actual location (for all modern mobile devices equipped with a navigation system, weather data is displayed exactly for your exact location).
 
-### Lint with [ESLint](https://eslint.org/)
+## DATA PROVIDED:
 
-```sh
-npm run lint
-```
+**Current weather:**
+
+- air temperature;
+- perceived air temperature;
+- percentage of sky cloud cover;
+- description of the weather;
+- visibility;
+- Direction of the wind;
+- wind speed;
+- speed of wind gusts;
+- pressure;
+- humidity;
+- sunrise;
+- sunset.
+
+**Weather for the next 5 days in 3 hour increments:**
+
+- air temperature;
+- minimum temperature for the next 5 days;
+- maximum temperature for the next 5 days;
+- percentage of sky cloud cover;
+- probability of precipitation;
+- humidity;
+- pressure;
+- Direction of the wind;
+- wind speed;
+- speed of wind gusts;
+- visibility.
+
+**Current Air Pollution:**
+
+- air quality index;
+- content of carbon monoxide in the atmosphere;
+- content of ammonia in the atmosphere;
+- content of nitrogen monoxide in the atmosphere;
+- content of nitrogen dioxide in the atmosphere;
+- content of ozone in the atmosphere;
+- content of sulfur dioxide in the atmosphere;
+- content of fine particles in the atmosphere;
+- content of coarse particles in the atmosphere.
+
+**Air pollution for the next 4 days in 1 hour increments:**
+
+- air quality index;
+- content of carbon monoxide in the atmosphere;
+- content of ammonia in the atmosphere;
+- content of nitrogen monoxide in the atmosphere;
+- content of nitrogen dioxide in the atmosphere;
+- content of ozone in the atmosphere;
+- content of sulfur dioxide in the atmosphere;
+- content of fine particles in the atmosphere;
+- content of coarse particles in the atmosphere.
+
+## FREE SERVICE
+
+The Weatemp weather app and Weatemp website are **completely free**, without paid features, without paid subscriptions, and without annoying ads.

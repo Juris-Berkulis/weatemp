@@ -184,7 +184,7 @@ export default {
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.pressure }}</div>
                     <div class="threeHoursIndicator">
                         <span>{{ getWindDirection(threeHoursWeather.wind.deg, true) }}: </span>
-                        <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&#x21;</span>
+                        <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&#x22;</span>
                     </div>
                     <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).speed) }}</div>
                     <div class="threeHoursIndicator">{{ (getWind(threeHoursWeather.wind).gust) }}</div>
