@@ -8,9 +8,9 @@
 
 To use the Weatemp app, simply go to any of the URLs:
 
-- **Weatemp [on netlify](https://weatemp.netlify.app/);**
-- **Weatemp [on vercel](https://weatemp.vercel.app/);**
-- **Weatemp [on surge](https://weatemp.surge.sh/).**
+- **[Weatemp](https://weatemp.netlify.app/)** on netlify;
+- **[Weatemp](https://weatemp.vercel.app/)** on vercel;
+- **[Weatemp](https://weatemp.surge.sh/)** on surge.
 
 Clicking on one of the URLs-above will open the web-version of the Weatemp app, and if your browser supports app installation, you will be prompted to install the weather app on your device. Also, you can install the application at any time using the button located in the city selection dialog box or continue using it on the website. Application size: **<1 MB**.
 
