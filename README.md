@@ -1,5 +1,16 @@
 # Weatemp
 
+- [DESCRIPTION](#description)
+- [USAGE](#usage)
+- [APP FUNCTIONALITY](#app-functionality)
+- [PERMISSIONS](#permissions)
+- [DATA PROVIDED](#data-provided)
+  - [Current weather](#current-weather)
+  - [Weather for the next 5 days in 3 hour increments](#weather-for-the-next-5-days-in-3-hour-increments)
+  - [Current Air Pollution](#current-air-pollution)
+  - [Air pollution for the next 4 days in 1 hour increments](#air-pollution-for-the-next-4-days-in-1-hour-increments)
+- [FREE SERVICE](#free-service)
+
 ## DESCRIPTION:
 
 **Weatemp** is a weather app that runs both as a website and as a app on a mobile or desktop device. Weatemp displays information about the current weather, the weather for the next 5 days, the current air pollution, and the air pollution for the next 4 days. Information is displayed for your exact location and any selected city in the world.
@@ -30,7 +41,7 @@ Clicking on one of the URLs-above will open the web-version of the Weatemp app, 
 
 ## DATA PROVIDED:
 
-**Current weather:**
+### Current weather:
 
 - air temperature;
 - perceived air temperature;
@@ -45,7 +56,7 @@ Clicking on one of the URLs-above will open the web-version of the Weatemp app, 
 - sunrise;
 - sunset.
 
-**Weather for the next 5 days in 3 hour increments:**
+### Weather for the next 5 days in 3 hour increments:
 
 - air temperature;
 - minimum temperature for the next 5 days;
@@ -59,7 +70,7 @@ Clicking on one of the URLs-above will open the web-version of the Weatemp app, 
 - speed of wind gusts;
 - visibility.
 
-**Current Air Pollution:**
+### Current air pollution:
 
 - air quality index;
 - content of carbon monoxide in the atmosphere;
@@ -71,7 +82,7 @@ Clicking on one of the URLs-above will open the web-version of the Weatemp app, 
 - content of fine particles in the atmosphere;
 - content of coarse particles in the atmosphere.
 
-**Air pollution for the next 4 days in 1 hour increments:**
+### Air pollution for the next 4 days in 1 hour increments:
 
 - air quality index;
 - content of carbon monoxide in the atmosphere;
@@ -83,6 +94,6 @@ Clicking on one of the URLs-above will open the web-version of the Weatemp app, 
 - content of fine particles in the atmosphere;
 - content of coarse particles in the atmosphere.
 
-## FREE SERVICE
+## FREE SERVICE:
 
 The Weatemp weather app and Weatemp website are **completely free**, without paid features, without paid subscriptions, and without annoying ads.
