@@ -9,6 +9,7 @@
 		url("../fonts/Times_New_Roman_Cyr/400/times-new-roman-cyr.svg") format("svg"); //* - Legacy iOS
 	font-weight: 400;
 	font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -22,6 +23,7 @@
 		url("../fonts/Times_New_Roman_Cyr/700/times-new-roman-cyr-bold.svg") format("svg"); //* - Legacy iOS
 	font-weight: 700;
 	font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -35,4 +37,5 @@
 		url("../fonts/Eleganticons/400/ElegantIcons.svg") format("svg"); //* - Legacy iOS
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
 }
