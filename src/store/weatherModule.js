@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
-    getCapitalizedString, roundToTwoDecimalPlaces,
+    getCapitalizedString, 
+    roundToTwoDecimalPlaces,
 } from '../helper/helperApp.js';
 import {
     getWindDirectionFunc,
@@ -16,8 +17,8 @@ export const weatherModule = {
         airPollutionDataForecast: null,
         cityName: '',
         cityNameInFormInput: '',
-        apiKey: 'f4adc48f5c500c2934f9ebd23672b601',
-        apiKeyFromGeoapify: '84ae3898d4c94f3ba4823d25e69f2315',
+        apiKey: import.meta.env.VITE_API_KEY_FOR_OPENWEATHERMAP,
+        apiKeyFromGeoapify: import.meta.env.VITE_API_KEY_FOR_GEOAPIFY,
         units: 'metric',
         language: 'ru',
         citiesCountLimit: 1,
