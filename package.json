@@ -11,7 +11,7 @@
     "build": "npm run build_prod",
     "build_prod": "cross-env NODE_ENV=production vite build",
     "build_dev": "cross-env NODE_ENV=development vite build",
-    "copy_index_as_200": "copy index.html public\\200.html",
+    "copy_index_as_200": "copy dist\\index.html dist\\200.html",
     "get_date": "node getDate.js",
     "preview": "npm run build_prod && vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
