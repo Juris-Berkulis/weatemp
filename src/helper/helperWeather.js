@@ -3,7 +3,7 @@ import {
 } from "./helperApp";
 
 export const getWindDirectionFunc = (degry, isShort) => {
-    if (degry === 'undefined') {
+    if (degry === undefined) {
         return 'н/д'
     }
 

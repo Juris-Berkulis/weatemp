@@ -181,7 +181,7 @@ export default {
                     <div class="threeHoursIndicator">{{ threeHoursWeather.clouds.all }}</div>
                     <div class="threeHoursIndicator">{{ getPrecipitationProbability(threeHoursWeather.pop) }}</div>
                     <div class="threeHoursIndicator">{{ threeHoursWeather.main.humidity }}</div>
-                    <div class="threeHoursIndicator">{{ threeHoursWeather.main.pressure }}</div>
+                    <div class="threeHoursIndicator">{{ (threeHoursWeather.main.pressure * 0.750062).toFixed(0) }}</div>
                     <div class="threeHoursIndicator">
                         <span>{{ getWindDirection(threeHoursWeather.wind.deg, true) }}: </span>
                         <span class="threeHoursIndicatorIcon" :style="{transform: `rotateZ(${threeHoursWeather.wind.deg}deg)`,}">&#x22;</span>

@@ -90,7 +90,7 @@ export const weatherModule = {
         },
         getPressure(state) {
             const title = 'Давление';
-            const testimony = state.weather.main.pressure;
+            const testimony = (state.weather.main.pressure * 0.750062).toFixed(0);
             const units = ' мм рт.ст.';
             return {title, testimony, units}
         },
