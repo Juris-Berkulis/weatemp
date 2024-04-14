@@ -54,10 +54,10 @@ export default {
             return getWeatherIcon(weatherObj)
         },
         isValidData(data) {
-            if (data !== 'undefined') {
-                return true
-            } else {
+            if (data === undefined || data === null) {
                 return false
+            } else {
+                return true
             }
         },
         getVisibility(visibility) {
