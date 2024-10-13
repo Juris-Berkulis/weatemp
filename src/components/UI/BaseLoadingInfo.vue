@@ -14,7 +14,7 @@ export default {
 <template>
 <div class="loadingInfo">
     <p v-if="loadingInfo">{{ loadingInfo }}</p>
-</div>>
+</div>
 </template>
 
 <style lang="scss" scoped>
