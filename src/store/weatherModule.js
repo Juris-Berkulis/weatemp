@@ -266,14 +266,14 @@ export const weatherModule = {
                     commit('setLoadingInfo', 'Получение названия города по координатам');
                     const resCityName = await axios.get(getters.getCityNameByCoords);
 
-                    if (resCityName.status === 200 || resFullAddress.status === 200) {
+                    if (resFullAddress.status === 200) {
                         const fullAddress = resFullAddress?.data?.features[0]?.properties;
-                        const cityName = resCityName?.data[0]?.local_names;
+                        const cityName = resCityName?.data?.[0]?.local_names;
 
                         const addressPlaceName = `${fullAddress?.name ? `${fullAddress?.name}, ` : ''}`;
                         const addressStreet = `${fullAddress?.street ? `${fullAddress?.street}, ` : ''}`;
                         const addressDistrict = `${fullAddress?.district ? `${fullAddress?.district}, ` : ''}`;
-                        const addressCity = `${cityName[state.language] || cityName['en'] || fullAddress?.city}`;
+                        const addressCity = `${cityName?.[state.language] || cityName?.['en'] || fullAddress?.city}`;
 
                         const addressInTitle = `${addressPlaceName && addressPlaceName !== addressStreet ? addressPlaceName : ''}${addressStreet}${addressDistrict}${addressCity}` || `Широта: ${coordsLatitude}, Долгота: ${coordsLongitude}`;
 
@@ -320,7 +320,7 @@ export const weatherModule = {
             dispatch('errorGettingWeatherAction', false);
 
             try {
-                commit('setLoadingInfo', 'Получение координат по названию города');
+                commit('setLoadingInfo', 'Получение по названию города текущих координат');
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
 
                 if (cityCoords.status === 200) {
@@ -366,7 +366,7 @@ export const weatherModule = {
                     const currentAirPollutionData = await axios.get(getters.getUrlForCurrentAirPollutionData);
                     commit('setCurrentAirPollutionData', currentAirPollutionData.data);
 
-                    commit('setLoadingInfo', 'Получение по координатам данных о дальнешем загрязнении воздуха');
+                    commit('setLoadingInfo', 'Получение по координатам прогноза о загрязнении воздуха');
                     const airPollutionDataForecast = await axios.get(getters.getUrlForAirPollutionDataForecast);
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
                 } else {
