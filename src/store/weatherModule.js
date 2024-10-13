@@ -260,10 +260,10 @@ export const weatherModule = {
                 commit('setCoordLon', coordsLongitude);
 
                 try {
-                    commit('setLoadingInfo', 'Получение адреса по координатам');
+                    commit('setLoadingInfo', 'Получение по координатам данных об адресе');
                     const resFullAddress = await axios.get(getters.getFullAddressByCoords);
 
-                    commit('setLoadingInfo', 'Получение названия города по координатам');
+                    commit('setLoadingInfo', 'Получение по координатам названия города');
                     const resCityName = await axios.get(getters.getCityNameByCoords);
 
                     if (resFullAddress.status === 200) {
