@@ -29,6 +29,7 @@ export const weatherModule = {
         byCoordsDuringAppStart: false,
         isWeatherLoaded: false,
         errorGettingWeather: false,
+        loadingInfo: '',
     }),
     getters: {
         getUrlForWeatherCurrentByCityName(state) {
@@ -233,6 +234,9 @@ export const weatherModule = {
         setErrorGettingWeather(state, errorGettingWeather) {
             state.errorGettingWeather = errorGettingWeather;
         },
+        setLoadingInfo(state, loadingInfo) {
+            state.loadingInfo = loadingInfo;
+        },
     },
     actions: {
         getCityNameFromLocalStorage({commit}) {
@@ -256,7 +260,10 @@ export const weatherModule = {
                 commit('setCoordLon', coordsLongitude);
 
                 try {
+                    commit('setLoadingInfo', 'Получение адреса по координатам');
                     const resFullAddress = await axios.get(getters.getFullAddressByCoords);
+
+                    commit('setLoadingInfo', 'Получение названия города по координатам');
                     const resCityName = await axios.get(getters.getCityNameByCoords);
 
                     if (resCityName.status === 200 || resFullAddress.status === 200) {
@@ -274,6 +281,7 @@ export const weatherModule = {
 
                         localStorage.setItem('byCoords', JSON.stringify(true));
 
+                        commit('setLoadingInfo', 'Получение погоды');
                         await dispatch('getWeather');
                     } else {
                         throw {message: 'Нет данных!'}
@@ -304,13 +312,17 @@ export const weatherModule = {
             } else {
                 navigator.geolocation.getCurrentPosition(success, error, options); //* - Подробнее на сайте "https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API/Using_the_Geolocation_API".
             }
+
+            commit('setLoadingInfo', '');
         },
         async getCoordsByCityName({state, commit, getters, dispatch}) {
             dispatch('isWeatherNotLoadedAction');
             dispatch('errorGettingWeatherAction', false);
 
             try {
+                commit('setLoadingInfo', 'Получение координат по названию города');
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
+
                 if (cityCoords.status === 200) {
                     commit('setCoordLat', cityCoords?.data[0]?.lat);
                     commit('setCoordLon', cityCoords?.data[0]?.lon);
@@ -326,6 +338,7 @@ export const weatherModule = {
 
                     localStorage.setItem('byCoords', JSON.stringify(false));
 
+                    commit('setLoadingInfo', 'Получение погоды');
                     await dispatch('getWeather');
                 } else {
                     throw {message: 'Нет данных!'}
@@ -335,19 +348,25 @@ export const weatherModule = {
                 dispatch('isWeatherLoadedAction');
                 dispatch('errorGettingWeatherAction', `${error.message}`);
             }
+
+            commit('setLoadingInfo', '');
         },
         async getWeather({state, commit, getters, dispatch}) {
             try {
                 if (state.coordLat && state.coordLon) {
+                    commit('setLoadingInfo', 'Получение по координатам текущей погоды');
                     const resWeatherCurrent = await axios.get(getters.getUrlForWeatherCurrentByCoords);
                     commit('setWeatherInfo', resWeatherCurrent.data)
     
+                    commit('setLoadingInfo', 'Получение по координатам погоды на 5 дней');
                     const resWeatherOnFiveDays = await axios.get(getters.getUrlForWeatherOnFiveDaysByCoords);
                     commit('setWeatherOnFiveDays', resWeatherOnFiveDays.data);
 
+                    commit('setLoadingInfo', 'Получение по координатам данных о текущем загрязнении воздуха');
                     const currentAirPollutionData = await axios.get(getters.getUrlForCurrentAirPollutionData);
                     commit('setCurrentAirPollutionData', currentAirPollutionData.data);
 
+                    commit('setLoadingInfo', 'Получение по координатам данных о дальнешем загрязнении воздуха');
                     const airPollutionDataForecast = await axios.get(getters.getUrlForAirPollutionDataForecast);
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
                 } else {
@@ -366,6 +385,7 @@ export const weatherModule = {
             } finally {
                 dispatch('isWeatherLoadedAction');
                 dispatch('errorGettingWeatherAction', false);
+                commit('setLoadingInfo', '');
             }
         },
         isWeatherNotLoadedAction({commit}) {

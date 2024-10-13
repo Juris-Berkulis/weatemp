@@ -6,6 +6,8 @@ export default {
 
 <template>
 <div class="loader">
+    <BaseLoadingInfo></BaseLoadingInfo>
+
     <div class="loaderSpinner loaderSpinner1"></div>
     <div class="loaderSpinner loaderSpinner2"></div>
     <div class="loaderSpinner loaderSpinner3"></div>

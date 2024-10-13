@@ -3,6 +3,7 @@ import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseSearchIcon from '@/components/UI/BaseSearchIcon.vue';
 import BaseTicker from '@/components/UI/BaseTicker.vue';
 import BaseLoader from '@/components/UI/BaseLoader.vue';
+import BaseLoadingInfo from '@/components/UI/BaseLoadingInfo.vue';
 import BaseInstallPWA from '@/components/UI/BaseInstallPWA.vue';
 
 export const components = [
@@ -11,5 +12,6 @@ export const components = [
     BaseSearchIcon,
     BaseTicker,
     BaseLoader,
+    BaseLoadingInfo,
     BaseInstallPWA,
 ];
