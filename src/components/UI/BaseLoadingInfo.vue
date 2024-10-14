@@ -23,4 +23,10 @@ export default {
     color: #eeeeee;
     font-size: 30px;
 }
+
+@media (max-width: 701px) {
+    .loadingInfo {
+        font-size: 26px;
+    }
+}
 </style>
