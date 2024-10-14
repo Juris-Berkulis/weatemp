@@ -260,10 +260,10 @@ export const weatherModule = {
                 commit('setCoordLon', coordsLongitude);
 
                 try {
-                    commit('setLoadingInfo', 'Получение по координатам данных об адресе');
+                    commit('setLoadingInfo', 'Загрузка точного адреса');
                     const resFullAddress = await axios.get(getters.getFullAddressByCoords);
 
-                    commit('setLoadingInfo', 'Получение по координатам названия города');
+                    commit('setLoadingInfo', 'Загрузка наименования города');
                     const resCityName = await axios.get(getters.getCityNameByCoords);
 
                     if (resFullAddress.status === 200) {
@@ -281,7 +281,7 @@ export const weatherModule = {
 
                         localStorage.setItem('byCoords', JSON.stringify(true));
 
-                        commit('setLoadingInfo', 'Получение погоды');
+                        commit('setLoadingInfo', 'Загрузка погоды');
                         await dispatch('getWeather');
                     } else {
                         throw {message: 'Нет данных!'}
@@ -320,7 +320,7 @@ export const weatherModule = {
             dispatch('errorGettingWeatherAction', false);
 
             try {
-                commit('setLoadingInfo', 'Получение по названию города текущих координат');
+                commit('setLoadingInfo', 'Загрузка координат города');
                 const cityCoords = await axios.get(getters.getUrlForCoordsByCityName);
 
                 if (cityCoords.status === 200) {
@@ -338,7 +338,7 @@ export const weatherModule = {
 
                     localStorage.setItem('byCoords', JSON.stringify(false));
 
-                    commit('setLoadingInfo', 'Получение погоды');
+                    commit('setLoadingInfo', 'Загрузка погоды');
                     await dispatch('getWeather');
                 } else {
                     throw {message: 'Нет данных!'}
@@ -354,19 +354,19 @@ export const weatherModule = {
         async getWeather({state, commit, getters, dispatch}) {
             try {
                 if (state.coordLat && state.coordLon) {
-                    commit('setLoadingInfo', 'Получение по координатам текущей погоды');
+                    commit('setLoadingInfo', 'Загрузка текущей погоды');
                     const resWeatherCurrent = await axios.get(getters.getUrlForWeatherCurrentByCoords);
                     commit('setWeatherInfo', resWeatherCurrent.data)
     
-                    commit('setLoadingInfo', 'Получение по координатам погоды на 5 дней');
+                    commit('setLoadingInfo', 'Загрузка погоды на 5 дней');
                     const resWeatherOnFiveDays = await axios.get(getters.getUrlForWeatherOnFiveDaysByCoords);
                     commit('setWeatherOnFiveDays', resWeatherOnFiveDays.data);
 
-                    commit('setLoadingInfo', 'Получение по координатам данных о текущем загрязнении воздуха');
+                    commit('setLoadingInfo', 'Загрузка данных о текущем загрязнении воздуха');
                     const currentAirPollutionData = await axios.get(getters.getUrlForCurrentAirPollutionData);
                     commit('setCurrentAirPollutionData', currentAirPollutionData.data);
 
-                    commit('setLoadingInfo', 'Получение по координатам прогноза о загрязнении воздуха');
+                    commit('setLoadingInfo', 'Загрузка прогноза о загрязнении воздуха');
                     const airPollutionDataForecast = await axios.get(getters.getUrlForAirPollutionDataForecast);
                     commit('setAirPollutionDataForecast', airPollutionDataForecast.data);
                 } else {
