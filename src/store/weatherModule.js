@@ -33,31 +33,31 @@ export const weatherModule = {
     }),
     getters: {
         getUrlForWeatherCurrentByCityName(state) {
-            return `https://ru.api.openweathermap.org/data/2.5/weather?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+            return `https://api.openweathermap.org/data/2.5/weather?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getUrlForWeatherOnFiveDaysByCityName(state) {
-            return `https://ru.api.openweathermap.org/data/2.5/forecast?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+            return `https://api.openweathermap.org/data/2.5/forecast?q=${state.cityName}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getCityNameByCoords(state) {
-            return `https://ru.api.openweathermap.org/geo/1.0/reverse?lat=${state.coordLat}&lon=${state.coordLon}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
+            return `https://api.openweathermap.org/geo/1.0/reverse?lat=${state.coordLat}&lon=${state.coordLon}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
         },
         getFullAddressByCoords(state) {
             return `https://api.geoapify.com/v1/geocode/reverse?lat=${state.coordLat}&lon=${state.coordLon}&apiKey=${state.apiKeyFromGeoapify}`
         },
         getUrlForCoordsByCityName(state) {
-            return `https://ru.api.openweathermap.org/geo/1.0/direct?q=${state.cityName}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
+            return `https://api.openweathermap.org/geo/1.0/direct?q=${state.cityName}&limit=${state.citiesCountLimit}&appid=${state.apiKey}`
         },
         getUrlForWeatherCurrentByCoords(state) {
-            return `https://ru.api.openweathermap.org/data/2.5/weather?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+            return `https://api.openweathermap.org/data/2.5/weather?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getUrlForWeatherOnFiveDaysByCoords(state) {
-            return `https://ru.api.openweathermap.org/data/2.5/forecast?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
+            return `https://api.openweathermap.org/data/2.5/forecast?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}&units=${state.units}&lang=${state.language}`
         },
         getUrlForCurrentAirPollutionData(state) {
-            return `https://ru.api.openweathermap.org/data/2.5/air_pollution?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
+            return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
         },
         getUrlForAirPollutionDataForecast(state) {
-            return `https://ru.api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
+            return `https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${state.coordLat}&lon=${state.coordLon}&appid=${state.apiKey}`
         },
         getCloudsPercent(state) {
             const title = 'Облака';
